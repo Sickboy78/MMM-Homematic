@@ -127,39 +127,74 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 
 ## Configuration options
 
-|Option|Description|
-|------|-----------|
-|<code>ccuProtocol</code>|The protocol to use for your CCU.
-Most likely default value is good.
-<b>Possible values:</b> <code>http://</code> - <code>https://</code>
-<b>Default value:</b> <code>http://</code>|
-|<code>ccuHost</code>|The hostname of your CCU.
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th width="100%">Description</th>
+    </tr>
+  <thead>
+  <tbody>
+    <tr>
+      <td><code>ccuProtocol</code></td>
+      <td>The protocol to use for your CCU.
+		<br>Most likely default value is good.
+        <br><b>Possible values:</b> <code>http://</code> - <code>https://</code>
+        <br><b>Default value:</b> <code>http://</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuHost</code></td>
+      <td>The hostname of your CCU.
 		<br>Depends on your version of CCU.
 		<br>For CCU1 you have to give your CCU a fixed IP address and use it.
 		<br>For CCU2 it is most likely "homematic-ccu2".
 		<br>For CCU3 it is most likely "ccu3-webui" (default).
 		<br>For RaspberryMatic it is the hostname you have set in the network settings of your Raspberry PI.
-		<br><b>Default value:</b> <code>ccu3-webui</code>|
-|<code>ccuXmlApiUrl</code>|The URL path of the XML API.
+		<br><b>Default value:</b> <code>ccu3-webui</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuXmlApiUrl</code></td>
+      <td>The URL path of the XML API.
 	    <br>Most likely default value is good.
-	    <br>But may change with newer versions of XML API, see
-		[XML-API](https://github.com/hobbyquaker/XML-API).
-	    <br><b>Default value:</b> <code>/addons/xmlapi</code>|
-|<code>ccuServiceUrl</code>|The name of the XML API Service for getting states/values from devices/datapoints.
+	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
+	    <br><b>Default value:</b> <code>/addons/xmlapi</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuServiceUrl</code></td>
+      <td>The name of the XML API Service for getting states/values from devices/datapoints.
 	    <br>Most likely default value is good.
 	    <br>But may change with newer versions of XML API, see [XML-API] (https://github.com/hobbyquaker/XML-API).
-	    <br><b>Default value:</b> <code>/state.cgi</code>|
-|<code>ccuIdParameter</code>|The name of the URL Parameter expected by the XML API Service to identify a datapoint of a device.
+	    <br><b>Default value:</b> <code>/state.cgi</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuIdParameter</code></td>
+      <td>The name of the URL Parameter expected by the XML API Service to identify a datapoint of a device.
 	    <br>Most likely default value is good.
 	    <br>But may change with newer versions of XML API, see [XML-API] (https://github.com/hobbyquaker/XML-API).
-	    <br><b>Default value:</b> <code>?datapoint_id=</code>|
-|<code>tempUnit</code>|The unit of temperature.
+	    <br><b>Default value:</b> <code>?datapoint_id=</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>tempUnit</code></td>
+      <td>The unit of temperature.
         <br><b>Possible values:</b> <code>°C</code> - <code>°F</code> - <code>K</code>
-        <br><b>Default value:</b> <code>°C</code>|
-|<code>humUnit</code>|The unit of humidity.
+        <br><b>Default value:</b> <code>°C</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>humUnit</code></td>
+      <td>The unit of humidity.
         <br><b>Possible values:</b> <code>%</code> - <code>g/m³</code>
-        <br><b>Default value:</b> <code>%</code>|
-|<code>datapoints</code>|An array of datapoint objects.
+        <br><b>Default value:</b> <code>%</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>datapoints</code></td>
+      <td>An array of datapoint objects.
 		<br>Each datapoint object represents one value/state of a device.
 		<br><b>Example value:</b>
 		<br><code>[{
@@ -171,17 +206,29 @@ Most likely default value is good.
 		<br>name: "humidity laundry room",
 		<br>type: "hum_warn_high",
 		<br>threshold: "60"
-		<br>}]</code>|
-|<code>id</code>|The ID of the datapoint to read a value from.
+		<br>}]</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td>The ID of the datapoint to read a value from.
 	  <br>This value is required.
 	  <br>On howto get your ID see [Howto get your datapoint IDs] (#howto-get-your-datapoint-ids).
-	  <br><b>Example value:</b> <code>1234</code>|
-|<code>name</code>|The display name of the device/datapoint.
+	  <br><b>Example value:</b> <code>1234</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td>The display name of the device/datapoint.
 	  <br>This value is required.
 	  <br><b>Example values:</b> <code>
 	  <br>"front door"
-	  <br>"temperature living room"</code>|
-|<code>type</code>|The type of the device/datapoint.
+	  <br>"temperature living room"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td>The type of the device/datapoint.
 	  <br>This value is required.
 	  <br>Depends on the datapoint/device you want to display.
 	  <br>For a list of tested devices see [Tested devices] (#tested-devices).
@@ -197,18 +244,38 @@ Most likely default value is good.
 	  <br><code>hum_warn_low</code> - Same as 'hum', but with a warning if value is equal or less than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
-	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.|
-|<code>threshold</code>|A threshold value for displaying a warning.
+	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
+      </td>
+    </tr>
+    <tr>
+      <td><code>threshold</code></td>
+      <td>A threshold value for displaying a warning.
 	  <br>This value is required if you have defined a type with a high/low warning.
 	  <br>Must be a number without unit.
-      <br><b>Example value:</b> <code>60</code>|
-|<code>initialLoadDelay</code>|The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
+      <br><b>Example value:</b> <code>60</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>initialLoadDelay</code></td>
+      <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
         <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>
-        <br><b>Default value:</b>  <code>0</code>|
-|<code>updateInterval</code>|How often does the content needs to be fetched? (Milliseconds)<br>
+        <br><b>Default value:</b>  <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>updateInterval</code></td>
+      <td>How often does the content needs to be fetched? (Milliseconds)<br>
         <br>Forecast.io enforces a 1,000/day request limit, so if you run your mirror constantly, anything below 90,000 (every 1.5 minutes) may require payment information or be blocked.<br>
         <br><b>Possible values:</b> <code>1000</code> - <code>86400000</code>
-        <br><b>Default value:</b> <code>300000</code> (5 minutes)|
-|<code>animationSpeed</code>|Speed of the update animation. (Milliseconds)<br>
+        <br><b>Default value:</b> <code>300000</code> (5 minutes)
+      </td>
+    </tr>
+    <tr>
+      <td><code>animationSpeed</code></td>
+      <td>Speed of the update animation. (Milliseconds)<br>
         <br><b>Possible values:</b><code>0</code> - <code>5000</code>
-        <br><b>Default value:</b> <code>2000</code> (2 seconds)|
+        <br><b>Default value:</b> <code>2000</code> (2 seconds)
+      </td>
+    </tr>
+  </tbody>
+</table>
