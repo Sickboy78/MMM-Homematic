@@ -166,7 +166,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>ccuServiceUrl</code></td>
       <td>The name of the XML API Service for getting states/values from devices/datapoints.
 	    <br>Most likely default value is good.
-	    <br>But may change with newer versions of XML API, see [XML-API] (https://github.com/hobbyquaker/XML-API).
+	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
 	    <br><b>Default value:</b> <code>/state.cgi</code>
       </td>
     </tr>
@@ -174,7 +174,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>ccuIdParameter</code></td>
       <td>The name of the URL Parameter expected by the XML API Service to identify a datapoint of a device.
 	    <br>Most likely default value is good.
-	    <br>But may change with newer versions of XML API, see [XML-API] (https://github.com/hobbyquaker/XML-API).
+	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
 	    <br><b>Default value:</b> <code>?datapoint_id=</code>
       </td>
     </tr>
@@ -213,7 +213,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>id</code></td>
       <td>The ID of the datapoint to read a value from.
 	  <br>This value is required.
-	  <br>On howto get your ID see [Howto get your datapoint IDs] (#howto-get-your-datapoint-ids).
+	  <br>On howto get your ID see <a href="#howto-get-your-datapoint-ids">Howto get your datapoint IDs</a>.
 	  <br><b>Example value:</b> <code>1234</code>
       </td>
     </tr>
@@ -231,7 +231,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td>The type of the device/datapoint.
 	  <br>This value is required.
 	  <br>Depends on the datapoint/device you want to display.
-	  <br>For a list of tested devices see [Tested devices] (#tested-devices).
+	  <br>For a list of tested devices see <a href="#tested-devices">Tested devices</a>.
 	  <br><b>Possible values:</b>
 	  <br><code>window</code> - A door or window sensor. (e.g. a Homematic IP Window / Door Contact)
 	  <br><code>window_warn_open</code> - Same as 'window', but with a warning if open.
