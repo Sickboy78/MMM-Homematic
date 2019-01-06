@@ -96,7 +96,7 @@ Module.register("MMM-Homematic",{
 								text_is = _self.translate("IS") + " " + value + _self.config.tempUnit;
 							}
 						}
-						else if(this.type === 'warn_high' && typeof(this.threshold) === 'string')
+						else if(this.type === 'other_warn_high' && typeof(this.threshold) === 'string')
 						{
 							if(value >= this.threshold) {
 								text_is = _self.translate("IS_TOO_HIGH") + " (" + value + ")";
@@ -105,7 +105,7 @@ Module.register("MMM-Homematic",{
 								text_is = _self.translate("IS_OK") + " (" + value + ")";
 							}
 						}
-						else if(this.type === 'warn_low' && typeof(this.threshold) === 'string')
+						else if(this.type === 'other_warn_low' && typeof(this.threshold) === 'string')
 						{
 							if(value <= this.threshold) {
 								text_is = _self.translate("IS_TOO_LOW") + " (" + value + ")";

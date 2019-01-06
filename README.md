@@ -49,27 +49,54 @@ HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 
 * Install the XML-API on your HomeMatic CCU. Installation guide can be found here: [XML-API](https://github.com/hobbyquaker/XML-API)
 
-* Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname of your CCU.
+* Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU.
 
 * Find the ise_id of your device in the output, which may look like this:
 ````
+...
 <device name="window contact living room" address="001098A98A1C03" ise_id="2086" interface="HmIP-RF" device_type="HmIP-SWDO-I" ready_config="true">
 <channel name="window contact living room:0" type="30" address="001098A98A1C03:0" ise_id="2087" direction="UNKNOWN" parent_device="2086" index="0" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 <channel name="HmIP-SWDO-I 001098A98A1C03:1" type="37" address="001098A98A1C03:1" ise_id="2115" direction="SENDER" parent_device="2086" index="1" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 </device>
+...
 ````
+In this case we are looking for the ise_id of the window contact in the living room, which is "2086".
 
-* Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname of your CCU and '1234' with the ise_id from the previous step.
+* Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname or IP address of your CCU and '1234' with the ise_id from the previous step.
 
-* Find the ise_id of the desired datapoint of your device in the output, which may look like this:
+* Find the ise_id of the desired datapoint of your device in the output.
+For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
+The output may look like this:
 ````
-<code>
+<state>
+<device name="window contact living room" ise_id="2086" unreach="false" config_pending="false">
+<channel name="window contact living room:0" ise_id="2087">
+...
+</channel>
 <channel name="HmIP-SWDO-I 001098A991646A:1" ise_id="2296">
 <datapoint name="HmIP-RF.001098A991646A:1.STATE" type="STATE" ise_id="2297" value="0" valuetype="16" valueunit="""" timestamp="1546779254"/>
 </channel>
-</code>
+</device>
+</state>
 ````
-For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
+In this case we are looking for the ise_id of the datapoint of type="STATE" of the device "window contact living room", which is "2297".
+Or it like this:
+````
+<state>
+<device name="climate sensor laundry room" ise_id="1238" unreach="false" config_pending="false">
+<channel name="climate sensor laundry room:0" ise_id="1239">
+...
+</channel>
+<channel name="HmIP-STHD 000E98A991C6C7:1" ise_id="1262">
+<datapoint name="HmIP-RF.000E98A991C6C7:1.ACTIVE_PROFILE" type="ACTIVE_PROFILE" ise_id="1263" value="1" valuetype="16" valueunit="" timestamp="1546779623"/>
+<datapoint name="HmIP-RF.000E98A991C6C7:1.ACTUAL_TEMPERATURE" type="ACTUAL_TEMPERATURE" ise_id="1264" value="16.800000" valuetype="4" valueunit="" timestamp="1546779623"/>
+<datapoint name="HmIP-RF.000E98A991C6C7:1.ACTUAL_TEMPERATURE_STATUS" type="ACTUAL_TEMPERATURE_STATUS" ise_id="1265" value="0" valuetype="16" valueunit="" timestamp="1546779623"/>
+...
+</channel>
+</device>
+</state>
+````
+In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMPERATURE" of the device "climate sensor laundry room", which is "1264".
 
 * Use the ise_id from the previous step as ID for your datapoint in the module config.
 
@@ -217,8 +244,9 @@ For window/door contact sensors it is the datapoint of type="STATE", for tempera
 	  <br><code>hum</code> - A humidity sensor. (e.g. a Homematic IP Temperature and Humidity Sensor with Display)
 	  <br><code>hum_warn_high</code> - Same as 'hum', but with a warning if value is equal or greater than the threshold.
 	  <br><code>hum_warn_low</code> - Same as 'hum', but with a warning if value is equal or less than the threshold.
-	  <br><code>warn_high</code> - A general sensor with a readable number value, with a warning if value is equal or greater than the threshold.
-	  <br><code>warn_low</code> - A general sensor with a readable number value, with warning if value is equal or less than the threshold.
+	  <br><code>other</code> - A general sensor with a readable number value.
+	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
+	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
       </td>
     </tr>
     <tr>
