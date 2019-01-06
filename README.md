@@ -103,7 +103,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 ## Tested devices
 
 <table width="100%">
-  <!-- why, markdown... -->
   <thead>
     <tr>
       <th>Type</th>
@@ -129,7 +128,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 ## Configuration options
 
 <table width="100%">
-  <!-- why, markdown... -->
   <thead>
     <tr>
       <th>Option</th>
@@ -160,7 +158,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>ccuXmlApiUrl</code></td>
       <td>The URL path of the XML API.
 	    <br>Most likely default value is good.
-	    <br>But may change with newer versions of XML API, see [XML-API] (https://github.com/hobbyquaker/XML-API).
+	    <br>But may change with newer versions of XML API, see
+		[XML-API](https://github.com/hobbyquaker/XML-API).
 	    <br><b>Default value:</b> <code>/addons/xmlapi</code>
       </td>
     </tr>
