@@ -130,9 +130,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 |Option|Description|
 |------|-----------|
 |<code>ccuProtocol</code>|The protocol to use for your CCU.
-		<br>Most likely default value is good.
-        <br><b>Possible values:</b> <code>http://</code> - <code>https://</code>
-        <br><b>Default value:</b> <code>http://</code>|
+Most likely default value is good.
+<b>Possible values:</b> <code>http://</code> - <code>https://</code>
+<b>Default value:</b> <code>http://</code>|
 |<code>ccuHost</code>|The hostname of your CCU.
 		<br>Depends on your version of CCU.
 		<br>For CCU1 you have to give your CCU a fixed IP address and use it.
