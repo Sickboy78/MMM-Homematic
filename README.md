@@ -112,15 +112,19 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   <tbody>
     <tr>
 	  <td>window</td>
-	  <td>Homematic IP Window / Door Contact (HmIP-SWDO-I)</td>
+	  <td>HomeMatic IP Window / Door Contact (HmIP-SWDO-I)</td>
 	</tr>
     <tr>
 	  <td>temp</td>
-	  <td>Homematic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
+	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
 	</tr>
     <tr>
 	  <td>hum</td>
-	  <td>Homematic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
+	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>HomeMatic Wireless Shutter Actuator 1-channel, flush-mount (HM-LC-Bl1PBU-FM) [datapoint type="LEVEL"]</td>
 	</tr>
   </tbody>
 </table>
@@ -233,13 +237,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br>Depends on the datapoint/device you want to display.
 	  <br>For a list of tested devices see <a href="#tested-devices">Tested devices</a>.
 	  <br><b>Possible values:</b>
-	  <br><code>window</code> - A door or window sensor. (e.g. a Homematic IP Window / Door Contact)
+	  <br><code>window</code> - A door or window sensor. (e.g. a HomeMatic IP Window / Door Contact)
 	  <br><code>window_warn_open</code> - Same as 'window', but with a warning if open.
 	  <br><code>window_warn_closed</code> - Same as 'window', but with a warning if closed.
-	  <br><code>temp</code> - A temperature sensor. (e.g. a Homematic IP Temperature and Humidity Sensor with Display)
+	  <br><code>temp</code> - A temperature sensor. (e.g. a HomeMatic IP Temperature and Humidity Sensor with Display)
 	  <br><code>temp_warn_high</code> - Same as 'temp', but with a warning if value is equal or greater than the threshold.
 	  <br><code>temp_warn_low</code> - Same as 'temp', but with a warning if value is equal or less than the threshold.
-	  <br><code>hum</code> - A humidity sensor. (e.g. a Homematic IP Temperature and Humidity Sensor with Display)
+	  <br><code>hum</code> - A humidity sensor. (e.g. a HomeMatic IP Temperature and Humidity Sensor with Display)
 	  <br><code>hum_warn_high</code> - Same as 'hum', but with a warning if value is equal or greater than the threshold.
 	  <br><code>hum_warn_low</code> - Same as 'hum', but with a warning if value is equal or less than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.

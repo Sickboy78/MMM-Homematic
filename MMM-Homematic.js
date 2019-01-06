@@ -98,6 +98,9 @@ Module.register("MMM-Homematic",{
 						}
 						else if(this.type === 'other_warn_high' && typeof(this.threshold) === 'string')
 						{
+							if(typeof(this.precision) !== 'undefined') {
+								value = Number(value).toFixed(this.precision)
+							}
 							if(value >= this.threshold) {
 								text_is = _self.translate("IS_TOO_HIGH") + " (" + value + ")";
 								text_class = "bright red";
@@ -107,6 +110,9 @@ Module.register("MMM-Homematic",{
 						}
 						else if(this.type === 'other_warn_low' && typeof(this.threshold) === 'string')
 						{
+							if(typeof(this.precision) !== 'undefined') {
+								value = Number(value).toFixed(this.precision)
+							}
 							if(value <= this.threshold) {
 								text_is = _self.translate("IS_TOO_LOW") + " (" + value + ")";
 								text_class = "bright red";
@@ -114,6 +120,9 @@ Module.register("MMM-Homematic",{
 								text_is = _self.translate("IS_OK") + " (" + value + ")";
 							}
 						} else {
+							if(typeof(this.precision) !== 'undefined') {
+								value = Number(value).toFixed(this.precision)
+							}
 							text_is = _self.translate("IS") + " " + value;
 						}
 
