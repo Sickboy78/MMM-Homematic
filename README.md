@@ -47,28 +47,30 @@ HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 
 ## Howto get your datapoint IDs
 
-1. 
 * Install the XML-API on your HomeMatic CCU. Installation guide can be found here: [XML-API](https://github.com/hobbyquaker/XML-API)
-2.
+
 * Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname of your CCU.
+
 * Find the ise_id of your device in the output, which may look like this:
-<code>
+````
 <device name="window contact living room" address="001098A98A1C03" ise_id="2086" interface="HmIP-RF" device_type="HmIP-SWDO-I" ready_config="true">
 <channel name="window contact living room:0" type="30" address="001098A98A1C03:0" ise_id="2087" direction="UNKNOWN" parent_device="2086" index="0" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 <channel name="HmIP-SWDO-I 001098A98A1C03:1" type="37" address="001098A98A1C03:1" ise_id="2115" direction="SENDER" parent_device="2086" index="1" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 </device>
-</code>
-3.
+````
+
 * Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname of your CCU and '1234' with the ise_id from the previous step.
+
 * Find the ise_id of the desired datapoint of your device in the output, which may look like this:
+````
 <code>
 <channel name="HmIP-SWDO-I 001098A991646A:1" ise_id="2296">
 <datapoint name="HmIP-RF.001098A991646A:1.STATE" type="STATE" ise_id="2297" value="0" valuetype="16" valueunit="""" timestamp="1546779254"/>
 </channel>
 </code>
-
+````
 For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
-4.
+
 * Use the ise_id from the previous step as ID for your datapoint in the module config.
 
 ## Tested devices
