@@ -252,6 +252,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>precision</code></td>
+      <td>The precision for displaying a value.
+	  <br>This value is only used for 'other' types.
+	  <br><b>Example value:</b> <code>2</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>threshold</code></td>
       <td>A threshold value for displaying a warning.
 	  <br>This value is required if you have defined a type with a high/low warning.
