@@ -60,13 +60,13 @@ HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 </device>
 ...
 ````
-In this case we are looking for the ise_id of the window contact in the living room, which is "2086".
+In this case we are looking for the ise_id of the device "window contact living room", which is "2086".
 
 * Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname or IP address of your CCU and '1234' with the ise_id from the previous step.
 
 * Find the ise_id of the desired datapoint of your device in the output.
-For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
-The output may look like this:
+<br>For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
+<br>The output may look like this:
 ````
 <state>
 <device name="window contact living room" ise_id="2086" unreach="false" config_pending="false">
@@ -80,7 +80,7 @@ The output may look like this:
 </state>
 ````
 In this case we are looking for the ise_id of the datapoint of type="STATE" of the device "window contact living room", which is "2297".
-Or it like this:
+<br>Or the output looks like this:
 ````
 <state>
 <device name="climate sensor laundry room" ise_id="1238" unreach="false" config_pending="false">
@@ -232,8 +232,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>type</code></td>
       <td>The type of the device/datapoint.
 	  <br>This value is required.
-	  <td>Depends on the datapoint/device you want to display.
-	  <td>For a list of tested devices see [Tested devices](#tested-devices).
+	  <br>Depends on the datapoint/device you want to display.
+	  <br>For a list of tested devices see [Tested devices](#tested-devices).
 	  <br><b>Possible values:</b>
 	  <br><code>window</code> - A door or window sensor. (e.g. a Homematic IP Window / Door Contact)
 	  <br><code>window_warn_open</code> - Same as 'window', but with a warning if open.
