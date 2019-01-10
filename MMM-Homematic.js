@@ -47,13 +47,16 @@ Module.register("MMM-Homematic",{
 	getDom: function() {
 		let _self = this;
 		let wrapper = $("<div/>",{class: 'small'});
-		if(typeof(this.config.datapoints) === 'object') {
-			$.each(this.config.datapoints,function(){
-				if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
-					if(typeof(_self.homematicData) !== 'undefined') {
+		if(typeof(_self.homematicData) !== 'undefined') {
+			if(typeof(this.config.datapoints) === 'object') {
+				$.each(this.config.datapoints,function(){
+					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
 						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
-						let text_class = "";
 						let text_is = "";
+						let text_class = "";
+						if((this.type.indexOf("warn") !== -1) && (typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true')) {
+							text_class = "hide";
+						}
 
 						if(this.type.startsWith('window')) {
 							if(value == 0) {
@@ -129,13 +132,13 @@ Module.register("MMM-Homematic",{
 						div = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class});
 						div.html(this.name + " " + text_is);
 						wrapper.append(div);
-					} else {
-						let div = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name)});
-						div.html(this.name);
-						wrapper.append(div);
 					}
-				}
-			});
+				});
+			}
+		} else {
+			let div = $("<div/>",{id: _self.identifier + "-loading"});
+			div.html("Loading ...");
+			wrapper.append(div);
 		}
 		return wrapper[0];
 	},

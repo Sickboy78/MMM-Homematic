@@ -267,6 +267,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
+      <td><code>warnOnly</code></td>
+      <td>Toggles whether an output is always shown or only for a warning.
+	  <br>This value only applies if type is a kind of warning.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"false"</code>
+	  </td>
+    </tr>
+    <tr>
       <td><code>initialLoadDelay</code></td>
       <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
         <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>

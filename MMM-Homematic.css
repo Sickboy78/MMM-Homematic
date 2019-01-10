@@ -1,3 +1,7 @@
 .MMM-Homematic .red {
     color: red;
 }
+
+.MMM-Homematic .hide {
+	display: none;
+}
