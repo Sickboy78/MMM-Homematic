@@ -74,71 +74,75 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('temp')) {
 							// temperature
-							value = Number(value).toFixed(1);
+							let valueStr = Number(value).toFixed(1);
 							
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.tempUnit + ")";
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_class = "bright red";
 								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.tempUnit + ")";
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_class = "bright red";
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + value + _self.config.tempUnit + ")";
+									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + value + _self.config.tempUnit;
+								text_is = _self.translate("IS") + " " + valueStr + _self.config.tempUnit;
 							}
 						} else if(this.type.startsWith('hum')) {
 							// humidity
+							let valueStr = Number(value).toFixed(0);
+
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.humUnit + ")";
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
 									text_class = "bright red";
 								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.humUnit + ")";
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
 									text_class = "bright red";
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + value + _self.config.humUnit + ")";
+									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + value + _self.config.humUnit;
+								text_is = _self.translate("IS") + " " + valueStr + _self.config.humUnit;
 							}
 						} else if(this.type.startsWith('shutter')) {
 							// shutter
-							value = Number(value*100).toFixed(0)
+							value = value*100;
+							let valueStr = Number(value).toFixed(0);
 							
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.shutterUnit + ")";
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_class = "bright red";
 								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.shutterUnit + ")";
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_class = "bright red";
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + value + _self.config.shutterUnit + ")";
+									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + value + _self.config.shutterUnit;
+								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
 							}
 						} else if(this.type.startsWith('other')) {
 							// other value/sensor
+							let valueStr = value;
 							if(typeof(this.precision) !== 'undefined') {
-								value = Number(value).toFixed(this.precision)
+								valueStr = Number(value).toFixed(this.precision);
 							}
 							
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + ")";
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
 									text_class = "bright red";
 								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + value + ")";
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
 									text_class = "bright red";
 								} else {
-								text_is = _self.translate("IS_OK") + " (" + value + ")";
+								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + value;
+								text_is = _self.translate("IS") + " " + valueStr;
 							}
 						}
 
