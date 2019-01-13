@@ -23,7 +23,8 @@ modules: [
 				{
 					id: "2297",
 					name: "window Living Room",
-					type: "window_warn_open"
+					type: "window_warn_open",
+					warnOnly: "true"
 				},
 				{
 					id: "1274",
@@ -65,7 +66,7 @@ In this case we are looking for the ise_id of the device "window contact living 
 * Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname or IP address of your CCU and '1234' with the ise_id from the previous step.
 
 * Find the ise_id of the desired datapoint of your device in the output.
-<br>For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE" and for humidity sensors its type="HUMIDITY".
+<br>For window/door contact sensors it is the datapoint of type="STATE", for temperature sensors it is the datapoint with the type="ACTUAL_TEMPERATURE", for humidity sensors its type="HUMIDITY" and for shutter actuators it's type="LEVEL".
 <br>The output may look like this:
 ````
 <state>
@@ -107,24 +108,29 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <th>Type</th>
       <th width="100%">Description</th>
+      <th>datapoint type</th>
     </tr>
   <thead>
   <tbody>
     <tr>
 	  <td>window</td>
 	  <td>HomeMatic IP Window / Door Contact (HmIP-SWDO-I)</td>
+	  <td>type="STATE"</td>
 	</tr>
     <tr>
 	  <td>temp</td>
 	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
+	  <td>type="ACTUAL_TEMPERATURE"</td>
 	</tr>
     <tr>
 	  <td>hum</td>
 	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
+	  <td>type="HUMIDITY"</td>
 	</tr>
     <tr>
-	  <td>other</td>
-	  <td>HomeMatic Wireless Shutter Actuator 1-channel, flush-mount (HM-LC-Bl1PBU-FM) [datapoint type="LEVEL"]</td>
+	  <td>shutter</td>
+	  <td>HomeMatic Wireless Shutter Actuator 1-channel, flush-mount (HM-LC-Bl1PBU-FM)</td>
+	  <td>type="LEVEL"</td>
 	</tr>
   </tbody>
 </table>
@@ -197,6 +203,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>shutterUnit</code></td>
+      <td>The unit of the shutter actuator.
+        <br><b>Possible values:</b> <code>%</code> - <code>pc</code>
+        <br><b>Default value:</b> <code>%</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>datapoints</code></td>
       <td>An array of datapoint objects.
 		<br>Each datapoint object represents one value/state of a device.
@@ -246,6 +259,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>hum</code> - A humidity sensor. (e.g. a HomeMatic IP Temperature and Humidity Sensor with Display)
 	  <br><code>hum_warn_high</code> - Same as 'hum', but with a warning if value is equal or greater than the threshold.
 	  <br><code>hum_warn_low</code> - Same as 'hum', but with a warning if value is equal or less than the threshold.
+	  <br><code>shutter</code> - A shutter actuator. (e.g. a HomeMatic Wireless Shutter Actuator)
+	  <br><code>shutter_warn_high</code> - Same as 'shutter', but with a warning if value is equal or greater than the threshold.
+	  <br><code>shutter_warn_low</code> - Same as 'shutter', but with a warning if value is equal or less than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
 	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.

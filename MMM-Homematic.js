@@ -6,6 +6,7 @@ Module.register("MMM-Homematic",{
 		animationSpeed: 1000,
 		tempUnit: "°C",
 		humUnit: "%",
+		shutterUnit: "%",
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -59,6 +60,7 @@ Module.register("MMM-Homematic",{
 						}
 
 						if(this.type.startsWith('window')) {
+							// window/door
 							if(value == 0) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
@@ -70,63 +72,74 @@ Module.register("MMM-Homematic",{
 									text_class = "bright red";
 								}
 							}
-						}
-						else if(this.type.startsWith('temp')) {
-							if(this.type === 'temp_warn_high' && value >= this.threshold) {
-								text_is = _self.translate("IS_TOO_HIGH") + " (" + Number(value).toFixed(1) + _self.config.tempUnit + ")";
-								text_class = "bright red";
-							}
-							else if(this.type === 'temp_warn_low' && value <= this.threshold) {
-								text_is = _self.translate("IS_TOO_LOW") + " (" + Number(value).toFixed(1) + _self.config.tempUnit + ")";
-								text_class = "bright red";
-							} else if(this.type.startsWith('temp_')){
-								text_is = _self.translate("IS_OK") + " (" + Number(value).toFixed(1) + _self.config.tempUnit + ")";
-							} else {
-								text_is = _self.translate("IS") + " " + Number(value).toFixed(1) + _self.config.tempUnit;
-							}
-						}
-						else if(this.type.startsWith('hum')) {
-							if(this.type === 'hum_warn_high' && value >= this.threshold) {
-								text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.humUnit + ")";
-								text_class = "bright red";
-							}
-							else if(this.type === 'hum_warn_low' && value <= this.threshold) {
-								text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.humUnit + ")";
-								text_class = "bright red";
-							} else if(this.type.startsWith('hum_')){
-								text_is = _self.translate("IS_OK") + " (" + value + _self.config.humUnit + ")";
+						} else if(this.type.startsWith('temp')) {
+							// temperature
+							value = Number(value).toFixed(1);
+							
+							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'string') {
+								if(this.type === 'temp_warn_high' && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.tempUnit + ")";
+									text_class = "bright red";
+								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.tempUnit + ")";
+									text_class = "bright red";
+								} else {
+									text_is = _self.translate("IS_OK") + " (" + value + _self.config.tempUnit + ")";
+								}
 							} else {
 								text_is = _self.translate("IS") + " " + value + _self.config.tempUnit;
 							}
-						}
-						else if(this.type === 'other_warn_high' && typeof(this.threshold) === 'string')
-						{
-							if(typeof(this.precision) !== 'undefined') {
-								value = Number(value).toFixed(this.precision)
-							}
-							if(value >= this.threshold) {
-								text_is = _self.translate("IS_TOO_HIGH") + " (" + value + ")";
-								text_class = "bright red";
+						} else if(this.type.startsWith('hum')) {
+							// humidity
+							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'string') {
+								if(this.type === 'hum_warn_high' && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.humUnit + ")";
+									text_class = "bright red";
+								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.humUnit + ")";
+									text_class = "bright red";
+								} else {
+									text_is = _self.translate("IS_OK") + " (" + value + _self.config.humUnit + ")";
+								}
 							} else {
-								text_is = _self.translate("IS_OK") + " (" + value + ")";
+								text_is = _self.translate("IS") + " " + value + _self.config.humUnit;
 							}
-						}
-						else if(this.type === 'other_warn_low' && typeof(this.threshold) === 'string')
-						{
-							if(typeof(this.precision) !== 'undefined') {
-								value = Number(value).toFixed(this.precision)
-							}
-							if(value <= this.threshold) {
-								text_is = _self.translate("IS_TOO_LOW") + " (" + value + ")";
-								text_class = "bright red";
+						} else if(this.type.startsWith('shutter')) {
+							// shutter
+							value = Number(value*100).toFixed(0)
+							
+							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'string') {
+								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + _self.config.shutterUnit + ")";
+									text_class = "bright red";
+								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + value + _self.config.shutterUnit + ")";
+									text_class = "bright red";
+								} else {
+									text_is = _self.translate("IS_OK") + " (" + value + _self.config.shutterUnit + ")";
+								}
 							} else {
-								text_is = _self.translate("IS_OK") + " (" + value + ")";
+								text_is = _self.translate("IS") + " " + value + _self.config.shutterUnit;
 							}
-						} else {
+						} else if(this.type.startsWith('other')) {
+							// other value/sensor
 							if(typeof(this.precision) !== 'undefined') {
 								value = Number(value).toFixed(this.precision)
 							}
-							text_is = _self.translate("IS") + " " + value;
+							
+							if(this.type.startsWith('other_') && typeof(this.threshold) === 'string') {
+								if(this.type === 'other_warn_high' && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + value + ")";
+									text_class = "bright red";
+								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + value + ")";
+									text_class = "bright red";
+								} else {
+								text_is = _self.translate("IS_OK") + " (" + value + ")";
+								}
+							} else {
+								text_is = _self.translate("IS") + " " + value;
+							}
 						}
 
 						div = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class});
