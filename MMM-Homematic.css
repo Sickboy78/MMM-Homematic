@@ -2,6 +2,14 @@
     color: red;
 }
 
+.MMM-Homematic .green {
+    color: green;
+}
+
+.MMM-Homematic .blue {
+    color: blue;
+}
+
 .MMM-Homematic .hide {
 	display: none;
 }
