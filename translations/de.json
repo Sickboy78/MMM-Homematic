@@ -1,8 +1,16 @@
 {
 	"IS":"ist",
-	"IS_OPEN":"ist geöffnet",
+	"IS_OPEN":"ist offen",
 	"IS_CLOSED":"ist geschlossen",
 	"IS_OK":"ist OK",
 	"IS_TOO_HIGH":"ist zu hoch",
-	"IS_TOO_LOW":"ist zu niedrig"
+	"IS_TOO_LOW":"ist zu niedrig",
+	"IS_AWAY":"ist nicht da",
+	"IS_HERE":"ist da",
+	"IS_NOT_RUNNING":"ist fertig",
+	"IS_RUNNING":"läuft",
+	"IS_TRUE":"ist OK",
+	"IS_FALSE":"nicht OK",
+	"IS_TRIGGERED":"ausgelöst",
+	"IS_NOT_TRIGGERED":"nicht ausgelöst"
 }

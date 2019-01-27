@@ -1,7 +1,7 @@
 # MMM-Homematic
 HomeMatic Module for MagicMirror
 
-This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components.
+This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
@@ -38,6 +38,32 @@ modules: [
 					type: "temp_warn_low",
 					threshold: "10"
 				}
+				{
+					id: "11104",
+					name: "washing machine",
+					type: "mashine_warn_running",
+					warnOnly: "false"
+				},
+				{
+					id: "2904",
+					name: "Debug-Level = ",
+					type: "sysvar_number_warn_high",
+					precision: 2,
+					threshold: 2,
+					warnColor: "blue",
+				},
+				{
+					id: "12050",
+					name: "Who is there? ",
+					type: "stringvalue",
+					warnOnly: "false"
+				},
+				{
+					id: "12047",
+					name: "NAME",
+					type: "presence_warn_here",
+					warnOnly: "false"
+				},
 			]
 		}
 	}
@@ -46,11 +72,13 @@ modules: [
 
 HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 
+Extension of this module with system variables by @spitzlbergerj
+
 ## Howto get your datapoint IDs
 
 * Install the XML-API on your HomeMatic CCU. Installation guide can be found here: [XML-API](https://github.com/hobbyquaker/XML-API)
 
-* Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU.
+* Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU. For system variables call http://ccu3-webui/addons/xmlapi/sysvarlist.cgi
 
 * Find the ise_id of your device in the output, which may look like this:
 ````
@@ -59,6 +87,12 @@ HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 <channel name="window contact living room:0" type="30" address="001098A98A1C03:0" ise_id="2087" direction="UNKNOWN" parent_device="2086" index="0" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 <channel name="HmIP-SWDO-I 001098A98A1C03:1" type="37" address="001098A98A1C03:1" ise_id="2115" direction="SENDER" parent_device="2086" index="1" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 </device>
+...
+...
+<systemVariable name="presence.person1" variable="1" value="true" value_list="" ise_id="12047" min="" max="" unit="" type="2" subtype="2" logged="true" visible="true" timestamp="1548509644" value_name_0="abwesend" value_name_1="anwesend"/>
+<systemVariable name="presence.string" variable="person1,person2,person3" value="person1,person2,person3" value_list="" ise_id="12050" min="" max="" unit="" type="20" subtype="11" logged="false" visible="true" timestamp="1548509644" value_name_0="" value_name_1=""/>
+<systemVariable name="washing mashine" variable="0" value="false" value_list="" ise_id="11104" min="" max="" unit="" type="2" subtype="2" logged="true" visible="true" timestamp="1548444197" value_name_0="not running" value_name_1="running"/>
+</systemVariables>
 ...
 ````
 In this case we are looking for the ise_id of the device "window contact living room", which is "2086".
@@ -134,6 +168,48 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	</tr>
   </tbody>
 </table>
+
+## Tested System variable types
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th width="100%">Description</th>
+    </tr>
+  <thead>
+  <tbody>
+    <tr>
+	  <td>boolean</td>
+	  <td>Display of the two possible values true or false as e.g. "is ok" or "is not ok". The textual representation of the two values is the same for all logic system variables.</td>
+	</tr>
+    <tr>
+	  <td>alarm</td>
+	  <td>Display of the two possible values true or false as e.g. "triggered" or "not triggered". The textual representation of the two values is the same for all alarm system variables.</td>
+	</tr>
+    <tr>
+	  <td>boolean, mashine state</td>
+	  <td>As before, but special logic value for e.g. machines whose status is to be displayed as running or not running. </td>
+	</tr>
+    <tr>
+	  <td>boolean, presence state</td>
+	  <td>As before, but special logic value presence for e.g. persons who can be here or not here. </td>
+	</tr>
+    <tr>
+	  <td>string</td>
+	  <td>Displays the character string stored in the system variable.</td>
+	</tr>
+    <tr>
+	  <td>number</td>
+	  <td>Displays the numeric value of the system variable.</td>
+	</tr>
+    <tr>
+	  <td>value list</td>
+	  <td>not (yet) supported!</td>
+	</tr>
+  </tbody>
+</table>
+
 
 ## Configuration options
 
@@ -249,7 +325,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br>This value is required.
 	  <br>Depends on the datapoint/device you want to display.
 	  <br>For a list of tested devices see <a href="#tested-devices">Tested devices</a>.
-	  <br><b>Possible values:</b>
+	  <br><b>Possible values for devices:</b>
 	  <br><code>window</code> - A door or window sensor. (e.g. a HomeMatic IP Window / Door Contact)
 	  <br><code>window_warn_open</code> - Same as 'window', but with a warning if open.
 	  <br><code>window_warn_closed</code> - Same as 'window', but with a warning if closed.
@@ -265,12 +341,31 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
 	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
+	  <br>
+	  <br><b>Possible values for system variables:</b>
+	  <br><code>sysvar_boolean</code> - Display of the two possible values true or false as e.g. "is ok" or "is not ok". The textual representation of the two values is the same for all logic system variables.
+	  <br><code>sysvar_boolean_warn_true</code> - Same as 'boolean', but with a warning if true.
+	  <br><code>sysvar_boolean_warn_false</code> - Same as 'boolean', but with a warning if false.
+	  <br><code>sysvar_alarm</code> - Display of the two possible values true or false as e.g. "triggered" or "not triggered". The textual representation of the two values is the same for all alarm system variables.
+	  <br><code>sysvar_alarm_warn_triggered</code> - Same as 'alarm', but with a warning if triggered.
+	  <br><code>sysvar_alarm_warn_not_triggered</code> - Same as 'alarm', but with a warning if not triggered.
+	  <br><code>sysvar_mashine</code> - As before, but special logic value for e.g. machines whose status is to be displayed as running or not running.
+	  <br><code>sysvar_mashine_warn_running</code> - Same as 'mashine', but with a warning if running.
+	  <br><code>sysvar_mashine_warn_not_running</code> - Same as 'mashine', but with a warning if not running.
+	  <br><code>sysvar_presence</code> - As before, but special logic value presence for e.g. persons who can be here or not here.
+	  <br><code>sysvar_presence_warn_here</code> - Same as 'presence', but with a warning if here.
+	  <br><code>sysvar_presence_warn_away</code> - Same as 'presence', but with a warning if away.
+	  <br><code>sysvar_string</code> - Displays the character string stored in the system variable.
+	  <br><code>sysvar_string_warn</code> - Same as 'string', but with a warning if string is empty.
+	  <br><code>sysvar_number</code> - Displays the numeric value of the system variable.
+	  <br><code>sysvar_number_warn_high</code> - Same as 'number', but with a warning if the value is higher than <code>threshold</code>.
+	  <br><code>sysvar_number_warn_low</code> - Same as 'number', but with a warning if the value is lower than <code>threshold</code>.
       </td>
     </tr>
     <tr>
       <td><code>precision</code></td>
       <td>The precision for displaying a value.
-	  <br>This value is only used for 'other' types.
+	  <br>This value is only used for 'other' and 'sysvar_number' types.
 	  <br><b>Example value:</b> <code>2</code>
       </td>
     </tr>
@@ -288,6 +383,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"false"</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>warnColor</code></td>
+      <td>sets the warning color for this device or system variable.
+	  <br>This value only applies if type is a kind of warning.
+      <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code>
+      <br><b>Default value:</b> <code>"red"</code>
 	  </td>
     </tr>
     <tr>

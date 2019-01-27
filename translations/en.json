@@ -4,5 +4,13 @@
 	"IS_CLOSED":"is closed",
 	"IS_OK":"is OK",
 	"IS_TOO_HIGH":"is too high",
-	"IS_TOO_LOW":"is too low"
+	"IS_TOO_LOW":"is too low",
+	"IS_AWAY":"is away",
+	"IS_HERE":"is here",
+	"IS_NOT_RUNNING":"is not running",
+	"IS_RUNNING":"is running",
+	"IS_TRUE":"is true",
+	"IS_FALSE":"is false",
+	"IS_TRIGGERED":"triggered",
+	"IS_NOT_TRIGGERED":"not triggered"
 }
