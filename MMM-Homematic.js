@@ -59,17 +59,27 @@ Module.register("MMM-Homematic",{
 							text_class = "hide";
 						}
 
+						// Setting warning color
+						// @spitzlbergerj, 20190127
+
+						let warn_color = "red"
+						if(typeof(this.warnColor) === 'string') {
+							warn_color = this.warnColor;
+						}
+
+						// Devices
+						
 						if(this.type.startsWith('window')) {
 							// window/door
 							if(value == 0) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_OPEN");
 								if(this.type === 'window_warn_open') {
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								}
 							}
 						} else if(this.type.startsWith('temp')) {
@@ -79,10 +89,10 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
 								}
@@ -96,10 +106,10 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
 								}
@@ -114,10 +124,10 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
 								}
@@ -134,15 +144,105 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'string') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
-									text_class = "bright red";
+									text_class = "bright " + warn_color;
 								} else {
 								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr;
+							}
+						} 
+						
+						// SysVars
+						// @spitzlbergerj, 20190127
+
+						else if(this.type.startsWith('sysvar_boolean')) {
+							// SysVar boolean
+							if(value == "false") {
+								text_is = _self.translate("IS_FALSE");
+								if(this.type === 'sysvar_boolean_warn_false') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_TRUE");
+								if(this.type === 'sysvar_boolean_warn_true') {
+									text_class = "bright " + warn_color;
+								}
+							}
+						} else if(this.type.startsWith('sysvar_alarm')) {
+							// SysVar alarm
+							if(value == "false") {
+								text_is = _self.translate("IS_NOT_TRIGGERED");
+								if(this.type === 'sysvar_alarm_warn_not_triggered') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_TRIGGERED");
+								if(this.type === 'sysvar_alarm_warn_triggered') {
+									text_class = "bright " + warn_color;
+								}
+							}
+						} else if(this.type.startsWith('sysvar_mashine')) {
+							// SysVar Boolean; Special type machine that can run or not run
+							if(value == "false") {
+								text_is = _self.translate("IS_NOT_RUNNING");
+								if(this.type === 'sysvar_mashine_warn_not_running') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_RUNNING");
+								if(this.type === 'sysvar_mashine_warn_running') {
+									text_class = "bright " + warn_color;
+								}
+							}
+						} else if(this.type.startsWith('sysvar_presence')) {
+							// SysVar boolean, special type presence that can accept the values here or not here 
+							if(value == "false") {
+								text_is = _self.translate("IS_AWAY");
+								if(this.type === 'sysvar_presence_warn_away') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_HERE");
+								if(this.type === 'sysvar_presence_warn_here') {
+									text_class = "bright " + warn_color;
+								}
+							}
+						} else if(this.type.startsWith('sysvar_string')) {
+							// SysVar String Value
+							text_is = value;
+							if(this.type === 'sysvar_string_warn' && (value === '' || value === '???')) {
+								text_class = "bright " + warn_color;
+							}
+/*
+						}  else if(this.type.startsWith('sysvar_valuelist')) {
+							// SysVar value list
+							// value_list ist nicht definiert, wird von Homematic nicht geholt
+							//
+							let strarray = value_list.split(";");
+							text_is = strarry[parseInt(value)];
+*/
+						} else if(this.type.startsWith('sysvar_number')) {
+							// SysVar number
+							let valnum = 0;
+							let valdec = 0;
+							let valwarn = 0;
+							if(typeof(this.precision) !== 'undefined') {
+								valdec = this.precision;
+							}
+							if (typeof(this.threshold) !== 'undefined') {
+								valwarn = this.threshold;
+							}
+							valnum = parseFloat(value).toFixed(valdec);
+							text_is = valnum.toString()
+							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
+								text_class = "bright " + warn_color;
+							}
+							if(this.type === 'sysvar_number_warn_high' && valnum >= valwarn) {
+								text_class = "bright " + warn_color;
 							}
 						}
 
