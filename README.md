@@ -30,13 +30,13 @@ modules: [
 					id: "1274",
 					name: "humidity Laundry Room",
 					type: "hum_warn_high",
-					threshold: "60"
+					threshold: 60
 				},
 				{
 					id: "1264",
 					name: "temperatur Laundry Room",
 					type: "temp_warn_low",
-					threshold: "10"
+					threshold: 10
 				}
 				{
 					id: "11104",
@@ -78,9 +78,9 @@ Extension of this module with system variables by @spitzlbergerj
 
 * Install the XML-API on your HomeMatic CCU. Installation guide can be found here: [XML-API](https://github.com/hobbyquaker/XML-API)
 
-* Call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU. For system variables call http://ccu3-webui/addons/xmlapi/sysvarlist.cgi
+* For datapoints from sensors or actors call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU. For system variables call http://ccu3-webui/addons/xmlapi/sysvarlist.cgi
 
-* Find the ise_id of your device in the output, which may look like this:
+* Find the ise_id of your device or system variable in the output, which may look like this:
 ````
 ...
 <device name="window contact living room" address="001098A98A1C03" ise_id="2086" interface="HmIP-RF" device_type="HmIP-SWDO-I" ready_config="true">
@@ -88,6 +88,10 @@ Extension of this module with system variables by @spitzlbergerj
 <channel name="HmIP-SWDO-I 001098A98A1C03:1" type="37" address="001098A98A1C03:1" ise_id="2115" direction="SENDER" parent_device="2086" index="1" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true"/>
 </device>
 ...
+````
+In this case we are looking for the ise_id of the device "window contact living room", which is "2086".
+Or for system variables the output may look like this:
+````
 ...
 <systemVariable name="presence.person1" variable="1" value="true" value_list="" ise_id="12047" min="" max="" unit="" type="2" subtype="2" logged="true" visible="true" timestamp="1548509644" value_name_0="abwesend" value_name_1="anwesend"/>
 <systemVariable name="presence.string" variable="person1,person2,person3" value="person1,person2,person3" value_list="" ise_id="12050" min="" max="" unit="" type="20" subtype="11" logged="false" visible="true" timestamp="1548509644" value_name_0="" value_name_1=""/>
@@ -95,7 +99,9 @@ Extension of this module with system variables by @spitzlbergerj
 </systemVariables>
 ...
 ````
-In this case we are looking for the ise_id of the device "window contact living room", which is "2086".
+In this case we are looking for the ise_id of the system variable "washing mashine", which is "11104".
+
+Next two steps are only necessary for datapoints of sensors or actors. For system variables you can skip them and go directly to the last step.
 
 * Call the state of the device via the XML-API using http://ccu3-webui/addons/xmlapi/state.cgi?device_id=1234, replacing 'ccu3-webui' with the hostname or IP address of your CCU and '1234' with the ise_id from the previous step.
 
@@ -356,7 +362,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>sysvar_presence_warn_here</code> - Same as 'presence', but with a warning if here.
 	  <br><code>sysvar_presence_warn_away</code> - Same as 'presence', but with a warning if away.
 	  <br><code>sysvar_string</code> - Displays the character string stored in the system variable.
-	  <br><code>sysvar_string_warn</code> - Same as 'string', but with a warning if string is empty.
+	  <br><code>sysvar_string_warn_empty</code> - Same as 'string', but with a warning if string is empty.
+	  <br><code>sysvar_string_warn_not_empty</code> - Same as 'string', but with a warning if string is not empty.
 	  <br><code>sysvar_number</code> - Displays the numeric value of the system variable.
 	  <br><code>sysvar_number_warn_high</code> - Same as 'number', but with a warning if the value is higher than <code>threshold</code>.
 	  <br><code>sysvar_number_warn_low</code> - Same as 'number', but with a warning if the value is lower than <code>threshold</code>.

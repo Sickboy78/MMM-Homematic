@@ -86,7 +86,7 @@ Module.register("MMM-Homematic",{
 							// temperature
 							let valueStr = Number(value).toFixed(1);
 							
-							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'string') {
+							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_class = "bright " + warn_color;
@@ -103,7 +103,7 @@ Module.register("MMM-Homematic",{
 							// humidity
 							let valueStr = Number(value).toFixed(0);
 
-							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'string') {
+							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
 									text_class = "bright " + warn_color;
@@ -121,7 +121,7 @@ Module.register("MMM-Homematic",{
 							value = value*100;
 							let valueStr = Number(value).toFixed(0);
 							
-							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'string') {
+							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_class = "bright " + warn_color;
@@ -137,11 +137,11 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('other')) {
 							// other value/sensor
 							let valueStr = value;
-							if(typeof(this.precision) !== 'undefined') {
+							if(typeof(this.precision) === 'number') {
 								valueStr = Number(value).toFixed(this.precision);
 							}
 							
-							if(this.type.startsWith('other_') && typeof(this.threshold) === 'string') {
+							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
 									text_class = "bright " + warn_color;
@@ -214,7 +214,9 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_string')) {
 							// SysVar String Value
 							text_is = value;
-							if(this.type === 'sysvar_string_warn' && (value === '' || value === '???')) {
+							if(this.type === 'sysvar_string_warn_empty' && (value === '' || value === '???')) {
+								text_class = "bright " + warn_color;
+							} else if (this.type === 'sysvar_string_warn_not_empty' && (value !== '' && value !== '???')) {
 								text_class = "bright " + warn_color;
 							}
 /*
@@ -230,10 +232,10 @@ Module.register("MMM-Homematic",{
 							let valnum = 0;
 							let valdec = 0;
 							let valwarn = 0;
-							if(typeof(this.precision) !== 'undefined') {
+							if(typeof(this.precision) === 'number') {
 								valdec = this.precision;
 							}
-							if (typeof(this.threshold) !== 'undefined') {
+							if (typeof(this.threshold) === 'number') {
 								valwarn = this.threshold;
 							}
 							valnum = parseFloat(value).toFixed(valdec);
