@@ -396,7 +396,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>warnColor</code></td>
       <td>sets the warning color for this device or system variable.
 	  <br>This value only applies if type is a kind of warning.
-      <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code>
+      <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code> - <code>"yellow"</code> - <code>"white"</code>
       <br><b>Default value:</b> <code>"red"</code>
 	  </td>
     </tr>

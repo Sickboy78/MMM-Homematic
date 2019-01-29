@@ -10,6 +10,14 @@
     color: blue;
 }
 
+.MMM-Homematic .yellow {
+    color: yellow;
+}
+
+.MMM-Homematic .white {
+    color: white;
+}
+
 .MMM-Homematic .hide {
 	display: none;
 }
