@@ -37,7 +37,7 @@ modules: [
 					name: "temperatur Laundry Room",
 					type: "temp_warn_low",
 					threshold: 10
-				}
+				},
 				{
 					id: "11104",
 					name: "washing machine",
@@ -64,6 +64,13 @@ modules: [
 					type: "presence_warn_here",
 					warnOnly: "false"
 				},
+				{
+					id: "1831",
+					name: "Today",
+					type: "sysvar_valuelist_warn_equals",
+					reference: "monday",
+					warnColor: "red"
+				}
 			]
 		}
 	}
