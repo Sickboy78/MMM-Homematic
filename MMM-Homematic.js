@@ -10,8 +10,10 @@ Module.register("MMM-Homematic",{
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
-		ccuServiceUrl: '/state.cgi',
-		ccuIdParameter: '?datapoint_id='
+		ccuStateServiceUrl: '/state.cgi',
+		ccuSysvarServiceUrl: '/sysvar.cgi',
+		ccuDatapointIdParameter: '?datapoint_id=',
+		ccuIseIdParameter: '?ise_id='
 	},
 
 	// start scheduler
@@ -219,14 +221,17 @@ Module.register("MMM-Homematic",{
 							} else if (this.type === 'sysvar_string_warn_not_empty' && (value !== '' && value !== '???')) {
 								text_class = "bright " + warn_color;
 							}
-/*
-						}  else if(this.type.startsWith('sysvar_valuelist')) {
+						} else if(this.type.startsWith('sysvar_valuelist')) {
 							// SysVar value list
-							// value_list ist nicht definiert, wird von Homematic nicht geholt
-							//
-							let strarray = value_list.split(";");
-							text_is = strarry[parseInt(value)];
-*/
+							text_is = _self.translate("IS") + " " + value;
+							
+							if(this.type.startsWith('sysvar_valuelist_') && typeof(this.reference) !== 'undefined') {
+								if(this.type === 'sysvar_valuelist_warn_equals' && (value === this.reference)) {
+									text_class = "bright " + warn_color;
+								} else if (this.type === 'sysvar_valuelist_warn_not_equals' && (value !== this.reference)) {
+									text_class = "bright " + warn_color;
+								}
+							}
 						} else if(this.type.startsWith('sysvar_number')) {
 							// SysVar number
 							let valnum = 0;
@@ -265,7 +270,8 @@ Module.register("MMM-Homematic",{
 	// update data from homematic
 	updateHomematicData: function(){
 		let _self = this;
-		let url = this.config.ccuProtocol + this.config.ccuHost + this.config.ccuXmlApiUrl + this.config.ccuServiceUrl + this.config.ccuIdParameter;
+		let datapointServiceUrl = this.config.ccuProtocol + this.config.ccuHost + this.config.ccuXmlApiUrl + this.config.ccuStateServiceUrl + this.config.ccuDatapointIdParameter;
+		let sysvarServiceUrl = this.config.ccuProtocol + this.config.ccuHost + this.config.ccuXmlApiUrl + this.config.ccuSysvarServiceUrl + this.config.ccuIseIdParameter;
 
 		if(typeof(this.config.datapoints) === 'object') {
 			_self.dataCounter = 0;
@@ -274,12 +280,22 @@ Module.register("MMM-Homematic",{
 			$.each(this.config.datapoints,function(){
 				let _that = this;
 				if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
-					$.get(url + this.id, function(data) {
-						let value = data.childNodes[0].childNodes[0].attributes.value.value;
-						_self.homematicDataRecieved(value,_that);
-					}).fail(function() {
-						_self.communicationError();
-					});
+					if(this.type.startsWith('sysvar_valuelist')) {
+						$.get(sysvarServiceUrl + this.id, function(data) {
+							let idx = data.childNodes[0].childNodes[0].attributes.value.value;
+							let value = data.childNodes[0].childNodes[0].attributes.value_list.value.split(";")[idx];
+							_self.homematicDataRecieved(value,_that);
+						}).fail(function() {
+							_self.communicationError();
+						});
+					} else {
+						$.get(datapointServiceUrl + this.id, function(data) {
+							let value = data.childNodes[0].childNodes[0].attributes.value.value;
+							_self.homematicDataRecieved(value,_that);
+						}).fail(function() {
+							_self.communicationError();
+						});
+					}
 				}
 			});
 		}

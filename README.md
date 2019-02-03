@@ -211,7 +211,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	</tr>
     <tr>
 	  <td>value list</td>
-	  <td>not (yet) supported!</td>
+	  <td>Displays the currently selected value of the value list.</td>
 	</tr>
   </tbody>
 </table>
@@ -255,7 +255,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>ccuServiceUrl</code></td>
+      <td><code>ccuStateServiceUrl</code></td>
       <td>The name of the XML API Service for getting states/values from devices/datapoints.
 	    <br>Most likely default value is good.
 	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
@@ -263,11 +263,27 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>ccuIdParameter</code></td>
+      <td><code>ccuSysvarServiceUrl</code></td>
+      <td>The name of the XML API Service for getting values from system variables of type value list.
+	    <br>Most likely default value is good.
+	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
+	    <br><b>Default value:</b> <code>/sysvar.cgi</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuDatapointIdParameter</code></td>
       <td>The name of the URL Parameter expected by the XML API Service to identify a datapoint of a device.
 	    <br>Most likely default value is good.
 	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
 	    <br><b>Default value:</b> <code>?datapoint_id=</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ccuIseIdParameter</code></td>
+      <td>The name of the URL Parameter expected by the XML API Service to identify a system variable.
+	    <br>Most likely default value is good.
+	    <br>But may change with newer versions of XML API, see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
+	    <br><b>Default value:</b> <code>?ise_id=</code>
       </td>
     </tr>
     <tr>
@@ -367,6 +383,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>sysvar_number</code> - Displays the numeric value of the system variable.
 	  <br><code>sysvar_number_warn_high</code> - Same as 'number', but with a warning if the value is higher than <code>threshold</code>.
 	  <br><code>sysvar_number_warn_low</code> - Same as 'number', but with a warning if the value is lower than <code>threshold</code>.
+	  <br><code>sysvar_valuelist</code> - Displays the current value of the value list system variable.
+	  <br><code>sysvar_valuelist_warn_equals</code> - Same as 'sysvar_valuelist', but with a warning if the value equals <code>reference</code>.
+	  <br><code>sysvar_valuelist_warn_not_equals</code> - Same as 'sysvar_valuelist', but with a warning if the value not equals <code>reference</code>.
       </td>
     </tr>
     <tr>
@@ -382,6 +401,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br>This value is required if you have defined a type with a high/low warning.
 	  <br>Must be a number without unit.
       <br><b>Example value:</b> <code>60</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>reference</code></td>
+      <td>A reference value for displaying a warning.
+	  <br>This value is required if you have defined a type with a equals/not equals warning.
+      <br><b>Example value:</b> <code>"error"</code>
 	  </td>
     </tr>
     <tr>
