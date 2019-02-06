@@ -79,7 +79,7 @@ modules: [
 
 HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 
-Extension of this module with system variables by @spitzlbergerj
+Extension of this module with system variables, switches and more tested devices by @spitzlbergerj
 
 ## Howto get your datapoint IDs
 
@@ -165,9 +165,34 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <td>type="STATE"</td>
 	</tr>
     <tr>
+	  <td>window</td>
+	  <td>HomeMatic Window / Door Contact optical (HM-Sec-SCo)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
 	  <td>temp</td>
 	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
 	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic radiator thermostat (HM-CC-RT-DN)</td>
+	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic radiator thermostat (HM-CC-RT-DN)</td>
+	  <td>type="SET_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="SET_TEMPERATURE"</td>
 	</tr>
     <tr>
 	  <td>hum</td>
@@ -175,9 +200,49 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <td>type="HUMIDITY"</td>
 	</tr>
     <tr>
+	  <td>hum</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="ACTUAL_HUMIDITY"</td>
+	</tr>
+    <tr>
 	  <td>shutter</td>
 	  <td>HomeMatic Wireless Shutter Actuator 1-channel, flush-mount (HM-LC-Bl1PBU-FM)</td>
 	  <td>type="LEVEL"</td>
+	</tr>
+    <tr>
+	  <td>switch</td>
+	  <td>HomeMatic Wireless Switch Actuator 1-channel, flush-mount (HM-LC-Sw1-FM)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
+	  <td>switch</td>
+	  <td>HomeMatic Wireless Switch Actuator 2-channel, flush-mount (HM-LC-Sw2-FM)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="ENERGY_COUNTER"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="POWER"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="CURRENT"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="VOLTAGE"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="FREQUENCY"</td>
 	</tr>
   </tbody>
 </table>
@@ -367,6 +432,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>shutter</code> - A shutter actuator. (e.g. a HomeMatic Wireless Shutter Actuator)
 	  <br><code>shutter_warn_high</code> - Same as 'shutter', but with a warning if value is equal or greater than the threshold.
 	  <br><code>shutter_warn_low</code> - Same as 'shutter', but with a warning if value is equal or less than the threshold.
+	  <br><code>switch</code> - A switch actuator. (e.g. a HomeMatic Wireless Switch Actuator)
+	  <br><code>switch_warn_on</code> - Same as 'switch', but with a warning if switch is on.
+	  <br><code>switch_warn_off</code> - Same as 'switch', but with a warning if switch is off.
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
 	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
