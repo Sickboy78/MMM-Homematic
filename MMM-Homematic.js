@@ -136,7 +136,25 @@ Module.register("MMM-Homematic",{
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
+							} 
+						
+						// Switch
+						// @spitzlbergerj, 20190206
+
+						} else if(this.type.startsWith('switch')) {
+							// switch
+							if(value == "false") {
+								text_is = _self.translate("IS_OFF");
+								if(this.type === 'switch_warn_off') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_ON");
+								if(this.type === 'switch_warn_on') {
+									text_class = "bright " + warn_color;
+								}
 							}
+
 						} else if(this.type.startsWith('other')) {
 							// other value/sensor
 							let valueStr = value;
