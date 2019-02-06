@@ -7,6 +7,10 @@ This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), 
 
 ![screenshot](screenshot.png)
 
+## Installation
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
+2. Add it to the modules array in the `config/config.js` (see next steps below)
+
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
