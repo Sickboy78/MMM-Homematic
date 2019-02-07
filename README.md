@@ -522,7 +522,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>animationSpeed</code></td>
       <td>Speed of the update animation. (Milliseconds)<br>
         <br><b>Possible values:</b><code>0</code> - <code>5000</code>
-        <br><b>Default value:</b> <code>2000</code> (2 seconds)
+        <br><b>Default value:</b> <code>1000</code> (1 seconds)
       </td>
     </tr>
   </tbody>
