@@ -514,10 +514,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     </tr>
     <tr>
       <td><code>updateInterval</code></td>
-      <td>How often does the content needs to be fetched? (Milliseconds)<br>
-        <br>Forecast.io enforces a 1,000/day request limit, so if you run your mirror constantly, anything below 90,000 (every 1.5 minutes) may require payment information or be blocked.<br>
-        <br><b>Possible values:</b> <code>1000</code> - <code>86400000</code>
-        <br><b>Default value:</b> <code>300000</code> (5 minutes)
+      <td>How often does the content needs to be fetched? (Seconds)<br>
+        <br><b>Default value:</b> <code>30</code> (1/2 minute)
       </td>
     </tr>
     <tr>
