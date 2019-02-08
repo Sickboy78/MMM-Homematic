@@ -439,6 +439,11 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>switch</code> - A switch actuator. (e.g. a HomeMatic Wireless Switch Actuator)
 	  <br><code>switch_warn_on</code> - Same as 'switch', but with a warning if switch is on.
 	  <br><code>switch_warn_off</code> - Same as 'switch', but with a warning if switch is off.
+	  <br><code>energie_a</code> - A switch actuator with power and energie metering - electric current in Ampere
+	  <br><code>energie_v</code> - A switch actuator with power and energie metering - electric potential in Volt
+	  <br><code>energie_w</code> - A switch actuator with power and energie metering - energie in Kilowatt
+	  <br><code>energie_x_warn_low</code> - Same as 'energie_x', but with a warning if value is equal or less than the threshold..
+	  <br><code>energie_x_warn_high</code> - Same as 'energie_x', but with a warning if value is equal or greater than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
 	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
@@ -470,7 +475,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>precision</code></td>
       <td>The precision for displaying a value.
-	  <br>This value is only used for 'other' and 'sysvar_number' types.
+	  <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
 	  <br><b>Example value:</b> <code>2</code>
       </td>
     </tr>
