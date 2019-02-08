@@ -138,7 +138,7 @@ Module.register("MMM-Homematic",{
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
 							} 
 						
-						// Switch
+						// Switch and energie
 						// @spitzlbergerj, 20190206
 
 						} else if(this.type.startsWith('switch')) {
@@ -154,8 +154,30 @@ Module.register("MMM-Homematic",{
 									text_class = "bright " + warn_color;
 								}
 							}
-
-						} else if(this.type.startsWith('other')) {
+						} /* else if(this.type.startsWith('energie')) {
+							// energie
+							let valueStr = Number(value).toFixed(_self.config.precision);
+							let valueUnit = '';
+							
+							if (this.type.startsWith('engerie_v')) {
+								valueUnit = _self.config.ampereUnit;
+							}
+							
+							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
+								if(this.type.endsWith('_high') && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
+									text_class = "bright " + warn_color;
+								} else if(this.type.endsWith('_low') && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
+									text_class = "bright " + warn_color;
+								} else {
+									text_is = _self.translate("IS_OK") + " (" + valueStr + valueUnit + ")";
+								}
+							} else {
+								text_is = _self.translate("IS") + " " + valueStr + valueUnit;
+							}
+							
+						} */ else if(this.type.startsWith('other')) {
 							// other value/sensor
 							let valueStr = value;
 							if(typeof(this.precision) === 'number') {
