@@ -11,7 +11,7 @@ Module.register("MMM-Homematic",{
 		voltUnit: " V",
 		pwrUnit: " W",
 		energyUnit: " Wh",
-		energyUnitK: " kWh",
+		energyUnitK: " kWh", 
 		freqUnit: " Hz",
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
