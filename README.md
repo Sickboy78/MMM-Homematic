@@ -441,7 +441,10 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>switch_warn_off</code> - Same as 'switch', but with a warning if switch is off.
 	  <br><code>energie_a</code> - A switch actuator with power and energie metering - electric current in Ampere
 	  <br><code>energie_v</code> - A switch actuator with power and energie metering - electric potential in Volt
-	  <br><code>energie_w</code> - A switch actuator with power and energie metering - energie in Kilowatt
+	  <br><code>energie_p</code> - A switch actuator with power and energie metering - power in Watt
+	  <br><code>energie_e</code> - A switch actuator with power and energie metering - energie in Watt hours
+	  <br><code>energie_ek</code> - A switch actuator with power and energie metering - energie in kilo Watt hours
+	  <br><code>energie_f</code> - A switch actuator with power and energie metering - frequency in Hertz
 	  <br><code>energie_x_warn_low</code> - Same as 'energie_x', but with a warning if value is equal or less than the threshold..
 	  <br><code>energie_x_warn_high</code> - Same as 'energie_x', but with a warning if value is equal or greater than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.
