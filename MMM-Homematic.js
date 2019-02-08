@@ -7,6 +7,9 @@ Module.register("MMM-Homematic",{
 		tempUnit: "°C",
 		humUnit: "%",
 		shutterUnit: "%",
+		ampUnit: " A",
+		voltUnit: " V",
+		wattUnit: " kWh",		
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -154,13 +157,17 @@ Module.register("MMM-Homematic",{
 									text_class = "bright " + warn_color;
 								}
 							}
-						} /* else if(this.type.startsWith('energie')) {
+						} else if(this.type.startsWith('energie')) {
 							// energie
 							let valueStr = Number(value).toFixed(_self.config.precision);
 							let valueUnit = '';
 							
 							if (this.type.startsWith('engerie_v')) {
-								valueUnit = _self.config.ampereUnit;
+								valueUnit = _self.config.voltUnit;
+							} else if (this.type.startsWith('engerie_a')) {
+								valueUnit = _self.config.ampUnit;
+							} else if (this.type.startsWith('engerie_w')) {
+								valueUnit = _self.config.wattUnit;
 							}
 							
 							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
@@ -171,13 +178,13 @@ Module.register("MMM-Homematic",{
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
 									text_class = "bright " + warn_color;
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + valueStr + valueUnit + ")";
+									text_is = valueStr + valueUnit;
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + valueStr + valueUnit;
+								text_is = valueStr + valueUnit;
 							}
 							
-						} */ else if(this.type.startsWith('other')) {
+						} else if(this.type.startsWith('other')) {
 							// other value/sensor
 							let valueStr = value;
 							if(typeof(this.precision) === 'number') {
