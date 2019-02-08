@@ -9,7 +9,8 @@ Module.register("MMM-Homematic",{
 		shutterUnit: "%",
 		ampUnit: " A",
 		voltUnit: " V",
-		wattUnit: " kWh",		
+		wattUnit: " kWh",
+		freqUnit: " Hz",
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -168,6 +169,8 @@ Module.register("MMM-Homematic",{
 								valueUnit = _self.config.ampUnit;
 							} else if (this.type.startsWith('engerie_w')) {
 								valueUnit = _self.config.wattUnit;
+							} else if (this.type.startsWith('engerie_f')) {
+								valueUnit = _self.config.freqUnit;
 							}
 							
 							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
