@@ -165,13 +165,17 @@ Module.register("MMM-Homematic",{
 							let valueStr = Number(value).toFixed(_self.config.precision);
 							let valueUnit = '';
 							
-							if (this.type.startsWith('engerie_v')) {
-								valueUnit = _self.config.voltUnit;
-							} else if (this.type.startsWith('engerie_a')) {
+							if (this.type.startsWith('energie_a')) {
 								valueUnit = _self.config.ampUnit;
-							} else if (this.type.startsWith('engerie_w')) {
-								valueUnit = _self.config.wattUnit;
-							} else if (this.type.startsWith('engerie_f')) {
+							} else if (this.type.startsWith('energie_v')) {
+								valueUnit = _self.config.voltUnit;
+							} else if (this.type.startsWith('energie_p')) {
+								valueUnit = _self.config.pwrUnit;
+							} else if (this.type.startsWith('energie_e')) {
+								valueUnit = _self.config.energyUnit;
+							} else if (this.type.startsWith('energie_ek')) {
+								valueUnit = _self.config.energyUnitK;
+							} else if (this.type.startsWith('energie_f')) {
 								valueUnit = _self.config.freqUnit;
 							}
 							
