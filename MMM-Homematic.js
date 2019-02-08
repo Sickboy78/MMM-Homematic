@@ -7,7 +7,7 @@ Module.register("MMM-Homematic",{
 		tempUnit: "°C",
 		humUnit: "%",
 		shutterUnit: "%",
-		ampUnit: " A",
+		ampUnit: " mA",
 		voltUnit: " V",
 		pwrUnit: " W",
 		energyUnit: " Wh",
@@ -162,7 +162,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('energie')) {
 							// energie
-							let valueStr = Number(value).toFixed(_self.config.precision);
+							let valueStr = Number(value).toFixed(this.precision);
 							let valueUnit = '';
 							
 							if (this.type.startsWith('energie_a')) {
