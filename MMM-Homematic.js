@@ -13,6 +13,7 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
+		localeStr: "de-DE",
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -93,7 +94,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('temp')) {
 							// temperature
-							let valueStr = Number(value).toFixed(1);
+							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 1, maximumFractionDigits: 1});;
 							
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
@@ -110,7 +111,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('hum')) {
 							// humidity
-							let valueStr = Number(value).toFixed(0);
+							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
@@ -128,7 +129,7 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('shutter')) {
 							// shutter
 							value = value*100;
-							let valueStr = Number(value).toFixed(0);
+							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 0, maximumFractionDigits: 0});;
 							
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
@@ -162,7 +163,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('energie')) {
 							// energie
-							let valueStr = Number(value).toFixed(this.precision);
+							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
 							let valueUnit = '';
 							
 							if (this.type.startsWith('energie_a')) {
@@ -197,7 +198,7 @@ Module.register("MMM-Homematic",{
 							// other value/sensor
 							let valueStr = value;
 							if(typeof(this.precision) === 'number') {
-								valueStr = Number(value).toFixed(this.precision);
+								valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
 							}
 							
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
@@ -300,7 +301,7 @@ Module.register("MMM-Homematic",{
 							if (typeof(this.threshold) === 'number') {
 								valwarn = this.threshold;
 							}
-							valnum = parseFloat(value).toFixed(valdec);
+							valnum = parseFloat(value).toLocaleString(this.localeStr, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
 							text_is = valnum.toString()
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = "bright " + warn_color;
@@ -406,3 +407,4 @@ Module.register("MMM-Homematic",{
 	},
 
 });
+
