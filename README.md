@@ -384,6 +384,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>localeStr</code></td>
+      <td>String for country-specific formatting of numbers.
+        <br><b>Possible values:</b> see <a href="https://tools.ietf.org/html/rfc5646">Tags for Identifying Languages</a>
+        <br><b>Default value:</b> <code>de-DE</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>datapoints</code></td>
       <td>An array of datapoint objects.
 		<br>Each datapoint object represents one value/state of a device.
