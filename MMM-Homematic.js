@@ -7,6 +7,12 @@ Module.register("MMM-Homematic",{
 		tempUnit: "°C",
 		humUnit: "%",
 		shutterUnit: "%",
+		ampUnit: " mA",
+		voltUnit: " V",
+		pwrUnit: " W",
+		energyUnit: " Wh",
+		energyUnitK: " kWh", 
+		freqUnit: " Hz",
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -73,7 +79,8 @@ Module.register("MMM-Homematic",{
 						
 						if(this.type.startsWith('window')) {
 							// window/door
-							if(value == 0) {
+							// @spitzlberger: for HM-Sec-SCo added testing of Boolean value  
+							if((value == 0)||(value == "false")) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
 									text_class = "bright " + warn_color;
@@ -135,7 +142,57 @@ Module.register("MMM-Homematic",{
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
+							} 
+						
+						// Switch and energie
+						// @spitzlbergerj, 20190206
+
+						} else if(this.type.startsWith('switch')) {
+							// switch
+							if(value == "false") {
+								text_is = _self.translate("IS_OFF");
+								if(this.type === 'switch_warn_off') {
+									text_class = "bright " + warn_color;
+								}
+							} else {
+								text_is = _self.translate("IS_ON");
+								if(this.type === 'switch_warn_on') {
+									text_class = "bright " + warn_color;
+								}
 							}
+						} else if(this.type.startsWith('energie')) {
+							// energie
+							let valueStr = Number(value).toFixed(this.precision);
+							let valueUnit = '';
+							
+							if (this.type.startsWith('energie_a')) {
+								valueUnit = _self.config.ampUnit;
+							} else if (this.type.startsWith('energie_v')) {
+								valueUnit = _self.config.voltUnit;
+							} else if (this.type.startsWith('energie_p')) {
+								valueUnit = _self.config.pwrUnit;
+							} else if (this.type.startsWith('energie_e')) {
+								valueUnit = _self.config.energyUnit;
+							} else if (this.type.startsWith('energie_ek')) {
+								valueUnit = _self.config.energyUnitK;
+							} else if (this.type.startsWith('energie_f')) {
+								valueUnit = _self.config.freqUnit;
+							}
+							
+							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
+								if(this.type.endsWith('_high') && value >= this.threshold) {
+									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
+									text_class = "bright " + warn_color;
+								} else if(this.type.endsWith('_low') && value <= this.threshold) {
+									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
+									text_class = "bright " + warn_color;
+								} else {
+									text_is = valueStr + valueUnit;
+								}
+							} else {
+								text_is = valueStr + valueUnit;
+							}
+							
 						} else if(this.type.startsWith('other')) {
 							// other value/sensor
 							let valueStr = value;

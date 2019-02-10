@@ -7,6 +7,10 @@ This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), 
 
 ![screenshot](screenshot.png)
 
+## Installation
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
+2. Add it to the modules array in the `config/config.js` (see next steps below)
+
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
@@ -79,7 +83,7 @@ modules: [
 
 HomeMatic is a registered trademark of [eQ-3 AG](https://www.eq-3.de/)
 
-Extension of this module with system variables by @spitzlbergerj
+Extension of this module with system variables, switches and more tested devices by @spitzlbergerj
 
 ## Howto get your datapoint IDs
 
@@ -165,9 +169,34 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <td>type="STATE"</td>
 	</tr>
     <tr>
+	  <td>window</td>
+	  <td>HomeMatic Window / Door Contact optical (HM-Sec-SCo)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
 	  <td>temp</td>
 	  <td>HomeMatic IP Temperature and Humidity Sensor with Display (HmIP-STHD)</td>
 	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic radiator thermostat (HM-CC-RT-DN)</td>
+	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic radiator thermostat (HM-CC-RT-DN)</td>
+	  <td>type="SET_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="ACTUAL_TEMPERATURE"</td>
+	</tr>
+    <tr>
+	  <td>temp</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="SET_TEMPERATURE"</td>
 	</tr>
     <tr>
 	  <td>hum</td>
@@ -175,9 +204,49 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <td>type="HUMIDITY"</td>
 	</tr>
     <tr>
+	  <td>hum</td>
+	  <td>HomeMatic wall thermostat (HM-TC-IT-WM-W-EU)</td>
+	  <td>type="ACTUAL_HUMIDITY"</td>
+	</tr>
+    <tr>
 	  <td>shutter</td>
 	  <td>HomeMatic Wireless Shutter Actuator 1-channel, flush-mount (HM-LC-Bl1PBU-FM)</td>
 	  <td>type="LEVEL"</td>
+	</tr>
+    <tr>
+	  <td>switch</td>
+	  <td>HomeMatic Wireless Switch Actuator 1-channel, flush-mount (HM-LC-Sw1-FM)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
+	  <td>switch</td>
+	  <td>HomeMatic Wireless Switch Actuator 2-channel, flush-mount (HM-LC-Sw2-FM)</td>
+	  <td>type="STATE"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="ENERGY_COUNTER"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="POWER"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="CURRENT"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="VOLTAGE"</td>
+	</tr>
+    <tr>
+	  <td>other</td>
+	  <td>Wireless Switch Actuator 1-channel with power metering, plug adapter type F (HM-ES-PMSw1-Pl)</td>
+	  <td>type="FREQUENCY"</td>
 	</tr>
   </tbody>
 </table>
@@ -367,6 +436,17 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><code>shutter</code> - A shutter actuator. (e.g. a HomeMatic Wireless Shutter Actuator)
 	  <br><code>shutter_warn_high</code> - Same as 'shutter', but with a warning if value is equal or greater than the threshold.
 	  <br><code>shutter_warn_low</code> - Same as 'shutter', but with a warning if value is equal or less than the threshold.
+	  <br><code>switch</code> - A switch actuator. (e.g. a HomeMatic Wireless Switch Actuator)
+	  <br><code>switch_warn_on</code> - Same as 'switch', but with a warning if switch is on.
+	  <br><code>switch_warn_off</code> - Same as 'switch', but with a warning if switch is off.
+	  <br><code>energie_a</code> - A switch actuator with power and energie metering - electric current in Ampere
+	  <br><code>energie_v</code> - A switch actuator with power and energie metering - electric potential in Volt
+	  <br><code>energie_p</code> - A switch actuator with power and energie metering - power in Watt
+	  <br><code>energie_e</code> - A switch actuator with power and energie metering - energie in Watt hours
+	  <br><code>energie_ek</code> - A switch actuator with power and energie metering - energie in kilo Watt hours
+	  <br><code>energie_f</code> - A switch actuator with power and energie metering - frequency in Hertz
+	  <br><code>energie_x_warn_low</code> - Same as 'energie_x', but with a warning if value is equal or less than the threshold..
+	  <br><code>energie_x_warn_high</code> - Same as 'energie_x', but with a warning if value is equal or greater than the threshold.
 	  <br><code>other</code> - A general sensor with a readable number value.
 	  <br><code>other_warn_high</code> - Same as 'other',but with a warning if value is equal or greater than the threshold.
 	  <br><code>other_warn_low</code> - Same as 'other',but with warning if value is equal or less than the threshold.
@@ -398,7 +478,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>precision</code></td>
       <td>The precision for displaying a value.
-	  <br>This value is only used for 'other' and 'sysvar_number' types.
+	  <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
 	  <br><b>Example value:</b> <code>2</code>
       </td>
     </tr>
@@ -442,17 +522,15 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     </tr>
     <tr>
       <td><code>updateInterval</code></td>
-      <td>How often does the content needs to be fetched? (Milliseconds)<br>
-        <br>Forecast.io enforces a 1,000/day request limit, so if you run your mirror constantly, anything below 90,000 (every 1.5 minutes) may require payment information or be blocked.<br>
-        <br><b>Possible values:</b> <code>1000</code> - <code>86400000</code>
-        <br><b>Default value:</b> <code>300000</code> (5 minutes)
+      <td>How often does the content needs to be fetched? (Seconds)<br>
+        <br><b>Default value:</b> <code>30</code> (1/2 minute)
       </td>
     </tr>
     <tr>
       <td><code>animationSpeed</code></td>
       <td>Speed of the update animation. (Milliseconds)<br>
         <br><b>Possible values:</b><code>0</code> - <code>5000</code>
-        <br><b>Default value:</b> <code>2000</code> (2 seconds)
+        <br><b>Default value:</b> <code>1000</code> (1 seconds)
       </td>
     </tr>
   </tbody>
