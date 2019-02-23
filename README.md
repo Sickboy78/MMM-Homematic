@@ -384,6 +384,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>localeStr</code></td>
+      <td>String for country-specific formatting of numbers.
+        <br><b>Possible values:</b> see <a href="https://tools.ietf.org/html/rfc5646">Tags for Identifying Languages</a>
+        <br><b>Default value:</b> <code>de-DE</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>datapoints</code></td>
       <td>An array of datapoint objects.
 		<br>Each datapoint object represents one value/state of a device.
@@ -535,3 +542,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     </tr>
   </tbody>
 </table>
+
+## Notice
+There is a very good Magic Mirror Module <a href="https://github.com/MAF1981/MMM-Homematic-Heaters">MMM-Homematic-Heaters</a> for displaying temperatures and humidity. (also several extensions by @spitzlbergerj). <br/><br/>
+<img src="https://user-images.githubusercontent.com/38983450/52899709-51bf1c00-31ed-11e9-9410-abd4d4b6ab25.jpg" height="200"/>
+
