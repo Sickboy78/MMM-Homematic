@@ -13,7 +13,7 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
-		localeStr: "de-DE",
+		locale: config.language,
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
@@ -81,7 +81,7 @@ Module.register("MMM-Homematic",{
 						if(this.type.startsWith('window')) {
 							// window/door
 							// @spitzlberger: for HM-Sec-SCo added testing of Boolean value  
-							if((value == 0)||(value == "false")) {
+							if((value === 0)||(value === "false")) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
 									text_class = "bright " + warn_color;
@@ -94,7 +94,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('temp')) {
 							// temperature
-							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 1, maximumFractionDigits: 1});;
+							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 1, maximumFractionDigits: 1});;
 							
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
@@ -111,7 +111,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('hum')) {
 							// humidity
-							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
@@ -129,7 +129,7 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('shutter')) {
 							// shutter
 							value = value*100;
-							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: 0, maximumFractionDigits: 0});;
+							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 0, maximumFractionDigits: 0});;
 							
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
@@ -150,7 +150,7 @@ Module.register("MMM-Homematic",{
 
 						} else if(this.type.startsWith('switch')) {
 							// switch
-							if(value == "false") {
+							if(value === "false") {
 								text_is = _self.translate("IS_OFF");
 								if(this.type === 'switch_warn_off') {
 									text_class = "bright " + warn_color;
@@ -163,7 +163,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('energie')) {
 							// energie
-							let valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
+							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
 							let valueUnit = '';
 							
 							if (this.type.startsWith('energie_a')) {
@@ -198,7 +198,7 @@ Module.register("MMM-Homematic",{
 							// other value/sensor
 							let valueStr = value;
 							if(typeof(this.precision) === 'number') {
-								valueStr = Number(value).toLocaleString(this.localeStr, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
+								valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
 							}
 							
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
@@ -221,7 +221,7 @@ Module.register("MMM-Homematic",{
 
 						else if(this.type.startsWith('sysvar_boolean')) {
 							// SysVar boolean
-							if(value == "false") {
+							if(value === "false") {
 								text_is = _self.translate("IS_FALSE");
 								if(this.type === 'sysvar_boolean_warn_false') {
 									text_class = "bright " + warn_color;
@@ -234,7 +234,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('sysvar_alarm')) {
 							// SysVar alarm
-							if(value == "false") {
+							if(value === "false") {
 								text_is = _self.translate("IS_NOT_TRIGGERED");
 								if(this.type === 'sysvar_alarm_warn_not_triggered') {
 									text_class = "bright " + warn_color;
@@ -247,7 +247,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('sysvar_mashine')) {
 							// SysVar Boolean; Special type machine that can run or not run
-							if(value == "false") {
+							if(value === "false") {
 								text_is = _self.translate("IS_NOT_RUNNING");
 								if(this.type === 'sysvar_mashine_warn_not_running') {
 									text_class = "bright " + warn_color;
@@ -260,7 +260,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('sysvar_presence')) {
 							// SysVar boolean, special type presence that can accept the values here or not here 
-							if(value == "false") {
+							if(value === "false") {
 								text_is = _self.translate("IS_AWAY");
 								if(this.type === 'sysvar_presence_warn_away') {
 									text_class = "bright " + warn_color;
@@ -301,7 +301,7 @@ Module.register("MMM-Homematic",{
 							if (typeof(this.threshold) === 'number') {
 								valwarn = this.threshold;
 							}
-							valnum = parseFloat(value).toLocaleString(this.localeStr, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
+							valnum = parseFloat(value).toLocaleString(_self.config.locale, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
 							text_is = valnum.toString()
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = "bright " + warn_color;
