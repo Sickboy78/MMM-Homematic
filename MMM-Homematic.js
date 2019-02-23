@@ -81,7 +81,7 @@ Module.register("MMM-Homematic",{
 						if(this.type.startsWith('window')) {
 							// window/door
 							// @spitzlberger: for HM-Sec-SCo added testing of Boolean value  
-							if((value === 0)||(value === "false")) {
+							if((value === "0") || (value === "false")) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
 									text_class = "bright " + warn_color;
