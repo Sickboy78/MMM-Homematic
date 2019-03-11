@@ -5,8 +5,12 @@ This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) tha
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
+This module supports output of text, icons and text or icons only.
+
 ![screenshot_01](screenshot_01.png)
+
 ![screenshot_02](screenshot_02.png)
+
 ![screenshot_03](screenshot_03.png)
 
 ## Installation
