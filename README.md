@@ -5,7 +5,9 @@ This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) tha
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-![screenshot](screenshot.png)
+![screenshot_01](screenshot_01.png)
+![screenshot_02](screenshot_02.png)
+![screenshot_03](screenshot_03.png)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -515,10 +517,50 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     </tr>
     <tr>
       <td><code>warnColor</code></td>
-      <td>sets the warning color for this device or system variable.
+      <td>Sets the warning color for this device or system variable.
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code> - <code>"yellow"</code> - <code>"white"</code>
       <br><b>Default value:</b> <code>"red"</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>icon</code></td>
+      <td>Sets an icon for the device or system variable.
+	  <br>This value can either be one of the default icons or an URL to an external icon.
+      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - an URL to an external icon
+	  </td>
+    </tr>
+    <tr>
+      <td><code>iconSize</code></td>
+      <td>Sets the size of the icon.
+	  <br>This value only applies if an icon is set.
+      <br><b>Possible values:</b> <code>"x-small"</code> - <code>"small"</code> - <code>"medium"</code> - <code>"large"</code> - <code>"x-large"</code>
+      <br><b>Default value:</b> <code>"medium"</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>iconPosition</code></td>
+      <td>Sets the position of the icon relative to the text.
+	  <br>This value only applies if an icon is set.
+      <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"right"</code>
+      <br><b>Default value:</b> <code>"left"</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>iconColor</code></td>
+      <td>Sets the color of the icon.
+	  <br>This value only applies when using the default icons or an external icon with transparency.
+	  <br>If a warning is triggered, this color gets overwritten with warnColor.
+      <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code> - <code>"yellow"</code> - <code>"white"</code>
+      <br><b>Default value:</b> <code>"white"</code>
+	  </td>
+    </tr>
+    <tr>
+      <td><code>iconOnly</code></td>
+      <td>Sets the text invisible and shows only the icon.
+	  <br>This value only applies if an icon is set.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"false"</code>
 	  </td>
     </tr>
     <tr>

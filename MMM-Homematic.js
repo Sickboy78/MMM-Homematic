@@ -64,16 +64,29 @@ Module.register("MMM-Homematic",{
 						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
 						let text_is = "";
 						let text_class = "";
-						if((this.type.indexOf("warn") !== -1) && (typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true')) {
+						let text_with_icon_class = "";
+						let warn_color = "red";
+						let warn_class = "bright red";
+						let icon_color = "white";
+						let icon_html;
+						let icon_class = "";
+						let icon_size = 'medium';
+						let icon_position = 'left';
+						
+						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
 							text_class = "hide";
 						}
 
 						// Setting warning color
 						// @spitzlbergerj, 20190127
 
-						let warn_color = "red"
 						if(typeof(this.warnColor) === 'string') {
 							warn_color = this.warnColor;
+							warn_class = "bright " + warn_color;
+						}
+
+						if(typeof(this.iconColor) === 'string') {
+							icon_color = this.iconColor;
 						}
 
 						// Devices
@@ -84,12 +97,14 @@ Module.register("MMM-Homematic",{
 							if((value === "0") || (value === "false")) {
 								text_is = _self.translate("IS_CLOSED");
 								if(this.type === 'window_warn_closed') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_OPEN");
 								if(this.type === 'window_warn_open') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('temp')) {
@@ -99,10 +114,12 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
 								}
@@ -116,10 +133,12 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
 								}
@@ -134,10 +153,12 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
 								}
@@ -153,12 +174,14 @@ Module.register("MMM-Homematic",{
 							if(value === "false") {
 								text_is = _self.translate("IS_OFF");
 								if(this.type === 'switch_warn_off') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_ON");
 								if(this.type === 'switch_warn_on') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('energie')) {
@@ -183,10 +206,12 @@ Module.register("MMM-Homematic",{
 							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
 								if(this.type.endsWith('_high') && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if(this.type.endsWith('_low') && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else {
 									text_is = valueStr + valueUnit;
 								}
@@ -204,10 +229,12 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else {
 								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
 								}
@@ -224,12 +251,14 @@ Module.register("MMM-Homematic",{
 							if(value === "false") {
 								text_is = _self.translate("IS_FALSE");
 								if(this.type === 'sysvar_boolean_warn_false') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_TRUE");
 								if(this.type === 'sysvar_boolean_warn_true') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('sysvar_alarm')) {
@@ -237,12 +266,14 @@ Module.register("MMM-Homematic",{
 							if(value === "false") {
 								text_is = _self.translate("IS_NOT_TRIGGERED");
 								if(this.type === 'sysvar_alarm_warn_not_triggered') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_TRIGGERED");
 								if(this.type === 'sysvar_alarm_warn_triggered') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('sysvar_mashine')) {
@@ -250,12 +281,14 @@ Module.register("MMM-Homematic",{
 							if(value === "false") {
 								text_is = _self.translate("IS_NOT_RUNNING");
 								if(this.type === 'sysvar_mashine_warn_not_running') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_RUNNING");
 								if(this.type === 'sysvar_mashine_warn_running') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('sysvar_presence')) {
@@ -263,21 +296,25 @@ Module.register("MMM-Homematic",{
 							if(value === "false") {
 								text_is = _self.translate("IS_AWAY");
 								if(this.type === 'sysvar_presence_warn_away') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_HERE");
 								if(this.type === 'sysvar_presence_warn_here') {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('sysvar_string')) {
 							// SysVar String Value
 							text_is = value;
 							if(this.type === 'sysvar_string_warn_empty' && (value === '' || value === '???')) {
-								text_class = "bright " + warn_color;
+								text_class = warn_class;
+								icon_color = warn_color;
 							} else if (this.type === 'sysvar_string_warn_not_empty' && (value !== '' && value !== '???')) {
-								text_class = "bright " + warn_color;
+								text_class = warn_class;
+								icon_color = warn_color;
 							}
 						} else if(this.type.startsWith('sysvar_valuelist')) {
 							// SysVar value list
@@ -285,9 +322,11 @@ Module.register("MMM-Homematic",{
 							
 							if(this.type.startsWith('sysvar_valuelist_') && typeof(this.reference) !== 'undefined') {
 								if(this.type === 'sysvar_valuelist_warn_equals' && (value === this.reference)) {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								} else if (this.type === 'sysvar_valuelist_warn_not_equals' && (value !== this.reference)) {
-									text_class = "bright " + warn_color;
+									text_class = warn_class;
+									icon_color = warn_color;
 								}
 							}
 						} else if(this.type.startsWith('sysvar_number')) {
@@ -304,23 +343,66 @@ Module.register("MMM-Homematic",{
 							valnum = parseFloat(value).toLocaleString(_self.config.locale, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
 							text_is = valnum.toString()
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
-								text_class = "bright " + warn_color;
+								text_class = warn_class;
+								icon_color = warn_color;
 							}
 							if(this.type === 'sysvar_number_warn_high' && valnum >= valwarn) {
-								text_class = "bright " + warn_color;
+								text_class = warn_class;
+								icon_color = warn_color;
 							}
 						}
+						
+						if(typeof(this.icon) === 'string') {
+							// show icon
+							let icon_url;
+							
+							if((typeof(this.iconSize) === 'string')) {
+								icon_size = this.iconSize;
+							}
+							if((typeof(this.iconPosition) === 'string')) {
+								icon_position = this.iconPosition;
+							}
+								
+							icon_class = " icon icon-" + icon_size + " " + icon_color + '-icon ';
+							if(icon_position !== 'top') {
+								text_with_icon_class = " text-with-icon text-with-icon-" + icon_size + " text-with-icon-" + icon_position;
+							}
 
-						div = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class});
-						div.html(this.name + " " + text_is);
-						wrapper.append(div);
+							if(this.icon.startsWith('default_')){
+								// integrated icon
+								icon_url = _self.data.path + "icons/" + this.icon.substr(8) + ".png";
+							} else {
+								// external icon url
+								icon_url = this.icon;
+							}
+							icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});
+							
+							if(icon_position !== 'right') {
+								wrapper.append(icon_html);
+							}
+						}
+						
+						if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
+							let textHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class + text_with_icon_class});
+							textHtml.html(this.name + " " + text_is);
+							wrapper.append(textHtml);
+						}
+
+						if(typeof(this.icon) === 'string') {
+							if(icon_position === 'right') {
+								wrapper.append(icon_html);
+							}
+							if(icon_position !== 'top') {
+								wrapper.append($("<br/>",{class: text_class}));
+							}
+						}
 					}
 				});
 			}
 		} else {
-			let div = $("<div/>",{id: _self.identifier + "-loading"});
-			div.html("Loading ...");
-			wrapper.append(div);
+			let textHtml = $("<div/>",{id: _self.identifier + "-loading"});
+			textHtml.html("Loading ...");
+			wrapper.append(textHtml);
 		}
 		return wrapper[0];
 	},
