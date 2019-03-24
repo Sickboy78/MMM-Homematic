@@ -298,6 +298,58 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   </tbody>
 </table>
 
+## Default icons
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th width="100%">Icon</th>
+    </tr>
+  <thead>
+  <tbody>
+    <tr>
+	  <td>default_icon_mail</td>
+	  <td>![icon_mail](icons/icon_mail.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_presence</td>
+	  <td>![icon_presence](icons/icon_presence.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_temp</td>
+	  <td>![icon_temp](icons/icon_temp.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_hum</td>
+	  <td>![icon_hum](icons/icon_hum.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_window</td>
+	  <td>![icon_window](icons/icon_window.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_door</td>
+	  <td>![icon_door](icons/icon_door.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_shutter</td>
+	  <td>![icon_shutter](icons/icon_shutter.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_socket_eu</td>
+	  <td>![icon_socket_eu](icons/icon_socket_eu.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_socket_us</td>
+	  <td>![icon_socket_us](icons/icon_socket_us.png)</td>
+	</tr>
+    <tr>
+	  <td>default_icon_washmachine</td>
+	  <td>![icon_washmachine](icons/icon_washmachine.png)</td>
+	</tr>
+  </tbody>
+</table>
 
 ## Configuration options
 
@@ -531,7 +583,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>icon</code></td>
       <td>Sets an icon for the device or system variable.
 	  <br>This value can either be one of the default icons or an URL to an external icon.
-      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - an URL to an external icon
+      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - an URL to an external icon
 	  </td>
     </tr>
     <tr>
