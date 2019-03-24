@@ -310,43 +310,43 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   <tbody>
     <tr>
 	  <td>default_icon_mail</td>
-	  <td>![icon_mail](icons/icon_mail.png)</td>
+	  <td><img title="icon_mail" src="icons/icon_mail.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_presence</td>
-	  <td>![icon_presence](icons/icon_presence.png)</td>
+	  <td><img title="icon_presence" src="icons/icon_presence.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_temp</td>
-	  <td>![icon_temp](icons/icon_temp.png)</td>
+	  <td><img title="icon_temp" src="icons/icon_temp.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_hum</td>
-	  <td>![icon_hum](icons/icon_hum.png)</td>
+	  <td><img title="icon_hum" src="icons/icon_hum.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_window</td>
-	  <td>![icon_window](icons/icon_window.png)</td>
+	  <td><img title="icon_window" src="icons/icon_window.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_door</td>
-	  <td>![icon_door](icons/icon_door.png)</td>
+	  <td><img title="icon_door" src="icons/icon_door.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_shutter</td>
-	  <td>![icon_shutter](icons/icon_shutter.png)</td>
+	  <td><img title="icon_shutter" src="icons/icon_shutter.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_socket_eu</td>
-	  <td>![icon_socket_eu](icons/icon_socket_eu.png)</td>
+	  <td><img title="icon_socket_eu" src="icons/icon_socket_eu.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_socket_us</td>
-	  <td>![icon_socket_us](icons/icon_socket_us.png)</td>
+	  <td><img title="icon_socket_us" src="icons/icon_socket_us.png" width="48px"></td>
 	</tr>
     <tr>
 	  <td>default_icon_washmachine</td>
-	  <td>![icon_washmachine](icons/icon_washmachine.png)</td>
+	  <td><img title="icon_washmachine" src="icons/icon_washmachine.png" width="48px"></td>
 	</tr>
   </tbody>
 </table>
