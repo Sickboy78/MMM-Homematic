@@ -646,6 +646,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 * [HomeMatic](https://www.homematic.com/) - HomeMatic website
 * [XML-API](https://github.com/hobbyquaker/XML-API) - XML-Api for HomeMatic CCU
 * [Homematic-Scripts](https://github.com/spitzlbergerj/homematic-scripts) - Scripts for your HomeMatic installation by [@spitzlbergerj](https://github.com/spitzlbergerj).
-* [MMM-Homematic-Heaters](https://github.com/MAF1981/MMM-Homematic-Heaters) - A very good Magic Mirror Module for Homematic radiator thermostats. (also several extensions by @spitzlbergerj). <br/><br/>
+* [MMM-Homematic-Thermostats](https://github.com/spitzlbergerj/MMM-Homematic-Thermostats) - A very good Magic Mirror Module for Homematic radiator thermostats. <br/><br/>
 <img src="https://user-images.githubusercontent.com/38983450/52899709-51bf1c00-31ed-11e9-9410-abd4d4b6ab25.jpg" height="182"/>
 
