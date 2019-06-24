@@ -60,7 +60,7 @@ modules: [
 					type: "sysvar_number_warn_high",
 					precision: 2,
 					threshold: 2,
-					sysvarNumberUnit: "km/h",
+					numberUnit: "km/h",
 					warnColor: "blue",
 				},
 				{
@@ -447,9 +447,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>sysvarNumberUnit</code></td>
-      <td>The unit of a system variable number value.
-	<br>This value is only used for 'sysvar_number' types.
+      <td><code>numberUnit</code></td>
+      <td>The unit of a number value.
+	<br>This value is only used for 'other' and 'sysvar_number' types.
         <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
         <br><b>Default value:</b> <code>" "</code>
       </td>
