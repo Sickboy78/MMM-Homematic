@@ -13,6 +13,11 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
+		
+		// Introduction sysvarNumberUnit
+		// @spitzlbergerj, 20190624
+		sysvarNumberUnit: " ",
+		
 		locale: config.language,
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
@@ -72,6 +77,11 @@ Module.register("MMM-Homematic",{
 						let icon_class = "";
 						let icon_size = 'medium';
 						let icon_position = 'left';
+
+						// Introduction sysvarNumberUnit
+						// @spitzlbergerj, 20190624
+						let sysvarNumberUnit = '';
+
 						
 						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
 							text_class = "hide";
@@ -88,6 +98,13 @@ Module.register("MMM-Homematic",{
 						if(typeof(this.iconColor) === 'string') {
 							icon_color = this.iconColor;
 						}
+
+						// Introduction sysvarNumberUnit
+						// @spitzlbergerj, 20190624
+						if(typeof(this.sysvarNumberUnit) === 'string') {
+							sysvarNumberUnit = this.sysvarNumberUnit;
+						}
+
 
 						// Devices
 						
@@ -341,7 +358,11 @@ Module.register("MMM-Homematic",{
 								valwarn = this.threshold;
 							}
 							valnum = parseFloat(value).toLocaleString(_self.config.locale, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
-							text_is = valnum.toString()
+
+							// Introduction sysvarNumberUnit
+							// @spitzlbergerj, 20190624
+							text_is = valnum.toString() + " " +sysvarNumberUnit;
+
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = warn_class;
 								icon_color = warn_color;
@@ -489,4 +510,3 @@ Module.register("MMM-Homematic",{
 	},
 
 });
-
