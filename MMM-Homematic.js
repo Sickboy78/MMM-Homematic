@@ -14,9 +14,9 @@ Module.register("MMM-Homematic",{
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
 		
-		// Introduction sysvarNumberUnit
+		// Introduction numberUnit
 		// @spitzlbergerj, 20190624
-		sysvarNumberUnit: " ",
+		numberUnit: " ",
 		
 		locale: config.language,
 		ccuProtocol: 'http://',
@@ -78,9 +78,9 @@ Module.register("MMM-Homematic",{
 						let icon_size = 'medium';
 						let icon_position = 'left';
 
-						// Introduction sysvarNumberUnit
+						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
-						let sysvarNumberUnit = '';
+						let numberUnit = '';
 
 						
 						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
@@ -99,10 +99,10 @@ Module.register("MMM-Homematic",{
 							icon_color = this.iconColor;
 						}
 
-						// Introduction sysvarNumberUnit
+						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
-						if(typeof(this.sysvarNumberUnit) === 'string') {
-							sysvarNumberUnit = this.sysvarNumberUnit;
+						if(typeof(this.numberUnit) === 'string') {
+							numberUnit = this.numberUnit;
 						}
 
 
@@ -256,7 +256,9 @@ Module.register("MMM-Homematic",{
 								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + valueStr;
+								// Introduction numberUnit
+								// @spitzlbergerj, 20190624
+								text_is = _self.translate("IS") + " " + valueStr + " " + numberUnit;
 							}
 						} 
 						
@@ -359,9 +361,9 @@ Module.register("MMM-Homematic",{
 							}
 							valnum = parseFloat(value).toLocaleString(_self.config.locale, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
 
-							// Introduction sysvarNumberUnit
+							// Introduction numberUnit
 							// @spitzlbergerj, 20190624
-							text_is = valnum.toString() + " " +sysvarNumberUnit;
+							text_is = valnum.toString() + " " + numberUnit;
 
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = warn_class;
