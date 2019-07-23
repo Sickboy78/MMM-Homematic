@@ -56,10 +56,11 @@ modules: [
 				},
 				{
 					id: "2904",
-					name: "Debug-Level = ",
+					name: "wind speed:",
 					type: "sysvar_number_warn_high",
 					precision: 2,
 					threshold: 2,
+					numberUnit: "km/h",
 					warnColor: "blue",
 				},
 				{
@@ -443,6 +444,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td>The unit of the shutter actuator.
         <br><b>Possible values:</b> <code>%</code> - <code>pc</code>
         <br><b>Default value:</b> <code>%</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>numberUnit</code></td>
+      <td>The unit of a numeric value.
+	<br>This value is only used for 'other' and 'sysvar_number' types.
+        <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
+        <br><b>Default value:</b> <code>" "</code>
       </td>
     </tr>
     <tr>
