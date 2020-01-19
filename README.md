@@ -5,13 +5,15 @@ This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) tha
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-This module supports output of text, icons and text or icons only.
+This module supports output of text, icons and text or icons only. It also supports output as table.
 
 ![screenshot_01](screenshot_01.png)
 
 ![screenshot_02](screenshot_02.png)
 
 ![screenshot_03](screenshot_03.png)
+
+![screenshot_03](screenshot_04.png)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -426,6 +428,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>style</code></td>
+      <td>The style of output.
+        <br><b>Possible values:</b> <code>lines</code> - <code>table</code>
+        <br><b>Default value:</b> <code>lines</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>tempUnit</code></td>
       <td>The unit of temperature.
         <br><b>Possible values:</b> <code>°C</code> - <code>°F</code> - <code>K</code>
@@ -494,6 +503,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><b>Example values:</b> <code>
 	  <br>"front door"
 	  <br>"temperature living room"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>nameShort</code></td>
+      <td>The display name of the device/datapoint in short form. This value is used in table view, if it exists. 
+	  <br><b>Example values:</b> <code>
+	  <br>"door"</code>
       </td>
     </tr>
     <tr>
