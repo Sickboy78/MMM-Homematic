@@ -25,7 +25,12 @@ Module.register("MMM-Homematic",{
 		ccuStateServiceUrl: '/state.cgi',
 		ccuSysvarServiceUrl: '/sysvar.cgi',
 		ccuDatapointIdParameter: '?datapoint_id=',
-		ccuIseIdParameter: '?ise_id='
+		ccuIseIdParameter: '?ise_id=',
+		
+		// output as table
+		// @spitzlbergerj,20200119
+		style: 'lines',
+		noTextRow: 'false',
 	},
 
 	// start scheduler
@@ -62,12 +67,26 @@ Module.register("MMM-Homematic",{
 	getDom: function() {
 		let _self = this;
 		let wrapper = $("<div/>",{class: 'small'});
+		
+		// output as table
+		// @spitzlbergerj, 20200119
+		var deviceTable = $("<table/>",{class: 'small'});
+		var textRow = $("<tr/>",{class: 'dimmed'});
+		var iconRow = $("<tr/>",{class: 'dimmed'});
+		var valueRow = $("<tr/>",{class: 'dimmed'});
+		
 		if(typeof(_self.homematicData) !== 'undefined') {
 			if(typeof(this.config.datapoints) === 'object') {
+				
+				// loop over elementFromPoint
 				$.each(this.config.datapoints,function(){
 					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
 						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
+						let element_html;
+						let rowElement;
+						let text_html;
 						let text_is = "";
+						let text_is_short = "";
 						let text_class = "";
 						let text_with_icon_class = "";
 						let warn_color = "red";
@@ -77,6 +96,10 @@ Module.register("MMM-Homematic",{
 						let icon_class = "";
 						let icon_size = 'medium';
 						let icon_position = 'left';
+						
+						// output as table
+						// @spitzlbergerj,20200119
+						element_html = $("<div/>");
 
 						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
@@ -113,12 +136,14 @@ Module.register("MMM-Homematic",{
 							// @spitzlberger: for HM-Sec-SCo added testing of Boolean value  
 							if((value === "0") || (value === "false")) {
 								text_is = _self.translate("IS_CLOSED");
+								text_is_short = _self.translate("IS_CLOSED_SHORT");
 								if(this.type === 'window_warn_closed') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_OPEN");
+								text_is_short = _self.translate("IS_OPEN_SHORT");
 								if(this.type === 'window_warn_open') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -131,17 +156,21 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
+									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
+									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
+									text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.tempUnit;
+								text_is_short = valueStr + _self.config.tempUnit;
 							}
 						} else if(this.type.startsWith('hum')) {
 							// humidity
@@ -150,17 +179,21 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
+									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
+									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
+									text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.humUnit;
+								text_is_short = valueStr + _self.config.humUnit;
 							}
 						} else if(this.type.startsWith('shutter')) {
 							// shutter
@@ -170,17 +203,21 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
+									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
+									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
 									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
+									text_is_short = valueStr + _self.config.shutterUnit;
 								}
 							} else {
 								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
+								text_is_short = valueStr + _self.config.shutterUnit;
 							} 
 						
 						// Switch and energie
@@ -190,12 +227,14 @@ Module.register("MMM-Homematic",{
 							// switch
 							if(value === "false") {
 								text_is = _self.translate("IS_OFF");
+								text_is_short = _self.translate("IS_OFF_SHORT");
 								if(this.type === 'switch_warn_off') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_ON");
+								text_is_short = _self.translate("IS_ON_SHORT");
 								if(this.type === 'switch_warn_on') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -223,17 +262,21 @@ Module.register("MMM-Homematic",{
 							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
 								if(this.type.endsWith('_high') && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
+									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type.endsWith('_low') && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
+									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
 									text_is = valueStr + valueUnit;
+									text_is_short = text_is;
 								}
 							} else {
 								text_is = valueStr + valueUnit;
+								text_is_short = text_is;
 							}
 							
 						} else if(this.type.startsWith('other')) {
@@ -246,19 +289,23 @@ Module.register("MMM-Homematic",{
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
 									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
+									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
 									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
+									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
 								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
+								text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
 								// Introduction numberUnit
 								// @spitzlbergerj, 20190624
 								text_is = _self.translate("IS") + " " + valueStr + " " + numberUnit;
+								text_is_short = valueStr + " " + numberUnit;
 							}
 						} 
 						
@@ -269,12 +316,14 @@ Module.register("MMM-Homematic",{
 							// SysVar boolean
 							if(value === "false") {
 								text_is = _self.translate("IS_FALSE");
+								text_is_short = _self.translate("IS_FALSE_SHORT");
 								if(this.type === 'sysvar_boolean_warn_false') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_TRUE");
+								text_is_short = _self.translate("IS_TRUE_SHORT");
 								if(this.type === 'sysvar_boolean_warn_true') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -284,12 +333,14 @@ Module.register("MMM-Homematic",{
 							// SysVar alarm
 							if(value === "false") {
 								text_is = _self.translate("IS_NOT_TRIGGERED");
+								text_is_short = _self.translate("IS_NOT_TRIGGERED_SHORT");
 								if(this.type === 'sysvar_alarm_warn_not_triggered') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_TRIGGERED");
+								text_is_short = _self.translate("IS_TRIGGERED_SHORT");
 								if(this.type === 'sysvar_alarm_warn_triggered') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -299,12 +350,14 @@ Module.register("MMM-Homematic",{
 							// SysVar Boolean; Special type machine that can run or not run
 							if(value === "false") {
 								text_is = _self.translate("IS_NOT_RUNNING");
+								text_is_short = _self.translate("IS_NOT_RUNNING_SHORT");
 								if(this.type === 'sysvar_mashine_warn_not_running') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_RUNNING");
+								text_is_short = _self.translate("IS_RUNNING_SHORT");
 								if(this.type === 'sysvar_mashine_warn_running') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -314,12 +367,14 @@ Module.register("MMM-Homematic",{
 							// SysVar boolean, special type presence that can accept the values here or not here 
 							if(value === "false") {
 								text_is = _self.translate("IS_AWAY");
+								text_is_short = _self.translate("IS_AWAY_SHORT");
 								if(this.type === 'sysvar_presence_warn_away') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
 								text_is = _self.translate("IS_HERE");
+								text_is_short = _self.translate("IS_HERE_SHORT");
 								if(this.type === 'sysvar_presence_warn_here') {
 									text_class = warn_class;
 									icon_color = warn_color;
@@ -328,6 +383,7 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_string')) {
 							// SysVar String Value
 							text_is = value;
+							text_is_short = text_is;
 							if(this.type === 'sysvar_string_warn_empty' && (value === '' || value === '???')) {
 								text_class = warn_class;
 								icon_color = warn_color;
@@ -338,6 +394,7 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_valuelist')) {
 							// SysVar value list
 							text_is = _self.translate("IS") + " " + value;
+							text_is_short = value;
 							
 							if(this.type.startsWith('sysvar_valuelist_') && typeof(this.reference) !== 'undefined') {
 								if(this.type === 'sysvar_valuelist_warn_equals' && (value === this.reference)) {
@@ -364,6 +421,7 @@ Module.register("MMM-Homematic",{
 							// Introduction numberUnit
 							// @spitzlbergerj, 20190624
 							text_is = valnum.toString() + " " + numberUnit;
+							text_is_short = text_is;
 
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = warn_class;
@@ -374,6 +432,16 @@ Module.register("MMM-Homematic",{
 								icon_color = warn_color;
 							}
 						}
+						
+						// output as table
+						// @spitzlbergerj,20200119
+
+						// ----------------------------------
+						// Compose HTML code
+						// ----------------------------------
+						
+						// ----------------------------------
+						// icon					
 						
 						if(typeof(this.icon) === 'string') {
 							// show icon
@@ -398,29 +466,72 @@ Module.register("MMM-Homematic",{
 								// external icon url
 								icon_url = this.icon;
 							}
-							icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});
-							
-							if(icon_position !== 'right') {
-								wrapper.append(icon_html);
-							}
+							icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
 						}
 						
-						if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
-							let textHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class + text_with_icon_class});
-							textHtml.html(this.name + " " + text_is);
-							wrapper.append(textHtml);
-						}
+						// ----------------------------------
+						// identifier and state	string				
 
-						if(typeof(this.icon) === 'string') {
-							if(icon_position === 'right') {
-								wrapper.append(icon_html);
+						text_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class + text_with_icon_class});
+						text_html.html(this.name + " " + text_is);
+						
+						
+						// ----------------------------------
+						// put html snippets together
+						
+						if(_self.config.style === 'table') {
+							rowElement  = $("<td/>",{class: 'centered'});
+							if(typeof(this.nameShort) === 'string') {
+								rowElement.html(this.nameShort)
+							} else {
+								rowElement.html(this.name)
 							}
-							if(icon_position !== 'top') {
-								wrapper.append($("<br/>",{class: text_class}));
+							textRow.append(rowElement);
+							
+							rowElement  = $("<td/>",{class: 'centered'});
+							rowElement.html(icon_html)
+							iconRow.append(rowElement);
+							
+							rowElement  = $("<td/>",{class: 'centered'});
+							rowElement.html(text_is_short)
+							valueRow.append(rowElement);
+						} else {
+							if(icon_position !== 'right') {
+								element_html.append(icon_html);
 							}
+							
+							if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
+								element_html.append(text_html);
+							}
+
+							if(typeof(this.icon) === 'string') {
+								if(icon_position === 'right') {
+									element_html.append(icon_html);
+								}
+								if(icon_position !== 'top') {
+									element_html.append($("<br/>",{class: text_class}));
+								}
+							}
+							
+							// ---------------------------------
+							// append element html code to wrapper			
+							wrapper.append(element_html);
 						}
+						
+						
+					} // element is valid
+				}); // end of loop
+				
+				if(_self.config.style === 'table') {
+					if (_self.config.noTextRow !== 'true'){
+						deviceTable.append(textRow);
 					}
-				});
+					
+					deviceTable.append(iconRow);
+					deviceTable.append(valueRow);
+					
+					wrapper.append(deviceTable);
+				}
 			}
 		} else {
 			let textHtml = $("<div/>",{id: _self.identifier + "-loading"});
