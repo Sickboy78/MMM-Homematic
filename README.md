@@ -13,7 +13,7 @@ This module supports output of text, icons and text or icons only. It also suppo
 
 ![screenshot_03](screenshot_03.png)
 
-![screenshot_03](screenshot_04.png)
+![screenshot_03](screenshot_04.jpg)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
