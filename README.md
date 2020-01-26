@@ -13,7 +13,9 @@ This module supports output of text, icons and text or icons only. It also suppo
 
 ![screenshot_03](screenshot_03.png)
 
-![screenshot_03](screenshot_04.jpg)
+![screenshot_04](screenshot_04.jpg)
+
+![screenshot_05](screenshot_05.jpg)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -22,6 +24,8 @@ This module supports output of text, icons and text or icons only. It also suppo
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
+
+Lines view:
 ````javascript
 modules: [
 	{
@@ -84,6 +88,37 @@ modules: [
 					reference: "monday",
 					warnColor: "red"
 				}
+			]
+		}
+	}
+]
+````
+
+Table view without the value row:
+````javascript
+modules: [
+	{
+		module: 'MMM-Homematic',
+		position: 'top_center',
+		header: 'SMART HOME',
+		config:	{
+			ccuHost: 'ccu3-webui',	// hostname of your ccu (e.g. for CCU3 default is "ccu3-webui")
+			tempUnit: "°C",			// unit of your temperatur values
+			style: 'table',
+			tableShowValueRow: 'false',
+			datapoints: [			// the datapoints of your HomeMatic devices/sensors
+				{
+					id: "15387",
+					name: "Garage Tesla",
+					nameShort: "Tesla",
+					type: "window_warn_open",
+					icon: "http://yourdomain/yourpath/youricon.png",
+					iconSize: "small",
+					iconColor: "green",
+					warnColor: "red",
+					warnOnly: "false",
+				},
+
 			]
 		}
 	}
@@ -461,6 +496,22 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	<br>This value is only used for 'other' and 'sysvar_number' types.
         <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
         <br><b>Default value:</b> <code>" "</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>tableShowTextRow</code></td>
+      <td>Toggles whether the row with the names of the devices is displayed in the table view.
+	<br>This value is only used in table view.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>tableShowValueRow</code></td>
+      <td>Toggles whether the row with the values of the devices is displayed in the table view.
+	<br>This value is only used in table view.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
       </td>
     </tr>
     <tr>
