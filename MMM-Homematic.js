@@ -30,7 +30,8 @@ Module.register("MMM-Homematic",{
 		// output as table
 		// @spitzlbergerj,20200119
 		style: 'lines',
-		noTextRow: 'false',
+		tableShowTextRow: 'true',
+		tableShowValueRow: 'true',
 	},
 
 	// start scheduler
@@ -480,7 +481,7 @@ Module.register("MMM-Homematic",{
 						// put html snippets together
 						
 						if(_self.config.style === 'table') {
-							rowElement  = $("<td/>",{class: 'centered'});
+							rowElement  = $("<td/>",{class: 'centered ' + text_class});
 							if(typeof(this.nameShort) === 'string') {
 								rowElement.html(this.nameShort)
 							} else {
@@ -488,11 +489,11 @@ Module.register("MMM-Homematic",{
 							}
 							textRow.append(rowElement);
 							
-							rowElement  = $("<td/>",{class: 'centered'});
+							rowElement  = $("<td/>",{class: 'centered ' + text_class});
 							rowElement.html(icon_html)
 							iconRow.append(rowElement);
 							
-							rowElement  = $("<td/>",{class: 'centered'});
+							rowElement  = $("<td/>",{class: 'centered ' + text_class});
 							rowElement.html(text_is_short)
 							valueRow.append(rowElement);
 						} else {
@@ -523,12 +524,15 @@ Module.register("MMM-Homematic",{
 				}); // end of loop
 				
 				if(_self.config.style === 'table') {
-					if (_self.config.noTextRow !== 'true'){
+					if (_self.config.tableShowTextRow === 'true'){
 						deviceTable.append(textRow);
 					}
 					
 					deviceTable.append(iconRow);
-					deviceTable.append(valueRow);
+					
+					if (_self.config.tableShowValueRow === 'true'){
+						deviceTable.append(valueRow);
+					}
 					
 					wrapper.append(deviceTable);
 				}
