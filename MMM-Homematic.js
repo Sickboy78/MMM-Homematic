@@ -86,6 +86,7 @@ Module.register("MMM-Homematic",{
 						let element_html;
 						let rowElement;
 						let text_html;
+						let tableTextHide;
 						let text_is = "";
 						let text_is_short = "";
 						let text_class = "";
@@ -109,6 +110,7 @@ Module.register("MMM-Homematic",{
 						
 						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
 							text_class = "hide";
+							tableTextHide = "hide";
 						}
 
 						// Setting warning color
@@ -481,7 +483,7 @@ Module.register("MMM-Homematic",{
 						// put html snippets together
 						
 						if(_self.config.style === 'table') {
-							rowElement  = $("<td/>",{class: 'centered ' + text_class});
+							rowElement  = $("<td/>",{class: 'centered ' + tableTextHide});
 							if(typeof(this.nameShort) === 'string') {
 								rowElement.html(this.nameShort)
 							} else {
@@ -493,7 +495,7 @@ Module.register("MMM-Homematic",{
 							rowElement.html(icon_html)
 							iconRow.append(rowElement);
 							
-							rowElement  = $("<td/>",{class: 'centered ' + text_class});
+							rowElement  = $("<td/>",{class: 'centered ' + tableTextHide});
 							rowElement.html(text_is_short)
 							valueRow.append(rowElement);
 						} else {
