@@ -466,6 +466,7 @@ Module.register("MMM-Homematic",{
 							if(this.icon.startsWith('fa-')){
 								symbol = document.createElement("i");
 								symbol.className = "fa fa-fw " + this.icon;
+								symbol.style = "color: " + icon_color;
 							}
 							else
 							{
