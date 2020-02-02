@@ -98,6 +98,7 @@ Module.register("MMM-Homematic",{
 						let icon_class = "";
 						let icon_size = 'medium';
 						let icon_position = 'left';
+						let symbol; 
 						
 						// output as table
 						// @spitzlbergerj,20200119
@@ -462,14 +463,21 @@ Module.register("MMM-Homematic",{
 								text_with_icon_class = " text-with-icon text-with-icon-" + icon_size + " text-with-icon-" + icon_position;
 							}
 
-							if(this.icon.startsWith('default_')){
-								// integrated icon
-								icon_url = _self.data.path + "icons/" + this.icon.substr(8) + ".png";
-							} else {
-								// external icon url
-								icon_url = this.icon;
+							if(this.icon.startsWith('fa-')){
+								symbol = document.createElement("i");
+								symbol.className = "fa fa-fw " + this.icon;
 							}
-							icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
+							else
+							{
+								if(this.icon.startsWith('default_')){
+									// integrated icon
+									icon_url = _self.data.path + "icons/" + this.icon.substr(8) + ".png";
+								} else {
+									// external icon url
+									icon_url = this.icon;
+								}
+								icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
+							}
 						}
 						
 						// ----------------------------------
@@ -492,7 +500,12 @@ Module.register("MMM-Homematic",{
 							textRow.append(rowElement);
 							
 							rowElement  = $("<td/>",{class: 'centered ' + text_class});
-							rowElement.html(icon_html)
+							if(this.icon.startsWith('fa-')){
+								rowElement.append(symbol)
+							}
+							else {	
+								rowElement.html(icon_html);
+							}
 							iconRow.append(rowElement);
 							
 							rowElement  = $("<td/>",{class: 'centered ' + tableTextHide});
