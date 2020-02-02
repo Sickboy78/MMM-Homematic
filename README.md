@@ -662,8 +662,10 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>icon</code></td>
       <td>Sets an icon for the device or system variable.
-	  <br>This value can either be one of the default icons or an URL to an external icon.
-      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code> - an URL to an external icon
+	  <br>This value can either be one of the default icons or an icon from [font awesome](https://fontawesome.com/icons?d=gallery&m=free) or an URL to an external icon.
+      <br><b>Possible values for default icons:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code><br><br>
+	   <b>Possible values for font awesome icons:</b> all this icons start with "fa-": <code>"fa-car"</code> or <code>fa-door-open</code><br> <br>
+	      or you use <b>an URL to an external icon</b>
 	  </td>
     </tr>
     <tr>
