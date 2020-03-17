@@ -82,27 +82,45 @@ Module.register("MMM-Homematic",{
 				// loop over elementFromPoint
 				$.each(this.config.datapoints,function(){
 					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
+						// raw value of datapoint
 						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
-						let element_html;
-						let rowElement;
-						let text_html;
-						let tableTextHide;
-						let text_is = "";
+						// text value of datapoint
+						let value_text = "";
+						// short text value of datapoint
 						let text_is_short = "";
+						
+						// css class for text
 						let text_class = "";
+						// css class for text with icon
 						let text_with_icon_class = "";
-						let warn_color = "red";
-						let warn_class = "bright red";
-						let icon_color = "white";
-						let icon_html;
+						// css class for icon
 						let icon_class = "";
+						// default warn color for text and icon
+						let warn_color = "red";
+						// default warn class for text
+						let warn_class = "bright red";
+						// default color for icon
+						let icon_color = "white";
+						
+						// default icon size
 						let icon_size = 'medium';
+						// default icon position
 						let icon_position = 'left';
 						let symbol; 
 						
+						// icon dom element
+						let icon_element;
+						// text dom element
+						let text_element;
+						// value dom element
+						let value_element;
+
 						// output as table
 						// @spitzlbergerj,20200119
-						element_html = $("<div/>");
+						let element_html = $("<div/>");
+						let rowElement;
+						let text_html;
+						let tableTextHide;
 
 						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
@@ -139,14 +157,14 @@ Module.register("MMM-Homematic",{
 							// window/door
 							// @spitzlberger: for HM-Sec-SCo added testing of Boolean value  
 							if((value === "0") || (value === "false")) {
-								text_is = _self.translate("IS_CLOSED");
+								value_text = _self.translate("IS_CLOSED");
 								text_is_short = _self.translate("IS_CLOSED_SHORT");
 								if(this.type === 'window_warn_closed') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_OPEN");
+								value_text = _self.translate("IS_OPEN");
 								text_is_short = _self.translate("IS_OPEN_SHORT");
 								if(this.type === 'window_warn_open') {
 									text_class = warn_class;
@@ -159,21 +177,21 @@ Module.register("MMM-Homematic",{
 							
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'temp_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
+									value_text = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'temp_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
+									value_text = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
+									value_text = _self.translate("IS_OK") + " (" + valueStr + _self.config.tempUnit + ")";
 									text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + valueStr + _self.config.tempUnit;
+								value_text = _self.translate("IS") + " " + valueStr + _self.config.tempUnit;
 								text_is_short = valueStr + _self.config.tempUnit;
 							}
 						} else if(this.type.startsWith('hum')) {
@@ -182,21 +200,21 @@ Module.register("MMM-Homematic",{
 
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'hum_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
+									value_text = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.humUnit + ")";
 									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'hum_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
+									value_text = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.humUnit + ")";
 									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
+									value_text = _self.translate("IS_OK") + " (" + valueStr + _self.config.humUnit + ")";
 									text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + valueStr + _self.config.humUnit;
+								value_text = _self.translate("IS") + " " + valueStr + _self.config.humUnit;
 								text_is_short = valueStr + _self.config.humUnit;
 							}
 						} else if(this.type.startsWith('shutter')) {
@@ -206,21 +224,21 @@ Module.register("MMM-Homematic",{
 							
 							if(this.type.startsWith('shutter_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'shutter_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
+									value_text = _self.translate("IS_TOO_HIGH") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'shutter_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
+									value_text = _self.translate("IS_TOO_LOW") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
-									text_is = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
+									value_text = _self.translate("IS_OK") + " (" + valueStr + _self.config.shutterUnit + ")";
 									text_is_short = valueStr + _self.config.shutterUnit;
 								}
 							} else {
-								text_is = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
+								value_text = _self.translate("IS") + " " + valueStr + _self.config.shutterUnit;
 								text_is_short = valueStr + _self.config.shutterUnit;
 							} 
 						
@@ -230,14 +248,14 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('switch')) {
 							// switch
 							if(value === "false") {
-								text_is = _self.translate("IS_OFF");
+								value_text = _self.translate("IS_OFF");
 								text_is_short = _self.translate("IS_OFF_SHORT");
 								if(this.type === 'switch_warn_off') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_ON");
+								value_text = _self.translate("IS_ON");
 								text_is_short = _self.translate("IS_ON_SHORT");
 								if(this.type === 'switch_warn_on') {
 									text_class = warn_class;
@@ -265,21 +283,21 @@ Module.register("MMM-Homematic",{
 							
 							if( ( this.type.endsWith('_high') || this.type.endsWith('_low') ) && typeof(this.threshold) === 'number') {
 								if(this.type.endsWith('_high') && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
+									value_text = _self.translate("IS_TOO_HIGH") + " (" + valueStr + valueUnit + ")";
 									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type.endsWith('_low') && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
+									value_text = _self.translate("IS_TOO_LOW") + " (" + valueStr + valueUnit + ")";
 									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
-									text_is = valueStr + valueUnit;
+									value_text = valueStr + valueUnit;
 									text_is_short = text_is;
 								}
 							} else {
-								text_is = valueStr + valueUnit;
+								value_text = valueStr + valueUnit;
 								text_is_short = text_is;
 							}
 							
@@ -292,23 +310,23 @@ Module.register("MMM-Homematic",{
 							
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
-									text_is = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
+									value_text = _self.translate("IS_TOO_HIGH") + " (" + valueStr + ")";
 									text_is_short = _self.translate("IS_TOO_HIGH_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else if(this.type === 'other_warn_low' && value <= this.threshold) {
-									text_is = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
+									value_text = _self.translate("IS_TOO_LOW") + " (" + valueStr + ")";
 									text_is_short = _self.translate("IS_TOO_LOW_SHORT");
 									text_class = warn_class;
 									icon_color = warn_color;
 								} else {
-								text_is = _self.translate("IS_OK") + " (" + valueStr + ")";
+								value_text = _self.translate("IS_OK") + " (" + valueStr + ")";
 								text_is_short = _self.translate("IS_OK_SHORT");
 								}
 							} else {
 								// Introduction numberUnit
 								// @spitzlbergerj, 20190624
-								text_is = _self.translate("IS") + " " + valueStr + " " + numberUnit;
+								value_text = _self.translate("IS") + " " + valueStr + " " + numberUnit;
 								text_is_short = valueStr + " " + numberUnit;
 							}
 						} 
@@ -319,14 +337,14 @@ Module.register("MMM-Homematic",{
 						else if(this.type.startsWith('sysvar_boolean')) {
 							// SysVar boolean
 							if(value === "false") {
-								text_is = _self.translate("IS_FALSE");
+								value_text = _self.translate("IS_FALSE");
 								text_is_short = _self.translate("IS_FALSE_SHORT");
 								if(this.type === 'sysvar_boolean_warn_false') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_TRUE");
+								value_text = _self.translate("IS_TRUE");
 								text_is_short = _self.translate("IS_TRUE_SHORT");
 								if(this.type === 'sysvar_boolean_warn_true') {
 									text_class = warn_class;
@@ -336,14 +354,14 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_alarm')) {
 							// SysVar alarm
 							if(value === "false") {
-								text_is = _self.translate("IS_NOT_TRIGGERED");
+								value_text = _self.translate("IS_NOT_TRIGGERED");
 								text_is_short = _self.translate("IS_NOT_TRIGGERED_SHORT");
 								if(this.type === 'sysvar_alarm_warn_not_triggered') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_TRIGGERED");
+								value_text = _self.translate("IS_TRIGGERED");
 								text_is_short = _self.translate("IS_TRIGGERED_SHORT");
 								if(this.type === 'sysvar_alarm_warn_triggered') {
 									text_class = warn_class;
@@ -353,14 +371,14 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_mashine')) {
 							// SysVar Boolean; Special type machine that can run or not run
 							if(value === "false") {
-								text_is = _self.translate("IS_NOT_RUNNING");
+								value_text = _self.translate("IS_NOT_RUNNING");
 								text_is_short = _self.translate("IS_NOT_RUNNING_SHORT");
 								if(this.type === 'sysvar_mashine_warn_not_running') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_RUNNING");
+								value_text = _self.translate("IS_RUNNING");
 								text_is_short = _self.translate("IS_RUNNING_SHORT");
 								if(this.type === 'sysvar_mashine_warn_running') {
 									text_class = warn_class;
@@ -370,14 +388,14 @@ Module.register("MMM-Homematic",{
 						} else if(this.type.startsWith('sysvar_presence')) {
 							// SysVar boolean, special type presence that can accept the values here or not here 
 							if(value === "false") {
-								text_is = _self.translate("IS_AWAY");
+								value_text = _self.translate("IS_AWAY");
 								text_is_short = _self.translate("IS_AWAY_SHORT");
 								if(this.type === 'sysvar_presence_warn_away') {
 									text_class = warn_class;
 									icon_color = warn_color;
 								}
 							} else {
-								text_is = _self.translate("IS_HERE");
+								value_text = _self.translate("IS_HERE");
 								text_is_short = _self.translate("IS_HERE_SHORT");
 								if(this.type === 'sysvar_presence_warn_here') {
 									text_class = warn_class;
@@ -386,7 +404,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('sysvar_string')) {
 							// SysVar String Value
-							text_is = value;
+							value_text = value;
 							text_is_short = text_is;
 							if(this.type === 'sysvar_string_warn_empty' && (value === '' || value === '???')) {
 								text_class = warn_class;
@@ -397,7 +415,7 @@ Module.register("MMM-Homematic",{
 							}
 						} else if(this.type.startsWith('sysvar_valuelist')) {
 							// SysVar value list
-							text_is = _self.translate("IS") + " " + value;
+							value_text = _self.translate("IS") + " " + value;
 							text_is_short = value;
 							
 							if(this.type.startsWith('sysvar_valuelist_') && typeof(this.reference) !== 'undefined') {
@@ -424,8 +442,8 @@ Module.register("MMM-Homematic",{
 
 							// Introduction numberUnit
 							// @spitzlbergerj, 20190624
-							text_is = valnum.toString() + " " + numberUnit;
-							text_is_short = text_is;
+							value_text = valnum.toString() + " " + numberUnit;
+							text_is_short = value_text;
 
 							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
 								text_class = warn_class;
@@ -477,22 +495,15 @@ Module.register("MMM-Homematic",{
 									// external icon url
 									icon_url = this.icon;
 								}
-								icon_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
+								icon_element = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
 							}
 						}
-						
-						// ----------------------------------
-						// identifier and state	string				
-
-						text_html = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name),class: text_class + text_with_icon_class});
-						text_html.html(this.name + " " + text_is);
-						
 						
 						// ----------------------------------
 						// put html snippets together
 						
 						if(_self.config.style === 'table') {
-							rowElement  = $("<td/>",{class: 'centered ' + tableTextHide});
+							rowElement = $("<td/>",{class: 'centered ' + tableTextHide});
 							if(typeof(this.nameShort) === 'string') {
 								rowElement.html(this.nameShort)
 							} else {
@@ -500,39 +511,45 @@ Module.register("MMM-Homematic",{
 							}
 							textRow.append(rowElement);
 							
-							rowElement  = $("<td/>",{class: 'centered ' + text_class});
-							if(this.icon.startsWith('fa-')){
-								rowElement.append(symbol)
+							if(typeof(this.icon) === 'string') {
+								rowElement = $("<td/>",{class: 'centered ' + text_class});
+								if(this.icon.startsWith('fa-')){
+									rowElement.append(symbol)
+								} else {	
+									rowElement.html(icon_element);
+								}
+								iconRow.append(rowElement);
 							}
-							else {	
-								rowElement.html(icon_html);
-							}
-							iconRow.append(rowElement);
 							
-							rowElement  = $("<td/>",{class: 'centered ' + tableTextHide});
+							rowElement = $("<td/>",{class: 'centered ' + tableTextHide});
 							rowElement.html(text_is_short)
 							valueRow.append(rowElement);
 						} else {
 							if(icon_position !== 'right') {
-								element_html.append(icon_html);
+								wrapper.append(icon_element);
+								if(icon_position === 'top') {
+									wrapper.append($("<br/>",{class: text_class}));
+								}
 							}
-							
+						
 							if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
-								element_html.append(text_html);
+								let textHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-text",class: text_class + text_with_icon_class + " text-lines"});
+								textHtml.html(this.name);
+								wrapper.append(textHtml);
+								let valueHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-value",class: text_class + text_with_icon_class + " text-lines"});
+								valueHtml.html("&nbsp;" + value_text);
+								wrapper.append(valueHtml);
 							}
-
+								
 							if(typeof(this.icon) === 'string') {
 								if(icon_position === 'right') {
-									element_html.append(icon_html);
+									wrapper.append(icon_element);
 								}
 								if(icon_position !== 'top') {
-									element_html.append($("<br/>",{class: text_class}));
+									wrapper.append($("<br/>",{class: text_class}));
 								}
 							}
-							
-							// ---------------------------------
-							// append element html code to wrapper			
-							wrapper.append(element_html);
+							wrapper.append($("<br/>",{class: text_class}));
 						}
 						
 						

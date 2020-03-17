@@ -33,8 +33,7 @@
 .MMM-Homematic .hide {
 	display: none !important;
 }
-
-.MMM-Homematic .text-with-icon {
+.MMM-Homematic .text-lines {
 	display: inline-block;
 	vertical-align: top;
 }
