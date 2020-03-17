@@ -465,7 +465,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>style</code></td>
       <td>The style of output.
-        <br><b>Possible values:</b> <code>lines</code> - <code>table</code>
+        <br><b>Possible values:</b> <code>lines</code> - <code>table_rows</code> - <code>table_columns</code>
         <br><b>Default value:</b> <code>lines</code>
       </td>
     </tr>
@@ -507,17 +507,15 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>tableShowTextRow</code></td>
-      <td>Toggles whether the row with the names of the devices is displayed in the table view.
-	<br>This value is only used in table view.
+      <td><code>showText</code></td>
+      <td>Toggles whether the text with the names of the devices or variables is displayed.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"true"</code>
       </td>
     </tr>
     <tr>
-      <td><code>tableShowValueRow</code></td>
-      <td>Toggles whether the row with the values of the devices is displayed in the table view.
-	<br>This value is only used in table view.
+      <td><code>showValue</code></td>
+      <td>Toggles whether the values of the devices or variables is displayed.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"true"</code>
       </td>
@@ -681,7 +679,8 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>iconPosition</code></td>
       <td>Sets the position of the icon relative to the text.
 	  <br>This value only applies if an icon is set.
-      <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"right"</code>
+	  <br>This value only applies if an icon is set.
+      <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"center"</code> - <code>"right"</code> - <code>"bottom"</code>
       <br><b>Default value:</b> <code>"left"</code>
 	  </td>
     </tr>
@@ -698,6 +697,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td><code>iconOnly</code></td>
       <td>Sets the text invisible and shows only the icon.
 	  <br>This value only applies if an icon is set.
+	  <br>This value overwrites the global values showText and showValue for the item it is set on.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"false"</code>
 	  </td>

@@ -37,26 +37,26 @@
 	display: inline-block;
 	vertical-align: top;
 }
-.MMM-Homematic .text-with-icon-left {
-	margin-left: 5px;
-}
-.MMM-Homematic .text-with-icon-right {
+.MMM-Homematic .icon-left {
 	margin-right: 5px;
 }
+.MMM-Homematic .icon-right {
+	margin-left: 5px;
+}
 .MMM-Homematic .text-with-icon-x-small {
-	margin-top: 0px;
+	padding-top: 0px;
 }
 .MMM-Homematic .text-with-icon-small {
-	margin-top: 3px;
+	padding-top: 3px;
 }
 .MMM-Homematic .text-with-icon-medium {
-	margin-top: 12px;
+	padding-top: 12px;
 }
 .MMM-Homematic .text-with-icon-large {
-	margin-top: 20px;
+	padding-top: 20px;
 }
 .MMM-Homematic .text-with-icon-x-large {
-	margin-top: 20px;
+	padding-top: 20px;
 }
 
 .MMM-Homematic .icon {

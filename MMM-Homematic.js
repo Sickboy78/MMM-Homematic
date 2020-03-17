@@ -13,9 +13,6 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
-		
-		// Introduction numberUnit
-		// @spitzlbergerj, 20190624
 		numberUnit: " ",
 		
 		locale: config.language,
@@ -27,12 +24,10 @@ Module.register("MMM-Homematic",{
 		ccuDatapointIdParameter: '?datapoint_id=',
 		ccuIseIdParameter: '?ise_id=',
 		
-		// output as table
-		// @spitzlbergerj,20200119
-		style: 'lines',
-		tableShowTextRow: 'true',
-		tableShowValueRow: 'true',
+		style: 'lines',	
 		useShortText: 'false',
+		showText: 'true',
+		showValue: 'true',
 	},
 
 	// start scheduler
@@ -70,12 +65,13 @@ Module.register("MMM-Homematic",{
 		let _self = this;
 		let wrapper = $("<div/>",{class: 'small'});
 		
-		// output as table
-		// @spitzlbergerj, 20200119
-		var deviceTable = $("<table/>",{class: 'small'});
-		var textRow = $("<tr/>",{class: 'dimmed'});
-		var iconRow = $("<tr/>",{class: 'dimmed'});
-		var valueRow = $("<tr/>",{class: 'dimmed'});
+		// rows for style table_columns
+		let rowArray = [$("<div/>"),$("<div/>"),$("<div/>")];
+		if(_self.config.style.startsWith("table")) {
+			rowArray[0].css("display","table-row");
+			rowArray[1].css("display","table-row");
+			rowArray[2].css("display","table-row");
+		}
 		
 		if(typeof(_self.homematicData) !== 'undefined') {
 			if(typeof(this.config.datapoints) === 'object') {
@@ -83,6 +79,14 @@ Module.register("MMM-Homematic",{
 				// loop over elementFromPoint
 				$.each(this.config.datapoints,function(){
 					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
+						// row or line for style lines and table_rows
+						let row = $("<div/>");
+						if(_self.config.style.startsWith("table")) {
+							row.css("display","table-row");
+						}
+						// row counter for style table_columns
+						let rowCounter = 0;
+
 						// raw value of datapoint
 						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
 						// text value of datapoint
@@ -116,13 +120,6 @@ Module.register("MMM-Homematic",{
 						// value dom element
 						let value_element;
 
-						// output as table
-						// @spitzlbergerj,20200119
-						let element_html = $("<div/>");
-						let rowElement;
-						let text_html;
-						let tableTextHide;
-
 						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
 						let numberUnit = '';
@@ -130,12 +127,10 @@ Module.register("MMM-Homematic",{
 						
 						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
 							text_class = "hide";
-							tableTextHide = "hide";
 						}
 
 						// Setting warning color
 						// @spitzlbergerj, 20190127
-
 						if(typeof(this.warnColor) === 'string') {
 							warn_color = this.warnColor;
 							warn_class = "bright " + warn_color;
@@ -421,16 +416,16 @@ Module.register("MMM-Homematic",{
 							}
 						}
 						
-						// output as table
-						// @spitzlbergerj,20200119
-
 						// ----------------------------------
 						// Compose HTML code
 						// ----------------------------------
 						
 						// ----------------------------------
 						// icon					
-						
+						if((typeof(this.iconPosition) === 'string')) {
+							icon_position = this.iconPosition;
+						}
+
 						if(typeof(this.icon) === 'string') {
 							// show icon
 							let icon_url;
@@ -438,13 +433,10 @@ Module.register("MMM-Homematic",{
 							if((typeof(this.iconSize) === 'string')) {
 								icon_size = this.iconSize;
 							}
-							if((typeof(this.iconPosition) === 'string')) {
-								icon_position = this.iconPosition;
-							}
 								
-							icon_class = " icon icon-" + icon_size + " " + icon_color + '-icon ';
-							if(icon_position !== 'top') {
-								text_with_icon_class = " text-with-icon text-with-icon-" + icon_size + " text-with-icon-" + icon_position;
+							icon_class = " icon icon-" + icon_size + " icon-" + icon_position + " " + icon_color + '-icon ';
+							if(icon_position !== 'center' || _self.config.style.startsWith('table')) {
+								text_with_icon_class = " text-with-icon text-with-icon-" + icon_size;
 							}
 
 							if(this.icon.startsWith('fa-')){
@@ -462,78 +454,118 @@ Module.register("MMM-Homematic",{
 									icon_url = this.icon;
 								}
 								icon_element = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
+								if(_self.config.style.startsWith("table")) {
+									icon_element = $("<div/>").append(icon_element);
+									icon_element.css("display","table-cell");
+								}
+							}
+						} else {
+							icon_element = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class});
+							if(_self.config.style.startsWith("table")) {
+								icon_element.css("display","table-cell");
 							}
 						}
 						
 						// ----------------------------------
 						// put html snippets together
 						
-						if(_self.config.style === 'table') {
-							rowElement = $("<td/>",{class: 'centered ' + tableTextHide});
-							if(typeof(this.nameShort) === 'string') {
-								rowElement.html(this.nameShort)
-							} else {
-								rowElement.html(this.name)
-							}
-							textRow.append(rowElement);
-							
-							if(typeof(this.icon) === 'string') {
-								rowElement = $("<td/>",{class: 'centered ' + text_class});
-								if(this.icon.startsWith('fa-')){
-									rowElement.append(symbol)
-								} else {	
-									rowElement.html(icon_element);
-								}
-								iconRow.append(rowElement);
-							}
-							
-							rowElement = $("<td/>",{class: 'centered ' + tableTextHide});
-							rowElement.html(value_text)
-							valueRow.append(rowElement);
-						} else {
-							if(icon_position !== 'right') {
-								wrapper.append(icon_element);
-								if(icon_position === 'top') {
-									wrapper.append($("<br/>",{class: text_class}));
-								}
-							}
 						
+						// icon left/top or center for style lines
+						if(icon_position === 'left' || icon_position === 'top') {
+							if(_self.config.style === "lines" && typeof(this.icon) === 'string') {
+								row.append(icon_element);
+							}
+							if(_self.config.style === "table_rows") {
+								row.append(icon_element);
+							}
+							if(_self.config.style === "table_columns") {
+								rowArray[rowCounter].append(icon_element);
+								rowCounter++;
+							}
+						}
+						if(icon_position === 'center') {
+							if(_self.config.style === "lines" && typeof(this.icon) === 'string') {
+								row.append(icon_element);
+								row.append($("<br/>",{class: text_class}));
+							}
+						}
+
+						// text
+						if(_self.config.showText === 'true') {
+							let textHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-text"});
 							if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
-								let textHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-text",class: text_class + text_with_icon_class + " text-lines"});
+								textHtml.addClass(text_class + text_with_icon_class + " text-lines");
 								textHtml.html(this.name);
-								wrapper.append(textHtml);
-								let valueHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-value",class: text_class + text_with_icon_class + " text-lines"});
-								valueHtml.html("&nbsp;" + value_text);
-								wrapper.append(valueHtml);
-							}
-								
-							if(typeof(this.icon) === 'string') {
-								if(icon_position === 'right') {
-									wrapper.append(icon_element);
+								if(_self.config.style.startsWith("table")) {
+									textHtml.css("display","table-cell");
 								}
-								if(icon_position !== 'top') {
-									wrapper.append($("<br/>",{class: text_class}));
+							} else {
+								if(_self.config.style.startsWith("table")) {
+									textHtml.css("display","table-cell");
 								}
 							}
-							wrapper.append($("<br/>",{class: text_class}));
+							if(_self.config.style === "table_columns") {
+								rowArray[rowCounter].append(textHtml);
+								rowCounter++;
+							} else {
+								row.append(textHtml);
+							}
 						}
 						
+						// icon center for styles table_*
+						if(icon_position === 'center'){
+							if(_self.config.style === "table_columns") {
+								rowArray[rowCounter].append(icon_element);
+								rowCounter++;
+							} else if(_self.config.style === "table_rows") {
+								row.append(icon_element);
+							}
+						}
+						
+						// value
+						if(_self.config.showValue === 'true') {
+							let valueHtml = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-value"});
+							if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
+								valueHtml.addClass(text_class + text_with_icon_class + " text-lines");
+								valueHtml.html("&nbsp;" + value_text);
+								if(_self.config.style.startsWith("table")) {
+									valueHtml.css("display","table-cell");
+								}
+							} else {
+								if(_self.config.style.startsWith("table")) {
+									valueHtml.css("display","table-cell");
+								}
+							}
+							if(_self.config.style === "table_columns") {
+								rowArray[rowCounter].append(valueHtml);
+								rowCounter++;
+							} else {
+								row.append(valueHtml);
+							}
+						}
+						
+						// icon right/bottom
+						if(icon_position === 'right' || icon_position === 'bottom') {
+							if((_self.config.style === "lines" && typeof(this.icon) === 'string') || _self.config.style === "table_rows") {
+								row.append(icon_element);
+							}
+							if(_self.config.style === "table_columns") {
+								rowArray[rowCounter].append(icon_element);
+								rowCounter++;
+							}
+						}
+
+						if(_self.config.style !== "table_columns") {
+							wrapper.append(row);
+						}
 						
 					} // element is valid
 				}); // end of loop
 				
-				if(_self.config.style === 'table') {
-					if (_self.config.tableShowTextRow === 'true'){
-						deviceTable.append(textRow);
-					}
-					
-					deviceTable.append(iconRow);
-					
-					if (_self.config.tableShowValueRow === 'true'){
-						deviceTable.append(valueRow);
-					}
-					
-					wrapper.append(deviceTable);
+				if(_self.config.style === "table_columns") {
+					wrapper.append(rowArray[0]);
+					wrapper.append(rowArray[1]);
+					wrapper.append(rowArray[2]);
 				}
 			}
 		} else {
