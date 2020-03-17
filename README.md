@@ -104,13 +104,13 @@ modules: [
 		config:	{
 			ccuHost: 'ccu3-webui',	// hostname of your ccu (e.g. for CCU3 default is "ccu3-webui")
 			tempUnit: "°C",			// unit of your temperatur values
+			useShortText: "true",	// use short text output optimized for table style
 			style: 'table',
 			tableShowValueRow: 'false',
 			datapoints: [			// the datapoints of your HomeMatic devices/sensors
 				{
 					id: "15387",
-					name: "Garage Tesla",
-					nameShort: "Tesla",
+					name: "Tesla",
 					type: "window_warn_open",
 					icon: "http://yourdomain/yourpath/youricon.png",
 					iconSize: "small",
@@ -470,6 +470,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>useShortText</code></td>
+      <td>Toggles between long and short text output.
+		<br>Short text output is optimized for table style.
+        <br><b>Possible values:</b> <code>true</code> - <code>false</code>
+        <br><b>Default value:</b> <code>false</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>tempUnit</code></td>
       <td>The unit of temperature.
         <br><b>Possible values:</b> <code>°C</code> - <code>°F</code> - <code>K</code>
@@ -554,13 +562,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><b>Example values:</b> <code>
 	  <br>"front door"
 	  <br>"temperature living room"</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>nameShort</code></td>
-      <td>The display name of the device/datapoint in short form. This value is used in table view, if it exists. 
-	  <br><b>Example values:</b> <code>
-	  <br>"door"</code>
       </td>
     </tr>
     <tr>

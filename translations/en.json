@@ -1,5 +1,6 @@
 {
 	"IS":"is",
+	"IS_SHORT":"is",
 	"IS_OPEN":"is open",
 	"IS_OPEN_SHORT":"open",
 	"IS_CLOSED":"is closed",
