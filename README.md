@@ -5,13 +5,17 @@ This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) tha
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-This module supports output of text, icons and text or icons only.
+This module supports output of text, icons and text or icons only. It also supports output as table.
 
 ![screenshot_01](screenshot_01.png)
 
 ![screenshot_02](screenshot_02.png)
 
 ![screenshot_03](screenshot_03.png)
+
+![screenshot_04](screenshot_04.jpg)
+
+![screenshot_05](screenshot_05.jpg)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -20,6 +24,8 @@ This module supports output of text, icons and text or icons only.
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
+
+Lines view:
 ````javascript
 modules: [
 	{
@@ -82,6 +88,37 @@ modules: [
 					reference: "monday",
 					warnColor: "red"
 				}
+			]
+		}
+	}
+]
+````
+
+Table view without the value row:
+````javascript
+modules: [
+	{
+		module: 'MMM-Homematic',
+		position: 'top_center',
+		header: 'SMART HOME',
+		config:	{
+			ccuHost: 'ccu3-webui',	// hostname of your ccu (e.g. for CCU3 default is "ccu3-webui")
+			tempUnit: "°C",			// unit of your temperatur values
+			style: 'table',
+			tableShowValueRow: 'false',
+			datapoints: [			// the datapoints of your HomeMatic devices/sensors
+				{
+					id: "15387",
+					name: "Garage Tesla",
+					nameShort: "Tesla",
+					type: "window_warn_open",
+					icon: "http://yourdomain/yourpath/youricon.png",
+					iconSize: "small",
+					iconColor: "green",
+					warnColor: "red",
+					warnOnly: "false",
+				},
+
 			]
 		}
 	}
@@ -426,6 +463,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>style</code></td>
+      <td>The style of output.
+        <br><b>Possible values:</b> <code>lines</code> - <code>table</code>
+        <br><b>Default value:</b> <code>lines</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>tempUnit</code></td>
       <td>The unit of temperature.
         <br><b>Possible values:</b> <code>°C</code> - <code>°F</code> - <code>K</code>
@@ -452,6 +496,22 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	<br>This value is only used for 'other' and 'sysvar_number' types.
         <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
         <br><b>Default value:</b> <code>" "</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>tableShowTextRow</code></td>
+      <td>Toggles whether the row with the names of the devices is displayed in the table view.
+	<br>This value is only used in table view.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>tableShowValueRow</code></td>
+      <td>Toggles whether the row with the values of the devices is displayed in the table view.
+	<br>This value is only used in table view.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
       </td>
     </tr>
     <tr>
@@ -494,6 +554,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  <br><b>Example values:</b> <code>
 	  <br>"front door"
 	  <br>"temperature living room"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>nameShort</code></td>
+      <td>The display name of the device/datapoint in short form. This value is used in table view, if it exists. 
+	  <br><b>Example values:</b> <code>
+	  <br>"door"</code>
       </td>
     </tr>
     <tr>
@@ -595,8 +662,10 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>icon</code></td>
       <td>Sets an icon for the device or system variable.
-	  <br>This value can either be one of the default icons or an URL to an external icon.
-      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code> - an URL to an external icon
+	  <br>This value can either be one of the default icons or an icon from [font awesome](https://fontawesome.com/icons?d=gallery&m=free) or an URL to an external icon.
+      <br><b>Possible values for default icons:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code><br><br>
+	   <b>Possible values for font awesome icons:</b><br> all this icons start with "fa-": <code>"fa-car"</code> or <code>fa-door-open</code><br> <br>
+	      or you use <b>an URL to an external icon</b>
 	  </td>
     </tr>
     <tr>
