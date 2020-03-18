@@ -677,9 +677,10 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     </tr>
     <tr>
       <td><code>iconPosition</code></td>
-      <td>Sets the position of the icon relative to the text.
-	  <br>This value only applies if an icon is set.
-	  <br>This value only applies if an icon is set.
+      <td>Sets the position of the icon relative to the text and value.
+	  <br>If no icon is set, this value still determines in which row/column the text and value is shown for table styles.
+	  <br>Left and top are synonyms as are right and bottom.
+	  <br><b>Hint:</b>Meaning of top changed from synonym for center to synonym for left with introduction of table styles.
       <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"center"</code> - <code>"right"</code> - <code>"bottom"</code>
       <br><b>Default value:</b> <code>"left"</code>
 	  </td>
