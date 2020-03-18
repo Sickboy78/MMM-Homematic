@@ -13,7 +13,7 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
-		numberUnit: " ",
+		numberUnit: "",
 		
 		locale: config.language,
 		ccuProtocol: 'http://',
@@ -64,14 +64,18 @@ Module.register("MMM-Homematic",{
 	getDom: function() {
 		let _self = this;
 		let wrapper = $("<div/>",{class: 'small'});
+		if(_self.config.style.startsWith("table")) {
+			wrapper.addClass("table");
+			if(_self.config.style === "table_rows") {
+				wrapper.addClass("table-rows");
+			}
+			if(_self.config.style === "table_columns") {
+				wrapper.addClass("table-columns");
+			}
+		}
 		
 		// rows for style table_columns
-		let rowArray = [$("<div/>"),$("<div/>"),$("<div/>")];
-		if(_self.config.style.startsWith("table")) {
-			rowArray[0].css("display","table-row");
-			rowArray[1].css("display","table-row");
-			rowArray[2].css("display","table-row");
-		}
+		let rowArray = [$("<div/>",{class: "table-row"}),$("<div/>",{class: "table-row"}),$("<div/>",{class: "table-row"})];
 		
 		if(typeof(_self.homematicData) !== 'undefined') {
 			if(typeof(this.config.datapoints) === 'object') {
@@ -82,13 +86,13 @@ Module.register("MMM-Homematic",{
 						// row or line for style lines and table_rows
 						let row = $("<div/>");
 						if(_self.config.style.startsWith("table")) {
-							row.css("display","table-row");
+							row.addClass("table-row");
 						}
 						// row counter for style table_columns
 						let rowCounter = 0;
 
 						// raw value of datapoint
-						let value = _self.homematicData[_self.removeSpecialChars(this.name)];
+						let value = _self.homematicData[_self.removeSpecialChars(this.name) + "_" + _self.removeSpecialChars(this.id)];
 						// text value of datapoint
 						let value_text = "";
 						// whether short or long text values are used
@@ -434,15 +438,13 @@ Module.register("MMM-Homematic",{
 								icon_size = this.iconSize;
 							}
 								
-							icon_class = " icon icon-" + icon_size + " icon-" + icon_position + " " + icon_color + '-icon ';
+							icon_class = " icon icon-" + icon_size + " icon-" + icon_position + " icon-" + icon_color;
 							if(icon_position !== 'center' || _self.config.style.startsWith('table')) {
 								text_with_icon_class = " text-with-icon text-with-icon-" + icon_size;
 							}
 
 							if(this.icon.startsWith('fa-')){
-								symbol = document.createElement("i");
-								symbol.className = "fa fa-fw " + this.icon;
-								symbol.style = "color: " + icon_color;
+								icon_element = $("<i/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class + " fa fa-fw " + this.icon});
 							}
 							else
 							{
@@ -454,15 +456,18 @@ Module.register("MMM-Homematic",{
 									icon_url = this.icon;
 								}
 								icon_element = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class + icon_class,style: "background-image: url(" + icon_url + ");"});							
-								if(_self.config.style.startsWith("table")) {
-									icon_element = $("<div/>").append(icon_element);
-									icon_element.css("display","table-cell");
+							}
+							if(_self.config.style.startsWith("table")) {
+								icon_element = $("<div/>").append(icon_element);
+								icon_element.addClass(text_class + " table-cell align-top");
+								if(this.icon.startsWith('fa-')){
+									//icon_element.addClass("align-top");
 								}
 							}
 						} else {
 							icon_element = $("<div/>",{id: _self.identifier + "-" + _self.removeSpecialChars(this.name) + "-icon",class: text_class});
 							if(_self.config.style.startsWith("table")) {
-								icon_element.css("display","table-cell");
+								icon_element.addClass("table-cell");
 							}
 						}
 						
@@ -479,8 +484,7 @@ Module.register("MMM-Homematic",{
 								row.append(icon_element);
 							}
 							if(_self.config.style === "table_columns") {
-								rowArray[rowCounter].append(icon_element);
-								rowCounter++;
+								rowArray[rowCounter++].append(icon_element);
 							}
 						}
 						if(icon_position === 'center') {
@@ -497,16 +501,15 @@ Module.register("MMM-Homematic",{
 								textHtml.addClass(text_class + text_with_icon_class + " text-lines");
 								textHtml.html(this.name);
 								if(_self.config.style.startsWith("table")) {
-									textHtml.css("display","table-cell");
+									textHtml.addClass("table-cell");
 								}
 							} else {
 								if(_self.config.style.startsWith("table")) {
-									textHtml.css("display","table-cell");
+									textHtml.addClass("table-cell");
 								}
 							}
 							if(_self.config.style === "table_columns") {
-								rowArray[rowCounter].append(textHtml);
-								rowCounter++;
+								rowArray[rowCounter++].append(textHtml);
 							} else {
 								row.append(textHtml);
 							}
@@ -515,8 +518,7 @@ Module.register("MMM-Homematic",{
 						// icon center for styles table_*
 						if(icon_position === 'center'){
 							if(_self.config.style === "table_columns") {
-								rowArray[rowCounter].append(icon_element);
-								rowCounter++;
+								rowArray[rowCounter++].append(icon_element);
 							} else if(_self.config.style === "table_rows") {
 								row.append(icon_element);
 							}
@@ -529,16 +531,15 @@ Module.register("MMM-Homematic",{
 								valueHtml.addClass(text_class + text_with_icon_class + " text-lines");
 								valueHtml.html("&nbsp;" + value_text);
 								if(_self.config.style.startsWith("table")) {
-									valueHtml.css("display","table-cell");
+									valueHtml.addClass("table-cell");
 								}
 							} else {
 								if(_self.config.style.startsWith("table")) {
-									valueHtml.css("display","table-cell");
+									valueHtml.addClass("table-cell");
 								}
 							}
 							if(_self.config.style === "table_columns") {
-								rowArray[rowCounter].append(valueHtml);
-								rowCounter++;
+								rowArray[rowCounter++].append(valueHtml);
 							} else {
 								row.append(valueHtml);
 							}
@@ -550,8 +551,7 @@ Module.register("MMM-Homematic",{
 								row.append(icon_element);
 							}
 							if(_self.config.style === "table_columns") {
-								rowArray[rowCounter].append(icon_element);
-								rowCounter++;
+								rowArray[rowCounter++].append(icon_element);
 							}
 						}
 
@@ -563,9 +563,7 @@ Module.register("MMM-Homematic",{
 				}); // end of loop
 				
 				if(_self.config.style === "table_columns") {
-					wrapper.append(rowArray[0]);
-					wrapper.append(rowArray[1]);
-					wrapper.append(rowArray[2]);
+					wrapper.append(rowArray);
 				}
 			}
 		} else {
@@ -618,7 +616,7 @@ Module.register("MMM-Homematic",{
 		if(typeof(this.homematicData) === 'undefined') {
 			this.homematicData = [];
 		}
-		this.homematicData[this.removeSpecialChars(datapoint.name)] = data;
+		this.homematicData[this.removeSpecialChars(datapoint.name) + "_" + this.removeSpecialChars(datapoint.id)] = data;
 		this.dataCounter++;
 		if(this.dataCounter >= this.dataMax) {
 			this.updateDom(this.config.animationSpeed);

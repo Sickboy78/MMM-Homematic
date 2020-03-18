@@ -14,29 +14,61 @@
     color: white;
 }
 
-.MMM-Homematic .red-icon {
+.MMM-Homematic .icon-red {
     background-color: red;
 }
-.MMM-Homematic .green-icon {
+.MMM-Homematic .fa.icon-red {
+	color: red;
+    background-color: transparent;
+}
+.MMM-Homematic .icon-green {
     background-color: green;
 }
-.MMM-Homematic .blue-icon {
+.MMM-Homematic .fa.icon-green {
+    color: green;
+    background-color: transparent;
+}
+.MMM-Homematic .icon-blue {
     background-color: blue;
 }
-.MMM-Homematic .yellow-icon {
+.MMM-Homematic .fa.icon-blue {
+    color: blue;
+    background-color: transparent;
+}
+.MMM-Homematic .icon-yellow {
     background-color: yellow;
 }
-.MMM-Homematic .white-icon {
+.MMM-Homematic .fa.icon-yellow {
+    color: yellow;
+    background-color: transparent;
+}
+.MMM-Homematic .icon-white {
     background-color: white;
+}
+.MMM-Homematic .fa.icon-white {
+    color: white;
+    background-color: transparent;
 }
 
 .MMM-Homematic .hide {
 	display: none !important;
 }
+
 .MMM-Homematic .text-lines {
 	display: inline-block;
 	vertical-align: top;
 }
+.MMM-Homematic .table {
+	display: table;
+}
+.MMM-Homematic .table-row {
+	display: table-row;
+}
+.MMM-Homematic .table-cell {
+	display: table-cell;
+	padding: 0 5px;
+}
+
 .MMM-Homematic .icon-left {
 	margin-right: 5px;
 }
@@ -56,7 +88,14 @@
 	padding-top: 20px;
 }
 .MMM-Homematic .text-with-icon-x-large {
-	padding-top: 20px;
+	padding-top: 52px;
+}
+
+.MMM-Homematic .table-columns .text-with-icon {
+	padding-top: 0px;	
+}
+.MMM-Homematic .table-row:not(:last-child) > div {
+	padding-bottom: 3px;	
 }
 
 .MMM-Homematic .icon {
@@ -64,26 +103,38 @@
 	background-repeat: no-repeat;	
 	background-size: cover;	
 }
+.MMM-Homematic .icon.fa {
+	display: inline;
+}
 .MMM-Homematic .icon-x-small {
 	width: 24px;
 	height: 24px;
+	font-size: 24px;
 }
 .MMM-Homematic .icon-small {
 	width: 32px;
 	height: 32px;
+	font-size: 32px;
 }
 .MMM-Homematic .icon-medium {
 	width: 48px;
 	height: 48px;
+	font-size: 48px;
 }
 .MMM-Homematic .icon-large {
 	width: 64px;
 	height: 64px;
+	font-size: 64px;
 }
 .MMM-Homematic .icon-x-large {
 	width: 128px;
 	height: 128px;
+	font-size: 128px;
 }
+
 .MMM-Homematic .centered {
 	text-align: center;
+}
+.MMM-Homematic .align-top {
+	vertical-align: top;
 }

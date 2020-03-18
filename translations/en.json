@@ -28,7 +28,7 @@
 	"IS_FALSE":"is false",
 	"IS_FALSE_SHORT":"false",
 	"IS_TRIGGERED":"triggered",
-	"IS_TRIGGERED_SHORT":"triggered",
+	"IS_TRIGGERED_SHORT":"alarm",
 	"IS_NOT_TRIGGERED":"not triggered",
-	"IS_NOT_TRIGGERED_SHORT":"not triggered"
+	"IS_NOT_TRIGGERED_SHORT":"ok"
 }
