@@ -422,6 +422,26 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   <thead>
   <tbody>
     <tr>
+      <td><code>initialLoadDelay</code></td>
+      <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
+        <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>
+        <br><b>Default value:</b>  <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>updateInterval</code></td>
+      <td>How often does the content needs to be fetched? (Seconds)<br>
+        <br><b>Default value:</b> <code>30</code> (1/2 minute)
+      </td>
+    </tr>
+    <tr>
+      <td><code>animationSpeed</code></td>
+      <td>Speed of the update animation. (Milliseconds)<br>
+        <br><b>Possible values:</b><code>0</code> - <code>5000</code>
+        <br><b>Default value:</b> <code>1000</code> (1 seconds)
+      </td>
+    </tr>
+    <tr>
       <td><code>ccuProtocol</code></td>
       <td>The protocol to use for your CCU.
 		<br>Most likely default value is good.
@@ -514,14 +534,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <td>The unit of the shutter actuator.
         <br><b>Possible values:</b> <code>%</code> - <code>pc</code>
         <br><b>Default value:</b> <code>%</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>numberUnit</code></td>
-      <td>The unit of a numeric value.
-	<br>This value is only used for 'other' and 'sysvar_number' types.
-        <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
-        <br><b>Default value:</b> <code>" "</code>
       </td>
     </tr>
     <tr>
@@ -646,6 +658,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>numberUnit</code></td>
+      <td>The unit of a numeric value.
+	<br>This value is only used for 'other' and 'sysvar_number' types.
+        <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
+        <br><b>Default value:</b> <code>" "</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>threshold</code></td>
       <td>A threshold value for displaying a warning.
 	  <br>This value is required if you have defined a type with a high/low warning.
@@ -720,26 +740,6 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"false"</code>
 	  </td>
-    </tr>
-    <tr>
-      <td><code>initialLoadDelay</code></td>
-      <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
-        <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>
-        <br><b>Default value:</b>  <code>0</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>updateInterval</code></td>
-      <td>How often does the content needs to be fetched? (Seconds)<br>
-        <br><b>Default value:</b> <code>30</code> (1/2 minute)
-      </td>
-    </tr>
-    <tr>
-      <td><code>animationSpeed</code></td>
-      <td>Speed of the update animation. (Milliseconds)<br>
-        <br><b>Possible values:</b><code>0</code> - <code>5000</code>
-        <br><b>Default value:</b> <code>1000</code> (1 seconds)
-      </td>
     </tr>
   </tbody>
 </table>
