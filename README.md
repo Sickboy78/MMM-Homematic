@@ -576,7 +576,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>id</code></td>
+      <td><code>id (of datapoint)</code></td>
       <td>The ID of the datapoint to read a value from.
 	  <br>This value is required.
 	  <br>On howto get your ID see <a href="#howto-get-your-datapoint-ids">Howto get your datapoint IDs</a>.
@@ -584,7 +584,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>name</code></td>
+      <td><code>name (of datapoint)</code></td>
       <td>The display name of the device/datapoint.
 	  <br>This value is required.
 	  <br><b>Example values:</b> <code>
@@ -593,7 +593,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>type</code></td>
+      <td><code>type (of datapoint)</code></td>
       <td>The type of the device/datapoint.
 	  <br>This value is required.
 	  <br>Depends on the datapoint/device you want to display.
@@ -651,14 +651,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>precision</code></td>
+      <td><code>precision (of datapoint)</code></td>
       <td>The precision for displaying a value.
 	  <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
 	  <br><b>Example value:</b> <code>2</code>
       </td>
     </tr>
     <tr>
-      <td><code>numberUnit</code></td>
+      <td><code>numberUnit (of datapoint)</code></td>
       <td>The unit of a numeric value.
 	<br>This value is only used for 'other' and 'sysvar_number' types.
         <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
@@ -666,7 +666,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>threshold</code></td>
+      <td><code>threshold (of datapoint)</code></td>
       <td>A threshold value for displaying a warning.
 	  <br>This value is required if you have defined a type with a high/low warning.
 	  <br>Must be a number without unit.
@@ -674,14 +674,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>reference</code></td>
+      <td><code>reference (of datapoint)</code></td>
       <td>A reference value for displaying a warning.
 	  <br>This value is required if you have defined a type with a equals/not equals warning.
       <br><b>Example value:</b> <code>"error"</code>
 	  </td>
     </tr>
     <tr>
-      <td><code>warnOnly</code></td>
+      <td><code>warnOnly (of datapoint)</code></td>
       <td>Toggles whether an output is always shown or only for a warning.
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
@@ -689,7 +689,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>warnColor</code></td>
+      <td><code>warnColor (of datapoint)</code></td>
       <td>Sets the warning color for this device or system variable.
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code> - <code>"yellow"</code> - <code>"white"</code>
@@ -697,7 +697,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>icon</code></td>
+      <td><code>icon (of datapoint)</code></td>
       <td>Sets an icon for the device or system variable.
 	  <br>This value can either be one of the default icons or an icon from [font awesome](https://fontawesome.com/icons?d=gallery&m=free) or an URL to an external icon.
       <br><b>Possible values for default icons:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code><br><br>
@@ -706,7 +706,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconSize</code></td>
+      <td><code>iconSize (of datapoint)</code></td>
       <td>Sets the size of the icon.
 	  <br>This value only applies if an icon is set.
       <br><b>Possible values:</b> <code>"x-small"</code> - <code>"small"</code> - <code>"medium"</code> - <code>"large"</code> - <code>"x-large"</code>
@@ -714,7 +714,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconPosition</code></td>
+      <td><code>iconPosition (of datapoint)</code></td>
       <td>Sets the position of the icon relative to the text and value.
 	  <br>If no icon is set, this value still determines in which row/column the text and value is shown for table styles.
 	  <br>Left and top are synonyms as are right and bottom.
@@ -724,7 +724,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconColor</code></td>
+      <td><code>iconColor (of datapoint)</code></td>
       <td>Sets the color of the icon.
 	  <br>This value only applies when using the default icons or an external icon with transparency.
 	  <br>If a warning is triggered, this color gets overwritten with warnColor.
@@ -733,7 +733,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconOnly</code></td>
+      <td><code>iconOnly (of datapoint)</code></td>
       <td>Sets the text invisible and shows only the icon.
 	  <br>This value only applies if an icon is set.
 	  <br>This value overwrites the global values showText and showValue for the item it is set on.
