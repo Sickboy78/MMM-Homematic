@@ -5,17 +5,35 @@ This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) tha
 
 This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-This module supports output of text, icons and text or icons only. It also supports output as table.
+This module supports output of text, icons and text or icons only. It also supports output as lines or vertical or horizontal table.
+
+Example of style 'lines' with warn colors:
 
 ![screenshot_01](screenshot_01.png)
 
+Example of style 'lines' with default icons and icon colors:
+
 ![screenshot_02](screenshot_02.png)
+
+Example of icons only:
 
 ![screenshot_03](screenshot_03.png)
 
-![screenshot_04](screenshot_04.jpg)
+Example of font awesome icon with hideText set to true:
 
-![screenshot_05](screenshot_05.jpg)
+![screenshot_04](screenshot_04.png)
+
+Example of style 'table_rows':
+
+![screenshot_05](screenshot_05.png)
+
+Example of font awesome icons with style 'table_columns':
+
+![screenshot_06](screenshot_06.jpg)
+
+Example of font awesome icons with style 'table_columns' and hideValue set to true:
+
+![screenshot_07](screenshot_07.jpg)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
