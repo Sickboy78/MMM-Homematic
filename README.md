@@ -15,11 +15,11 @@ Example of style 'lines' with default icons and icon colors:
 
 ![screenshot_02](screenshot_02.png)
 
-Example of iconOnly set to true:
+Example of large icon with iconOnly set to true:
 
 ![screenshot_03](screenshot_03.png)
 
-Example of font awesome icon with hideText set to true:
+Example of large font awesome icon with hideText set to true:
 
 ![screenshot_04](screenshot_04.png)
 
