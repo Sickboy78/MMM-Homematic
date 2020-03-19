@@ -15,7 +15,7 @@ Example of style 'lines' with default icons and icon colors:
 
 ![screenshot_02](screenshot_02.png)
 
-Example of icons only:
+Example of iconOnly set to true:
 
 ![screenshot_03](screenshot_03.png)
 
