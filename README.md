@@ -123,8 +123,8 @@ modules: [
 			ccuHost: 'ccu3-webui',	// hostname of your ccu (e.g. for CCU3 default is "ccu3-webui")
 			tempUnit: "°C",			// unit of your temperatur values
 			useShortText: "true",	// use short text output optimized for table style
-			style: 'table',
-			tableShowValueRow: 'false',
+			style: 'table_columns',
+			showValue: 'false',
 			datapoints: [			// the datapoints of your HomeMatic devices/sensors
 				{
 					id: "15387",
