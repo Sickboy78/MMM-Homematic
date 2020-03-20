@@ -13,7 +13,6 @@ Module.register("MMM-Homematic",{
 		energyUnit: " Wh",
 		energyUnitK: " kWh", 
 		freqUnit: " Hz",
-		numberUnit: "",
 		
 		locale: config.language,
 		ccuProtocol: 'http://',
@@ -63,7 +62,9 @@ Module.register("MMM-Homematic",{
 	// Override dom generator.
 	getDom: function() {
 		let _self = this;
+		// main wrapper
 		let wrapper = $("<div/>",{class: 'small'});
+		// add table class for style table_*
 		if(_self.config.style.startsWith("table")) {
 			wrapper.addClass("table");
 			if(_self.config.style === "table_rows") {
@@ -80,14 +81,12 @@ Module.register("MMM-Homematic",{
 		if(typeof(_self.homematicData) !== 'undefined') {
 			if(typeof(this.config.datapoints) === 'object') {
 				
-				// loop over elementFromPoint
-				$.each(this.config.datapoints,function(){
+				// loop over datapoints
+				$.each(this.config.datapoints,function() {
+					// check name, id and type is set for datapoint
 					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
 						// row or line for style lines and table_rows
 						let row = $("<div/>");
-						if(_self.config.style.startsWith("table")) {
-							row.addClass("table-row");
-						}
 						// row counter for style table_columns
 						let rowCounter = 0;
 
@@ -115,7 +114,6 @@ Module.register("MMM-Homematic",{
 						let icon_size = 'medium';
 						// default icon position
 						let icon_position = 'left';
-						let symbol; 
 						
 						// icon dom element
 						let icon_element;
@@ -124,11 +122,20 @@ Module.register("MMM-Homematic",{
 						// value dom element
 						let value_element;
 
+						// add table class-row for style table_*
+						if(_self.config.style.startsWith("table")) {
+							row.addClass("table-row");
+						}
+
+						// ------------------------------------
+						// consider config values for datapoint
+						// ------------------------------------
+						
 						// Introduction numberUnit
 						// @spitzlbergerj, 20190624
-						let numberUnit = '';
+						let numberUnit = typeof(this.numberUnit) === 'string' ? this.numberUnit : "";
 
-						
+						// hide element is default when warnOnly is true
 						if((this.type.indexOf("warn") !== -1) && ((typeof(this.warnOnly) === 'string') && (this.warnOnly === 'true'))) {
 							text_class = "hide";
 						}
@@ -144,14 +151,11 @@ Module.register("MMM-Homematic",{
 							icon_color = this.iconColor;
 						}
 
-						// Introduction numberUnit
-						// @spitzlbergerj, 20190624
-						if(typeof(this.numberUnit) === 'string') {
-							numberUnit = this.numberUnit;
-						}
-
-
-						// Devices
+						// -----------------------------------------------------------
+						// read values from devices and sysvars and compose value text
+						// -----------------------------------------------------------
+						
+						// devices
 						
 						if(this.type.startsWith('window')) {
 							// window/door
@@ -170,7 +174,7 @@ Module.register("MMM-Homematic",{
 								}
 							}
 						} else if(this.type.startsWith('temp')) {
-							// temperature
+							// temperature sensor
 							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 1, maximumFractionDigits: 1});;
 							
 							if(this.type.startsWith('temp_') && typeof(this.threshold) === 'number') {
@@ -189,7 +193,7 @@ Module.register("MMM-Homematic",{
 								value_text = (use_short_text ? "" : _self.translateLoS("IS") + " ") + valueStr + _self.config.tempUnit;
 							}
 						} else if(this.type.startsWith('hum')) {
-							// humidity
+							// humidity sensor
 							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
 							if(this.type.startsWith('hum_') && typeof(this.threshold) === 'number') {
@@ -208,7 +212,7 @@ Module.register("MMM-Homematic",{
 								value_text = (use_short_text ? "" : _self.translateLoS("IS") + " ") + valueStr + _self.config.humUnit;
 							}
 						} else if(this.type.startsWith('shutter')) {
-							// shutter
+							// shutter actuator
 							value = value*100;
 							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: 0, maximumFractionDigits: 0});;
 							
@@ -232,7 +236,7 @@ Module.register("MMM-Homematic",{
 						// @spitzlbergerj, 20190206
 
 						} else if(this.type.startsWith('switch')) {
-							// switch
+							// switch actuator
 							if(value === "false") {
 								value_text = _self.translateLoS("IS_OFF");
 								if(this.type === 'switch_warn_off') {
@@ -247,7 +251,7 @@ Module.register("MMM-Homematic",{
 								}
 							}
 						} else if(this.type.startsWith('energie')) {
-							// energie
+							// switch actuator with power metering
 							let valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
 							let valueUnit = '';
 							
@@ -282,7 +286,7 @@ Module.register("MMM-Homematic",{
 							}
 							
 						} else if(this.type.startsWith('other')) {
-							// other value/sensor
+							// other sensor/actuator
 							let valueStr = value;
 							if(typeof(this.precision) === 'number') {
 								valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});;
@@ -307,7 +311,7 @@ Module.register("MMM-Homematic",{
 							}
 						} 
 						
-						// SysVars
+						// sysvars
 						// @spitzlbergerj, 20190127
 
 						else if(this.type.startsWith('sysvar_boolean')) {
@@ -420,12 +424,10 @@ Module.register("MMM-Homematic",{
 							}
 						}
 						
-						// ----------------------------------
-						// Compose HTML code
-						// ----------------------------------
+						// ------------
+						// compose icon
+						// ------------
 						
-						// ----------------------------------
-						// icon					
 						if((typeof(this.iconPosition) === 'string')) {
 							icon_position = this.iconPosition;
 						}
@@ -471,9 +473,9 @@ Module.register("MMM-Homematic",{
 							}
 						}
 						
-						// ----------------------------------
-						// put html snippets together
-						
+						// ---------------------------------
+						// combine icon, name and value text
+						// ---------------------------------
 						
 						// icon left/top or center for style lines
 						if(icon_position === 'left' || icon_position === 'top') {
@@ -555,18 +557,21 @@ Module.register("MMM-Homematic",{
 							}
 						}
 
+						// output for style lines and table_rows
 						if(_self.config.style !== "table_columns") {
 							wrapper.append(row);
 						}
 						
-					} // element is valid
-				}); // end of loop
+					}
+				}); // end of loop over datapoints
 				
+				// output for style table_columns
 				if(_self.config.style === "table_columns") {
 					wrapper.append(rowArray);
 				}
 			}
 		} else {
+			// loading screen
 			let textHtml = $("<div/>",{id: _self.identifier + "-loading"});
 			textHtml.html("Loading ...");
 			wrapper.append(textHtml);

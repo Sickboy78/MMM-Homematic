@@ -1,3 +1,4 @@
+/* colors */
 .MMM-Homematic .red {
     color: red;
 }
@@ -13,91 +14,7 @@
 .MMM-Homematic .white {
     color: white;
 }
-
-.MMM-Homematic .icon-red {
-    background-color: red;
-}
-.MMM-Homematic .fa.icon-red {
-	color: red;
-    background-color: transparent;
-}
-.MMM-Homematic .icon-green {
-    background-color: green;
-}
-.MMM-Homematic .fa.icon-green {
-    color: green;
-    background-color: transparent;
-}
-.MMM-Homematic .icon-blue {
-    background-color: blue;
-}
-.MMM-Homematic .fa.icon-blue {
-    color: blue;
-    background-color: transparent;
-}
-.MMM-Homematic .icon-yellow {
-    background-color: yellow;
-}
-.MMM-Homematic .fa.icon-yellow {
-    color: yellow;
-    background-color: transparent;
-}
-.MMM-Homematic .icon-white {
-    background-color: white;
-}
-.MMM-Homematic .fa.icon-white {
-    color: white;
-    background-color: transparent;
-}
-
-.MMM-Homematic .hide {
-	display: none !important;
-}
-
-.MMM-Homematic .text-lines {
-	display: inline-block;
-	vertical-align: top;
-}
-.MMM-Homematic .table {
-	display: table;
-}
-.MMM-Homematic .table-row {
-	display: table-row;
-}
-.MMM-Homematic .table-cell {
-	display: table-cell;
-	padding: 0 5px;
-}
-
-.MMM-Homematic .icon-left {
-	margin-right: 5px;
-}
-.MMM-Homematic .icon-right {
-	margin-left: 5px;
-}
-.MMM-Homematic .text-with-icon-x-small {
-	padding-top: 0px;
-}
-.MMM-Homematic .text-with-icon-small {
-	padding-top: 3px;
-}
-.MMM-Homematic .text-with-icon-medium {
-	padding-top: 12px;
-}
-.MMM-Homematic .text-with-icon-large {
-	padding-top: 20px;
-}
-.MMM-Homematic .text-with-icon-x-large {
-	padding-top: 52px;
-}
-
-.MMM-Homematic .table-columns .text-with-icon {
-	padding-top: 0px;	
-}
-.MMM-Homematic .table-row:not(:last-child) > div {
-	padding-bottom: 3px;	
-}
-
+/* icons */
 .MMM-Homematic .icon {
 	display: inline-block;
 	background-repeat: no-repeat;	
@@ -105,7 +22,37 @@
 }
 .MMM-Homematic .icon.fa {
 	display: inline;
+    background-color: transparent;
 }
+/* icons - color */
+.MMM-Homematic .icon-red {
+    background-color: red;
+	color: red;
+}
+.MMM-Homematic .icon-green {
+    background-color: green;
+    color: green;
+}
+.MMM-Homematic .icon-blue {
+    background-color: blue;
+    color: blue;
+}
+.MMM-Homematic .icon-yellow {
+    background-color: yellow;
+    color: yellow;
+}
+.MMM-Homematic .icon-white {
+    background-color: white;
+    color: white;
+}
+/* icons - position */
+.MMM-Homematic .icon-left {
+	margin-right: 5px;
+}
+.MMM-Homematic .icon-right {
+	margin-left: 5px;
+}
+/* icons - size */
 .MMM-Homematic .icon-x-small {
 	width: 24px;
 	height: 24px;
@@ -131,7 +78,48 @@
 	height: 128px;
 	font-size: 128px;
 }
-
+/* text position for icon sizes */
+.MMM-Homematic .text-with-icon-x-small {
+	padding-top: 0px;
+}
+.MMM-Homematic .text-with-icon-small {
+	padding-top: 3px;
+}
+.MMM-Homematic .text-with-icon-medium {
+	padding-top: 12px;
+}
+.MMM-Homematic .text-with-icon-large {
+	padding-top: 20px;
+}
+.MMM-Homematic .text-with-icon-x-large {
+	padding-top: 52px;
+}
+/* style - lines */
+.MMM-Homematic .text-lines {
+	display: inline-block;
+	vertical-align: top;
+}
+/* style - table */
+.MMM-Homematic .table {
+	display: table;
+}
+.MMM-Homematic .table-row {
+	display: table-row;
+}
+.MMM-Homematic .table-cell {
+	display: table-cell;
+	padding: 0 5px;
+}
+.MMM-Homematic .table-columns .text-with-icon {
+	padding-top: 0px;	
+}
+.MMM-Homematic .table-row:not(:last-child) > div {
+	padding-bottom: 3px;	
+}
+/* general */
+.MMM-Homematic .hide {
+	display: none !important;
+}
 .MMM-Homematic .centered {
 	text-align: center;
 }
