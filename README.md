@@ -1,11 +1,11 @@
 # MMM-Homematic
 HomeMatic Module for MagicMirror
 
-This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
+This module is an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
 
-This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
+It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-This module supports output of text, icons and text or icons only. It also supports output as lines or vertical or horizontal table.
+The module has a higly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
 
 Example of style 'lines' with warn colors:
 
@@ -561,7 +561,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>datapoints</code></td>
       <td>An array of datapoint objects.
-		<br>Each datapoint object represents one value/state of a device.
+		<br>Each datapoint object represents one value/state of a device or sysvar.
+		<br>Each datapoint object needs at least an id, a name and a type,
+		<br>but can have many more options set, as shown below.
 		<br><b>Example value:</b>
 		<br><code>[{
 		<br>id: 1234,
