@@ -1,17 +1,39 @@
 # MMM-Homematic
 HomeMatic Module for MagicMirror
 
-This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
+This module is an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
 
-This module makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
+It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
 
-This module supports output of text, icons and text or icons only.
+The module has a higly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
+
+Example of style 'lines' with warn colors:
 
 ![screenshot_01](screenshot_01.png)
 
+Example of style 'lines' with default icons and icon colors:
+
 ![screenshot_02](screenshot_02.png)
 
+Example of large icon with iconOnly set to true:
+
 ![screenshot_03](screenshot_03.png)
+
+Example of large font awesome icon with hideText set to true:
+
+![screenshot_04](screenshot_04.png)
+
+Example of style 'table_rows':
+
+![screenshot_05](screenshot_05.png)
+
+Example of font awesome icons with style 'table_columns':
+
+![screenshot_06](screenshot_06.jpg)
+
+Example of font awesome icons with style 'table_columns' and hideValue set to true:
+
+![screenshot_07](screenshot_07.jpg)
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -20,6 +42,8 @@ This module supports output of text, icons and text or icons only.
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
+
+Lines view:
 ````javascript
 modules: [
 	{
@@ -82,6 +106,37 @@ modules: [
 					reference: "monday",
 					warnColor: "red"
 				}
+			]
+		}
+	}
+]
+````
+
+Table view without the value row:
+````javascript
+modules: [
+	{
+		module: 'MMM-Homematic',
+		position: 'top_center',
+		header: 'SMART HOME',
+		config:	{
+			ccuHost: 'ccu3-webui',	// hostname of your ccu (e.g. for CCU3 default is "ccu3-webui")
+			tempUnit: "°C",			// unit of your temperatur values
+			useShortText: "true",	// use short text output optimized for table style
+			style: 'table_columns',
+			showValue: 'false',
+			datapoints: [			// the datapoints of your HomeMatic devices/sensors
+				{
+					id: "15387",
+					name: "Tesla",
+					type: "window_warn_open",
+					icon: "http://yourdomain/yourpath/youricon.png",
+					iconSize: "small",
+					iconColor: "green",
+					warnColor: "red",
+					warnOnly: "false",
+				},
+
 			]
 		}
 	}
@@ -367,6 +422,26 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   <thead>
   <tbody>
     <tr>
+      <td><code>initialLoadDelay</code></td>
+      <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
+        <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>
+        <br><b>Default value:</b>  <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>updateInterval</code></td>
+      <td>How often does the content needs to be fetched? (Seconds)<br>
+        <br><b>Default value:</b> <code>30</code> (1/2 minute)
+      </td>
+    </tr>
+    <tr>
+      <td><code>animationSpeed</code></td>
+      <td>Speed of the update animation. (Milliseconds)<br>
+        <br><b>Possible values:</b><code>0</code> - <code>5000</code>
+        <br><b>Default value:</b> <code>1000</code> (1 seconds)
+      </td>
+    </tr>
+    <tr>
       <td><code>ccuProtocol</code></td>
       <td>The protocol to use for your CCU.
 		<br>Most likely default value is good.
@@ -426,6 +501,21 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>style</code></td>
+      <td>The style of output.
+        <br><b>Possible values:</b> <code>lines</code> - <code>table_rows</code> - <code>table_columns</code>
+        <br><b>Default value:</b> <code>lines</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>useShortText</code></td>
+      <td>Toggles between long and short text output.
+		<br>Short text output is optimized for table style.
+        <br><b>Possible values:</b> <code>true</code> - <code>false</code>
+        <br><b>Default value:</b> <code>false</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>tempUnit</code></td>
       <td>The unit of temperature.
         <br><b>Possible values:</b> <code>°C</code> - <code>°F</code> - <code>K</code>
@@ -447,11 +537,17 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>numberUnit</code></td>
-      <td>The unit of a numeric value.
-	<br>This value is only used for 'other' and 'sysvar_number' types.
-        <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
-        <br><b>Default value:</b> <code>" "</code>
+      <td><code>showText</code></td>
+      <td>Toggles whether the text with the names of the devices or variables is displayed.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>showValue</code></td>
+      <td>Toggles whether the values of the devices or variables is displayed.
+      <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
+      <br><b>Default value:</b> <code>"true"</code>
       </td>
     </tr>
     <tr>
@@ -465,7 +561,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>datapoints</code></td>
       <td>An array of datapoint objects.
-		<br>Each datapoint object represents one value/state of a device.
+		<br>Each datapoint object represents one value/state of a device or sysvar.
+		<br>Each datapoint object needs at least an id, a name and a type,
+		<br>but can have many more options set, as shown below.
 		<br><b>Example value:</b>
 		<br><code>[{
 		<br>id: 1234,
@@ -480,7 +578,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>id</code></td>
+      <td><code>id (of datapoint)</code></td>
       <td>The ID of the datapoint to read a value from.
 	  <br>This value is required.
 	  <br>On howto get your ID see <a href="#howto-get-your-datapoint-ids">Howto get your datapoint IDs</a>.
@@ -488,7 +586,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>name</code></td>
+      <td><code>name (of datapoint)</code></td>
       <td>The display name of the device/datapoint.
 	  <br>This value is required.
 	  <br><b>Example values:</b> <code>
@@ -497,7 +595,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>type</code></td>
+      <td><code>type (of datapoint)</code></td>
       <td>The type of the device/datapoint.
 	  <br>This value is required.
 	  <br>Depends on the datapoint/device you want to display.
@@ -555,14 +653,22 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
-      <td><code>precision</code></td>
+      <td><code>precision (of datapoint)</code></td>
       <td>The precision for displaying a value.
 	  <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
 	  <br><b>Example value:</b> <code>2</code>
       </td>
     </tr>
     <tr>
-      <td><code>threshold</code></td>
+      <td><code>numberUnit (of datapoint)</code></td>
+      <td>The unit of a numeric value.
+	<br>This value is only used for 'other' and 'sysvar_number' types.
+        <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
+        <br><b>Default value:</b> <code>" "</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>threshold (of datapoint)</code></td>
       <td>A threshold value for displaying a warning.
 	  <br>This value is required if you have defined a type with a high/low warning.
 	  <br>Must be a number without unit.
@@ -570,14 +676,14 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>reference</code></td>
+      <td><code>reference (of datapoint)</code></td>
       <td>A reference value for displaying a warning.
 	  <br>This value is required if you have defined a type with a equals/not equals warning.
       <br><b>Example value:</b> <code>"error"</code>
 	  </td>
     </tr>
     <tr>
-      <td><code>warnOnly</code></td>
+      <td><code>warnOnly (of datapoint)</code></td>
       <td>Toggles whether an output is always shown or only for a warning.
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
@@ -585,7 +691,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>warnColor</code></td>
+      <td><code>warnColor (of datapoint)</code></td>
       <td>Sets the warning color for this device or system variable.
 	  <br>This value only applies if type is a kind of warning.
       <br><b>Possible values:</b> <code>"red"</code> - <code>"green"</code> - <code>"blue"</code> - <code>"yellow"</code> - <code>"white"</code>
@@ -593,14 +699,16 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>icon</code></td>
+      <td><code>icon (of datapoint)</code></td>
       <td>Sets an icon for the device or system variable.
-	  <br>This value can either be one of the default icons or an URL to an external icon.
-      <br><b>Possible values:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code> - an URL to an external icon
+	  <br>This value can either be one of the default icons or an icon from [font awesome](https://fontawesome.com/icons?d=gallery&m=free) or an URL to an external icon.
+      <br><b>Possible values for default icons:</b> <code>"default_icon_mail"</code> - <code>"default_icon_presence"</code> - <code>"default_icon_temp"</code> - <code>"default_icon_hum"</code> - <code>"default_icon_window"</code> - <code>"default_icon_door"</code> - <code>"default_icon_shutter"</code> - <code>"default_icon_socket_eu"</code> - <code>"default_icon_socket_us"</code> - <code>"default_icon_washmachine"</code> - <code>"default_icon_car"</code><br><br>
+	   <b>Possible values for font awesome icons:</b><br> all this icons start with "fa-": <code>"fa-car"</code> or <code>fa-door-open</code><br> <br>
+	      or you use <b>an URL to an external icon</b>
 	  </td>
     </tr>
     <tr>
-      <td><code>iconSize</code></td>
+      <td><code>iconSize (of datapoint)</code></td>
       <td>Sets the size of the icon.
 	  <br>This value only applies if an icon is set.
       <br><b>Possible values:</b> <code>"x-small"</code> - <code>"small"</code> - <code>"medium"</code> - <code>"large"</code> - <code>"x-large"</code>
@@ -608,15 +716,17 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconPosition</code></td>
-      <td>Sets the position of the icon relative to the text.
-	  <br>This value only applies if an icon is set.
-      <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"right"</code>
+      <td><code>iconPosition (of datapoint)</code></td>
+      <td>Sets the position of the icon relative to the text and value.
+	  <br>If no icon is set, this value still determines in which row/column the text and value is shown for table styles.
+	  <br>Left and top are synonyms as are right and bottom.
+	  <br><b>Hint:</b>Meaning of top changed from synonym for center to synonym for left with introduction of table styles.
+      <br><b>Possible values:</b> <code>"left"</code> - <code>"top"</code> - <code>"center"</code> - <code>"right"</code> - <code>"bottom"</code>
       <br><b>Default value:</b> <code>"left"</code>
 	  </td>
     </tr>
     <tr>
-      <td><code>iconColor</code></td>
+      <td><code>iconColor (of datapoint)</code></td>
       <td>Sets the color of the icon.
 	  <br>This value only applies when using the default icons or an external icon with transparency.
 	  <br>If a warning is triggered, this color gets overwritten with warnColor.
@@ -625,32 +735,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 	  </td>
     </tr>
     <tr>
-      <td><code>iconOnly</code></td>
+      <td><code>iconOnly (of datapoint)</code></td>
       <td>Sets the text invisible and shows only the icon.
 	  <br>This value only applies if an icon is set.
+	  <br>This value overwrites the global values showText and showValue for the item it is set on.
       <br><b>Possible values:</b> <code>"true"</code> - <code>"false"</code>
       <br><b>Default value:</b> <code>"false"</code>
 	  </td>
-    </tr>
-    <tr>
-      <td><code>initialLoadDelay</code></td>
-      <td>The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds)<br>
-        <br><b>Possible values:</b> <code>1000</code> - <code>5000</code>
-        <br><b>Default value:</b>  <code>0</code>
-      </td>
-    </tr>
-    <tr>
-      <td><code>updateInterval</code></td>
-      <td>How often does the content needs to be fetched? (Seconds)<br>
-        <br><b>Default value:</b> <code>30</code> (1/2 minute)
-      </td>
-    </tr>
-    <tr>
-      <td><code>animationSpeed</code></td>
-      <td>Speed of the update animation. (Milliseconds)<br>
-        <br><b>Possible values:</b><code>0</code> - <code>5000</code>
-        <br><b>Default value:</b> <code>1000</code> (1 seconds)
-      </td>
     </tr>
   </tbody>
 </table>
