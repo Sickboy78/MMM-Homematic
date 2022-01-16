@@ -1,0 +1,24 @@
+{
+  "name": "MMM-Homematic",
+  "version": "1.1.0",
+  "description": "HomeMatic Module for MagicMirror",
+  "main": "MMM-Homematic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sickboy78/MMM-Homematic.git"
+  },
+  "keywords": [],
+  "author": "Sickboy78",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/Sickboy78/MMM-Homematic/issues"
+  },
+  "homepage": "https://github.com/Sickboy78/MMM-Homematic#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.6.0"
+  }
+}

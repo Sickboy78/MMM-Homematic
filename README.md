@@ -746,6 +746,16 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
   </tbody>
 </table>
 
+## Changelog
+
+### 1.1.0 (2022-01-16)
+* (Sickboy78) moved xml api requests to backend, added node_helper.js
+* (Sickboy78) code refactoring
+
+### 1.0.0
+* (Sickboy78) initial version
+* (spitzlbergerj) added system variables, switches and more devices
+
 ## Further information
 * [HomeMatic](https://www.homematic.com/) - HomeMatic website
 * [XML-API](https://github.com/hobbyquaker/XML-API) - XML-Api for HomeMatic CCU
