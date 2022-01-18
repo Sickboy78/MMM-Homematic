@@ -37,7 +37,9 @@ Example of font awesome icons with style 'table_columns' and hideValue set to tr
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
-2. Add it to the modules array in the `config/config.js` (see next steps below)
+2. Go into the new folder `cd MMM-Homematic`
+3. Execute `npm install`
+4. Add it to the modules array in the `config/config.js` (see next steps below)
 
 ## Using the module
 
