@@ -17,7 +17,9 @@
     "url": "https://github.com/Sickboy78/MMM-Homematic/issues"
   },
   "homepage": "https://github.com/Sickboy78/MMM-Homematic#readme",
-  "dependencies": {},
+  "dependencies": {
+    "request": "^2.88.2"
+  },
   "devDependencies": {
     "eslint": "^8.6.0"
   }
