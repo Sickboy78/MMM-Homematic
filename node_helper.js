@@ -1,6 +1,6 @@
 const NodeHelper = require('node_helper');
 const Log = require('logger');
-const request = require('request');
+const request = require('request').defaults({ rejectUnauthorized: false });
 const crypto = require('crypto');
 
 module.exports = NodeHelper.create({

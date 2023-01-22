@@ -3,7 +3,8 @@ HomeMatic Module for MagicMirror
 
 This module is an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
 
-It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed on your HomeMatic CCU to read the sensor values from.
+It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed as a plugin on your HomeMatic CCU to read the sensor and variables values from.<br>
+**Important:** For now only XML-API versions 1.x are supported. Version 2.x needs authentication which ist not yet implemented in this module.
 
 The module has a higly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
 
@@ -36,6 +37,7 @@ Example of font awesome icons with style 'table_columns' and hideValue set to tr
 ![screenshot_07](screenshot_07.jpg)
 
 ## Installation
+
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
 2. Go into the new folder `cd MMM-Homematic`
 3. Execute `npm install`
@@ -749,6 +751,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 </table>
 
 ## Changelog
+
+### 1.1.1 (2023-01-22)
+* (Sickboy78) fixed https issues, allowed self-signed certificates for XML-API 
 
 ### 1.1.0 (2022-01-16)
 * (Sickboy78) moved xml api requests to backend, added node_helper.js
