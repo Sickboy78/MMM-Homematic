@@ -36,6 +36,10 @@ Example of font awesome icons with style 'table_columns' and hideValue set to tr
 
 ![screenshot_07](screenshot_07.jpg)
 
+Example of font awesome icons with style 'single_line' and showText set to false:
+
+![screenshot_08](screenshot_08.jpg)
+
 ## Installation
 
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/Sickboy78/MMM-Homematic`. A new folder will appear.
@@ -507,7 +511,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>style</code></td>
       <td>The style of output.
-        <br><b>Possible values:</b> <code>lines</code> - <code>table_rows</code> - <code>table_columns</code>
+        <br><b>Possible values:</b> <code>lines</code> - <code>single_line</code> - <code>table_rows</code> - <code>table_columns</code>
         <br><b>Default value:</b> <code>lines</code>
       </td>
     </tr>
@@ -752,6 +756,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 </table>
 
 ## Changelog
+
+### 1.1.3 (2023-03-12)
+* (Sickboy78) added new style single_line
 
 ### 1.1.2 (2023-03-12)
 * (Sickboy78) fixed sysvar precision threshold bug 

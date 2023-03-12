@@ -79,7 +79,7 @@ Module.register('MMM-Homematic',{
 		// add table class for style table_*
 		if(_self.config.style.startsWith('table')) {
 			wrapper.addClass('table');
-			if(_self.config.style === 'table_rows') {
+			if(_self.config.style === 'table_rows' || _self.config.style === 'single_line') {
 				wrapper.addClass('table-rows');
 			}
 			if(_self.config.style === 'table_columns') {
@@ -97,7 +97,7 @@ Module.register('MMM-Homematic',{
 				$.each(this.config.datapoints,function() {
 					// check name, id and type is set for datapoint
 					if(typeof(this.name) === 'string' && typeof(this.id) === 'string' && typeof(this.type) === 'string') {
-						// row or line for style lines and table_rows
+						// row or line for style lines and single_line and table_rows
 						const row = $('<div/>');
 						// row counter for style table_columns
 						let rowCounter = 0;
@@ -130,10 +130,14 @@ Module.register('MMM-Homematic',{
 						// icon dom element
 						let icon_element;
 
-						// add table class-row for style table_*
+						// add class table-row for style table_*
 						if(_self.config.style.startsWith('table')) {
 							row.addClass('table-row');
 						}
+						// add class single_line for style single_line
+                        if(_self.config.style === 'single_line') {
+							row.addClass('single-line');
+                        }
 
 						// ------------------------------------
 						// consider config values for datapoint
@@ -491,7 +495,7 @@ Module.register('MMM-Homematic',{
 							if(_self.config.style === 'lines' && typeof(this.icon) === 'string') {
 								row.append(icon_element);
 							}
-							if(_self.config.style === 'table_rows') {
+							if(_self.config.style === 'table_rows' || _self.config.style === 'single_line') {
 								row.append(icon_element);
 							}
 							if(_self.config.style === 'table_columns') {
@@ -530,7 +534,7 @@ Module.register('MMM-Homematic',{
 						if(icon_position === 'center'){
 							if(_self.config.style === 'table_columns') {
 								rowArray[rowCounter++].append(icon_element);
-							} else if(_self.config.style === 'table_rows') {
+							} else if(_self.config.style === 'table_rows' || _self.config.style === 'single_line') {
 								row.append(icon_element);
 							}
 						}
@@ -558,7 +562,7 @@ Module.register('MMM-Homematic',{
 
 						// icon right/bottom
 						if(icon_position === 'right' || icon_position === 'bottom') {
-							if((_self.config.style === 'lines' && typeof(this.icon) === 'string') || _self.config.style === 'table_rows') {
+							if((_self.config.style === 'lines' && typeof(this.icon) === 'string') || _self.config.style === 'table_rows' || _self.config.style === 'single_line') {
 								row.append(icon_element);
 							}
 							if(_self.config.style === 'table_columns') {
@@ -566,7 +570,7 @@ Module.register('MMM-Homematic',{
 							}
 						}
 
-						// output for style lines and table_rows
+						// output for style lines and single_line and table_rows
 						if(_self.config.style !== 'table_columns') {
 							wrapper.append(row);
 						}
