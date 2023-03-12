@@ -260,8 +260,12 @@ Module.register('MMM-Homematic',{
 							}
 						} else if(this.type.startsWith('energie')) {
 							// switch actuator with power metering
-							const valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});
 							let valueUnit = '';
+							let precision = 0;
+							if(typeof(this.precision) === 'number') {
+								precision = this.precision;
+							}
+							const valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: precision, maximumFractionDigits: precision});
 
 							if (this.type.startsWith('energie_a')) {
 								valueUnit = _self.config.ampUnit;
@@ -295,10 +299,11 @@ Module.register('MMM-Homematic',{
 
 						} else if(this.type.startsWith('other')) {
 							// other sensor/actuator
-							let valueStr = value;
+							let precision = 0;
 							if(typeof(this.precision) === 'number') {
-								valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: this.precision, maximumFractionDigits: this.precision});
+								precision = this.precision;
 							}
+							const valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: precision, maximumFractionDigits: precision});
 
 							if(this.type.startsWith('other_') && typeof(this.threshold) === 'number') {
 								if(this.type === 'other_warn_high' && value >= this.threshold) {
@@ -407,29 +412,25 @@ Module.register('MMM-Homematic',{
 							}
 						} else if(this.type.startsWith('sysvar_number')) {
 							// SysVar number
-							let valnum = 0;
-							let valdec = 0;
-							let valwarn = 0;
+							let precision = 0;
 							if(typeof(this.precision) === 'number') {
-								valdec = this.precision;
+								precision = this.precision;
 							}
-							if (typeof(this.threshold) === 'number') {
-								valwarn = this.threshold;
+							const valueStr = Number(value).toLocaleString(_self.config.locale, {minimumFractionDigits: precision, maximumFractionDigits: precision});
+
+							if(this.type.startsWith('sysvar_number_') && typeof(this.threshold) === 'number') {
+								if(this.type === 'sysvar_number_warn_high' && value >= this.threshold) {
+									text_class = warn_class;
+									icon_color = warn_color;
+								} else if(this.type === 'sysvar_number_warn_low' && value <= this.threshold) {
+									text_class = warn_class;
+									icon_color = warn_color;
+								}
 							}
-							valnum = parseFloat(value).toLocaleString(_self.config.locale, {minimumFractionDigits: valdec, maximumFractionDigits: valdec});
 
 							// Introduction numberUnit
 							// @spitzlbergerj, 20190624
-							value_text = valnum.toString() + ' ' + numberUnit;
-
-							if(this.type === 'sysvar_number_warn_low' && valnum <= valwarn) {
-								text_class = warn_class;
-								icon_color = warn_color;
-							}
-							if(this.type === 'sysvar_number_warn_high' && valnum >= valwarn) {
-								text_class = warn_class;
-								icon_color = warn_color;
-							}
+							value_text = valueStr + ' ' + numberUnit;
 						}
 
 						// ------------

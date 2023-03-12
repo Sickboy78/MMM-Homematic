@@ -659,14 +659,15 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
     <tr>
       <td><code>precision (of datapoint)</code></td>
       <td>The precision for displaying a value.
-	  <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
-	  <br><b>Example value:</b> <code>2</code>
+	    <br>This value is only used for 'other', 'energie' and 'sysvar_number' types.
+	    <br><b>Example value:</b> <code>2</code>
+        <br><b>Default value:</b> <code>0</code>
       </td>
     </tr>
     <tr>
       <td><code>numberUnit (of datapoint)</code></td>
       <td>The unit of a numeric value.
-	<br>This value is only used for 'other' and 'sysvar_number' types.
+	    <br>This value is only used for 'other' and 'sysvar_number' types.
         <br><b>Possible values:</b> any string value for example <code>"km/h"</code>
         <br><b>Default value:</b> <code>" "</code>
       </td>
@@ -751,6 +752,10 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 </table>
 
 ## Changelog
+
+### 1.1.2 (2023-03-12)
+* (Sickboy78) fixed sysvar precision threshold bug 
+* (Sickboy78) set default precision to 0 
 
 ### 1.1.1 (2023-01-22)
 * (Sickboy78) fixed https issues, allowed self-signed certificates for XML-API 
