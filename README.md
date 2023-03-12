@@ -6,7 +6,7 @@ This module is an extension for [MagicMirror](https://github.com/MichMich/MagicM
 It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed as a plugin on your HomeMatic CCU to read the sensor and variables values from.<br>
 **Important:** For now only XML-API versions 1.x are supported. Version 2.x needs authentication which ist not yet implemented in this module.
 
-The module has a higly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
+The module has a highly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
 
 Example of style 'lines' with warn colors:
 
