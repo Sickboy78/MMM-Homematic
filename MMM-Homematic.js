@@ -277,10 +277,10 @@ Module.register('MMM-Homematic',{
 								valueUnit = _self.config.voltUnit;
 							} else if (this.type.startsWith('energie_p')) {
 								valueUnit = _self.config.pwrUnit;
-							} else if (this.type.startsWith('energie_e')) {
-								valueUnit = _self.config.energyUnit;
 							} else if (this.type.startsWith('energie_ek')) {
 								valueUnit = _self.config.energyUnitK;
+							} else if (this.type.startsWith('energie_e')) {
+								valueUnit = _self.config.energyUnit;
 							} else if (this.type.startsWith('energie_f')) {
 								valueUnit = _self.config.freqUnit;
 							}
