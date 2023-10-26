@@ -7,6 +7,7 @@ It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which mus
 **Important:** For XML-API versions 2.0 or higher an authentication token is required and must be set in your module config as 'ccuXmlApiTokenId'.
 It can be retrieved for example at your CCU addon webui page via Settings -> Control panel -> Additional software -> XML-API -> Set.
 There you click 'tokenregister.cgi' to create a new token or 'tokenlist.cgi', if you have already created a token.
+You also need to add this token, if you call devicelist.cgi, sysvarlist.cgi or state.cgi when retrieving the ise_id for your datapoints by adding ?sid=[TOKEN] to your url.
 For more information about how to create and use the authentication token see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
 
 The module has a highly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
@@ -163,6 +164,12 @@ Extension of this module with system variables, switches and more tested devices
 * Install the XML-API on your HomeMatic CCU. Installation guide can be found here: [XML-API](https://github.com/hobbyquaker/XML-API)
 
 * For datapoints from sensors or actors call the list of devices via the XML-API using http://ccu3-webui/addons/xmlapi/devicelist.cgi, replacing 'ccu3-webui' with the hostname or IP address of your CCU. For system variables call http://ccu3-webui/addons/xmlapi/sysvarlist.cgi
+
+**Important:** For XML-API versions 2.0 or higher an authentication token is required.
+It can be retrieved for example at your CCU addon webui page via Settings -> Control panel -> Additional software -> XML-API -> Set.
+There you click 'tokenregister.cgi' to create a new token or 'tokenlist.cgi', if you have already created a token.
+You must add this token, if you call devicelist.cgi, sysvarlist.cgi or state.cgi.
+For example:  http://ccu3-webui/addons/xmlapi/sysvarlist.cgi?sid=[TOKEN]
 
 * Find the ise_id of your device or system variable in the output, which may look like this:
 ````
