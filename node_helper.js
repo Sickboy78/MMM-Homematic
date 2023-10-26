@@ -55,13 +55,18 @@ module.exports = NodeHelper.create({
 					const type = datapoint.type.startsWith('sysvar_valuelist') ? 'sysvar' : 'datapoint';
 					promiseArray.push(
 						new Promise((resolve, reject) => {
-							request({url: (type === 'sysvar' ? sysvarServiceUrl : datapointServiceUrl) + datapoint.id}, function(error, response, body) {
+							const url = (type === 'sysvar' ? sysvarServiceUrl : datapointServiceUrl) + datapoint.id + (config.ccuXmlApiTokenId === '' ? '' : '&sid=' + config.ccuXmlApiTokenId);
+							request({url: url}, function(error, response, body) {
 								if (!error && response.statusCode == 200) {
-									return resolve({
-										'type': type,
-										'datapoint': datapoint,
-										'value': body
-									});
+									if(body.includes('><not_authenticated/></')) {
+										return reject('Homematic XML-API Request returned \'not authenticated\'. Try setting a ccuXmlApiTokenId in your module config.');
+									} else {
+										return resolve({
+											'type': type,
+											'datapoint': datapoint,
+											'value': body
+										});
+									}
 								} else {
 									return reject(error != undefined ? error : 'Homematic XML-API Request returned status ' + response.statusCode);
 								}

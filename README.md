@@ -4,7 +4,10 @@ HomeMatic Module for MagicMirror
 This module is an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows values from [HomeMatic](https://www.homematic.com/) smart home components and system variables.
 
 It makes use of the [XML-API](https://github.com/hobbyquaker/XML-API), which must be installed as a plugin on your HomeMatic CCU to read the sensor and variables values from.<br>
-**Important:** For now only XML-API versions 1.x are supported. Version 2.x needs authentication which ist not yet implemented in this module.
+**Important:** For XML-API versions 2.0 or higher an authentication token is required and must be set in your module config as 'ccuXmlApiTokenId'.
+It can be retrieved for example at your CCU addon webui page via Settings -> Control panel -> Additional software -> XML-API -> Set.
+There you click 'tokenregister.cgi' to create a new token or 'tokenlist.cgi', if you have already created a token.
+For more information about how to create and use the authentication token see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
 
 The module has a highly flexible and customizable output that supports text and/or icons in lines or in a vertical or horizontal table.
 
@@ -477,6 +480,13 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       </td>
     </tr>
     <tr>
+      <td><code>ccuXmlApiTokenId</code></td>
+      <td>The Security Token for XML API.
+	    <br>Must be set for XML-API version 2.0 or higher.
+	    <br>The token can be retrieved by calling the tokenregister.cgi script of the XML-API. For more information see <a href="https://github.com/hobbyquaker/XML-API">XML-API</a>.
+      </td>
+    </tr>
+    <tr>
       <td><code>ccuStateServiceUrl</code></td>
       <td>The name of the XML API Service for getting states/values from devices/datapoints.
 	    <br>Most likely default value is good.
@@ -757,6 +767,9 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 
 ## Changelog
 
+### 1.2.0 (2023-10-26)
+* (Sickboy78) XML-API 2.x integration
+
 ### 1.1.3 (2023-03-12)
 * (Sickboy78) added new style single_line
 
@@ -768,7 +781,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 * (Sickboy78) fixed https issues, allowed self-signed certificates for XML-API 
 
 ### 1.1.0 (2022-01-16)
-* (Sickboy78) moved xml api requests to backend, added node_helper.js
+* (Sickboy78) moved XML-API requests to backend, added node_helper.js
 * (Sickboy78) code refactoring
 
 ### 1.0.0
@@ -777,7 +790,7 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
 
 ## Further information
 * [HomeMatic](https://www.homematic.com/) - HomeMatic website
-* [XML-API](https://github.com/hobbyquaker/XML-API) - XML-Api for HomeMatic CCU
+* [XML-API](https://github.com/hobbyquaker/XML-API) - XML-API for HomeMatic CCU
 * [Homematic-Scripts](https://github.com/spitzlbergerj/homematic-scripts) - Scripts for your HomeMatic installation by [@spitzlbergerj](https://github.com/spitzlbergerj).
 * [MMM-Homematic-Thermostats](https://github.com/spitzlbergerj/MMM-Homematic-Thermostats) - A very good Magic Mirror Module for Homematic radiator thermostats. <br/><br/>
 <img src="https://user-images.githubusercontent.com/38983450/52899709-51bf1c00-31ed-11e9-9410-abd4d4b6ab25.jpg" height="182"/>

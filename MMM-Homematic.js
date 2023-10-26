@@ -31,6 +31,7 @@ Module.register('MMM-Homematic',{
 		ccuProtocol: 'http://',
 		ccuHost: 'ccu3-webui',
 		ccuXmlApiUrl: '/addons/xmlapi',
+		ccuXmlApiTokenId: '',
 		ccuStateServiceUrl: '/state.cgi',
 		ccuSysvarServiceUrl: '/sysvar.cgi',
 		ccuDatapointIdParameter: '?datapoint_id=',
