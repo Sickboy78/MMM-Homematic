@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Sickboy78/MMM-Homematic.git"
   },
-  "keywords": [homematic, smarthome],
+  "keywords": ["homematic", "smarthome"],
   "author": "Sickboy78",
   "license": "GPL-3.0-only",
   "bugs": {
