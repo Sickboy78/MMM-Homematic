@@ -515,7 +515,11 @@ Module.register('MMM-Homematic',{
 							const textHtml = $('<div/>',{id: _self.identifier + '-' + _self.removeSpecialChars(this.name) + '-text'});
 							if((typeof(this.iconOnly) !== 'string') || (this.iconOnly !== 'true')) {
 								textHtml.addClass(text_class + text_with_icon_class + ' text-lines');
-								textHtml.html(this.name);
+								if(this.replaceNameWithDatapointId != undefined && typeof(this.replaceNameWithDatapointId) === 'string' && _self.homematicData[_self.removeSpecialChars(this.name) + '_' + _self.removeSpecialChars(this.replaceNameWithDatapointId)] != undefined) {
+									textHtml.html(_self.homematicData[_self.removeSpecialChars(this.name) + '_' + _self.removeSpecialChars(this.replaceNameWithDatapointId)]);
+								} else {
+									textHtml.html(this.name);
+								}
 								if(_self.config.style.startsWith('table')) {
 									textHtml.addClass('table-cell');
 								}
@@ -606,10 +610,19 @@ Module.register('MMM-Homematic',{
 				this.config.datapoints.forEach(function(datapoint){
 					let containsConfigDatapoint = false;
 					payload.forEach(function(data){
-						if(data.datapoint.id == datapoint.id && data.datapoint.name == datapoint.name) {
+						if((data.type === 'datapoint' || data.type === 'sysvar') && data.datapoint.name == datapoint.name && data.datapoint.id == datapoint.id) {
 							containsConfigDatapoint = true;
 						}
 					});
+					if(datapoint.replaceNameWithDatapointId != undefined && typeof(datapoint.replaceNameWithDatapointId) === 'string') {
+						let containsConfigReplaceDatapoint = false;
+						payload.forEach(function(data){
+							if(data.type === 'datapoint_replace_name' && data.datapoint.name == datapoint.name && data.datapoint.id == datapoint.id && data.datapoint.replaceNameWithDatapointId == datapoint.replaceNameWithDatapointId) {
+								containsConfigReplaceDatapoint = true;
+							}
+						});
+						containsConfigDatapoint = containsConfigReplaceDatapoint && containsConfigDatapoint;
+					}
 					containsAllConfigDatapoints = containsConfigDatapoint && containsAllConfigDatapoints;
 				});
 			}
@@ -621,11 +634,16 @@ Module.register('MMM-Homematic',{
 					payload.forEach(function(data){
 						const xmlData = $.parseXML(data.value);
 						let value = xmlData.childNodes[0].childNodes[0].attributes.value.value;
-						if(data.type == 'sysvar') {
+						if(data.type.startsWith('sysvar')) {
 							value = xmlData.childNodes[0].childNodes[0].attributes.value_list.value.split(';')[value];
 						}
-						_self.homematicData[_self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.id)] = value;
-						_self.debug = _self.debug + _self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.id) + '-';
+						if(data.type === 'datapoint' || data.type === 'sysvar') {
+							_self.homematicData[_self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.id)] = value;
+							_self.debug = _self.debug + _self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.id) + '-';
+						} else if(data.type === 'datapoint_replace_name') {
+							_self.homematicData[_self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.replaceNameWithDatapointId)] = value;
+							_self.debug = _self.debug + _self.removeSpecialChars(data.datapoint.name) + '_' + _self.removeSpecialChars(data.datapoint.replaceNameWithDatapointId) + '-';
+						}
 					});
 					if (this.config.debug) {
 						console.log('[' + new Date().toLocaleString() + '] Info: homematic data recieved for: ' + this.debug);

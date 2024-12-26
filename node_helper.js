@@ -56,7 +56,7 @@ module.exports = NodeHelper.create({
 					promiseArray.push(
 						new Promise((resolve, reject) => {
 							const url = (type === 'sysvar' ? sysvarServiceUrl : datapointServiceUrl) + datapoint.id + (config.ccuXmlApiTokenId === '' ? '' : '&sid=' + config.ccuXmlApiTokenId);
-							request({url: url}, function(error, response, body) {
+							request({url: url, encoding: 'latin1'}, function(error, response, body) {
 								if (!error && response.statusCode == 200) {
 									if(body.includes('><not_authenticated/></')) {
 										return reject('Homematic XML-API Request returned \'not authenticated\'. Try setting a ccuXmlApiTokenId in your module config.');
@@ -73,6 +73,23 @@ module.exports = NodeHelper.create({
 							});
 						})
 					);
+					if(datapoint.replaceNameWithDatapointId !== undefined && typeof(datapoint.replaceNameWithDatapointId) === 'string') {
+						promiseArray.push(
+							new Promise((resolve, reject) => {
+								request({url: datapointServiceUrl + datapoint.replaceNameWithDatapointId + (config.ccuXmlApiTokenId === '' ? '' : '&sid=' + config.ccuXmlApiTokenId), encoding: 'latin1'}, function(error, response, body) {
+									if (!error && response.statusCode == 200) {
+										return resolve({
+											'type': 'datapoint_replace_name',
+											'datapoint': datapoint,
+											'value': body
+										});
+									} else {
+										return reject(error != undefined ? error : 'Homematic XML-API Request returned status ' + response.statusCode);
+									}
+								});
+							})
+						);						
+					}
 				}
 			});
 

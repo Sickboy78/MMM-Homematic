@@ -769,10 +769,23 @@ In this case we are looking for the ise_id of the datapoint of type="ACTUAL_TEMP
       <br><b>Default value:</b> <code>"false"</code>
 	  </td>
     </tr>
+    <tr>
+      <td><code>replaceNameWithDatapointId (of datapoint)</code></td>
+      <td>Replaces the display name of the device/datapoint with the value of the given datapoint.
+	  <br>The datapoint can be a device or a system variable (except for value list).
+	  <br>This way a dynamically generated display name is possible.
+	  <br>On howto get your ID see <a href="#howto-get-your-datapoint-ids">Howto get your datapoint IDs</a>.
+	  <br><b>Example value:</b> <code>1234</code>
+	  </td>
+    </tr>
   </tbody>
 </table>
 
 ## Changelog
+
+### 1.3.0 (2024-12-26)
+* (Sickboy78) added replaceNameWithDatapointId
+* (Sickboy78) fixed encoding issue
 
 ### 1.2.0 (2023-10-26)
 * (Sickboy78) XML-API 2.x integration
